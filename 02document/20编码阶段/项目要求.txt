@@ -1,5 +1,5 @@
 Java：
-   工程名：supervise_project
+   工程名：supervise
    包名：  com.newer.supervice.pojo(实体类)
                               .mapper(数据库层)
                               .service(服务层)
@@ -9,14 +9,37 @@ Java：
                               （后面有新增的在小组讨论）
 
 数据库：
-     新建数据库名：supervise_project
+     新建数据库名：supervise
       字符集：     utf8
      数据库排序规则：utf8_general_ci(在utf8_general_mysql500_ci前一个)  
 
 前端页面：
      框架：hui
      页面目录规范：（框架的js/css文件夹保持不变）
+      文件夹：
+          my_static
+             引用其它的第三方插件或自己写的sj/css（统一放入（my_static）文件下）
+          index.html（登录页面）与外部文件夹同级
+          main.html  （主页面）
+          message（资讯模块）
+                 最近更新（news.html）
+                 推进中的事项（item_move.html）
+                 事项统计(item_count.html)
+                 事项导出(item_out.html)
+         
+          task  (我的待办)
+                 公司领导指定牵头部门(lead_appoint.html)
+                 部门指定事项负责人(dept_appoint.html)
+                 部门账号更新事项进展(dept_update.html)
+                 更新事项基本信息(item_update.html)
 
-     
+          platform(平台管理)
+                  部门管理      (dept.html)
+                  员工账户管理   (user.html)
+                  显示所有领导信息(show.html)
 
+          storeroom(备用库管理)
+                   备用库录入功能(standby.html)
+                   备用库列表显示功能(standby.html)
+                   备用库查询、删除功能(standby.html)
                               
