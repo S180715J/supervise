@@ -1,0 +1,22 @@
+Java：
+   工程名：supervise_project
+   包名：  com.newer.supervice.pojo(实体类)
+                              .mapper(数据库层)
+                              .service(服务层)
+                              .controller(控制器)
+                              .utils(工具包)
+                              .config(过滤器)
+                              （后面有新增的在小组讨论）
+
+数据库：
+     新建数据库名：supervise_project
+      字符集：     utf8
+     数据库排序规则：utf8_general_ci(在utf8_general_mysql500_ci前一个)  
+
+前端页面：
+     框架：hui
+     页面目录规范：（框架的js/css文件夹保持不变）
+
+     
+
+                              
