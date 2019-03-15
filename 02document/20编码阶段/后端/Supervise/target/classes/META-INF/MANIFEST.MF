@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: Supervise
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: 周裕杰
+Implementation-Vendor-Id: com.newer.springboot
+Build-Jdk: 1.8.0_181
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/Supervise
+Created-By: Maven Integration for Eclipse
+
