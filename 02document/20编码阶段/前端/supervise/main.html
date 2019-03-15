@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <link rel="Bookmark" href="/favicon.ico" >
-<link rel="Shortcut Icon" href="/favicon.ico" />
+<link rel="Shortcut Icon" href="images/googleg_lodp.ico" />
 <!--[if lt IE 9]>
 <script type="text/javascript" src="lib/html5shiv.js"></script>
 <script type="text/javascript" src="lib/respond.min.js"></script>
@@ -21,14 +21,14 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>H-ui.admin v3.1</title>
+<title>牛耳督办管理系统</title>
 <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
 <header class="navbar-wrapper">
 	<div class="navbar navbar-fixed-top">
-		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">H-ui.admin</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a> 
+		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">牛耳督办管理系统</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a> 
 			<span class="logo navbar-slogan f-l mr-10 hidden-xs">v3.1</span> 
 			<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
 			<nav class="nav navbar-nav">
@@ -40,10 +40,11 @@
 							<li><a href="javascript:;" onclick="product_add('添加资讯','product-add.html')"><i class="Hui-iconfont">&#xe620;</i> 产品</a></li>
 							<li><a href="javascript:;" onclick="member_add('添加用户','member-add.html','','510')"><i class="Hui-iconfont">&#xe60d;</i> 用户</a></li>
 					</ul>
-					<li class="navbar-levelone current"><a href="javascript:;">平台</a></li>
-					<li class="navbar-levelone"><a href="javascript:;">商城</a></li>
-					<li class="navbar-levelone"><a href="javascript:;">财务</a></li>
-					<li class="navbar-levelone"><a href="javascript:;">手机</a></li>
+					<li class="navbar-levelone current"><a href="javascript:;">首页</a></li>
+					<li class="navbar-levelone"><a href="javascript:;">待办事项</a></li>
+					<li class="navbar-levelone"><a href="javascript:;">备用库</a></li>
+					<li class="navbar-levelone"><a href="javascript:;">事项列表</a></li>
+					<li class="navbar-levelone"><a href="javascript:;">平台管理</a></li>
 				</li>
 			</ul>
 		</nav>
@@ -191,6 +192,37 @@
 			<dd>
 				<ul>
 					<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">三级导航</a></li>
+				</ul>
+			</dd>
+		</dl>
+	</div>
+	
+	<div class="menu_dropdown bk_2" style="display:none">
+		<dl id="menu-dddd">
+			<dt><i class="Hui-iconfont">&#xe616;</i> 部门管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="platform/dept/dept-list.html" data-title="查看部门" href="javascript:void(0)">部门信息</a></li>
+					<li><a data-href="platform/dept/add-dept.html" data-title="添加部门" href="javascript:void(0)">添加部门</a></li>				
+					<li><a data-href="platform/dept/update-dept.html" data-title="修改部门" href="javascript:void(0)">修改部门</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-dddd">
+			<dt><i class="Hui-iconfont">&#xe616;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="platform/user/user-list.html" data-title="用户信息" href="javascript:void(0)">用户信息</a></li>
+					<li><a data-href="platform/user/add-user.html" data-title="添加用户" href="javascript:void(0)">添加用户</a></li>
+					<li><a data-href="platform/user/update-user.html" data-title="修改用户" href="javascript:void(0)">修改用户</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-dddd">
+			<dt><i class="Hui-iconfont">&#xe616;</i> 公司领导<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="platform/leader/show.html" data-title="查看账户信息" href="javascript:void(0)">查看账户信息</a></li>
 				</ul>
 			</dd>
 		</dl>
