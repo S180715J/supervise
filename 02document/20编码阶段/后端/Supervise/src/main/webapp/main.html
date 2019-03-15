@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <title>301医院门诊管理系统</title>
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="static/h-ui/css/H-ui.min.css">
+  <link rel="stylesheet" href="static/h-ui.admin/css/H-ui.admin.css">
+  <link rel="stylesheet" href="static/Hui-iconfont/1.0.8/iconfont.css">
+  <link rel="stylesheet" href="static/h-ui.admin/skin/default/skin.css" id="skin">
+  <link rel="stylesheet" href="static/h-ui.admin/css/style.css">
+</head>
+<body>
+<header class="navbar-wrapper">
+  <div class="navbar navbar-fixed-top">
+    <div class="container-fluid cl"><a class="logo navbar-logo f-l mr-10 hidden-xs">301医院门诊管理系统</a>
+      <span class="logo navbar-slogan f-l mr-10 hidden-xs">v1.0
+        &nbsp;&nbsp;
+		    <span id="aname"></span>
+			  &nbsp;&nbsp;
+		    上次登录时间: <span id="loginTime"></span>
+		</span>
+      <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
+      <nav class="nav navbar-nav">
+      </nav>
+      <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+        <ul class="cl">
+          <li>
+            <span id="state"></span>
+          <li class="dropDown dropDown_hover">
+            <a href="#" class="dropDown_A"><i class="Hui-iconfont">&#xe6d5;</i></a>
+            <ul class="dropDown-menu menu radius box-shadow">
+              <li><a href="javascript:;" onClick="myselfinfo('修改密码','changepwd.html','400','300')">修改密码</a></li>
+              <li><a href="javascript:;" onclick="logout()">退出</a></li>
+            </ul>
+          </li>
+          <!-- 	<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li> -->
+          <li id="Hui-skin" class="dropDown right dropDown_hover"><a href="javascript:;" class="dropDown_A"
+                                                                     title="换肤"><i class="Hui-iconfont"
+                                                                                   style="font-size:18px">&#xe62a;</i></a>
+            <ul class="dropDown-menu menu radius box-shadow">
+              <li><a href="javascript:;" data-val="default" title="默认（黑色）">默认（黑色）</a></li>
+              <li><a href="javascript:;" data-val="blue" title="蓝色">蓝色</a></li>
+              <li><a href="javascript:;" data-val="green" title="绿色">绿色</a></li>
+              <li><a href="javascript:;" data-val="red" title="红色">红色</a></li>
+              <li><a href="javascript:;" data-val="yellow" title="黄色">黄色</a></li>
+              <li><a href="javascript:;" data-val="orange" title="橙色">橙色</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+<aside class="Hui-aside">
+  <div class="menu_dropdown bk_2">
+    <!-- 嵌入动态菜单 -->
+    <!-- state eq 3 || state eq 0 -->
+    <dl id="menu-cards">
+      <dt><i class="Hui-iconfont">&#xe72b;</i> 诊疗卡业务<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+      <dd>
+        <ul>
+          <li><a data-href="cards/cardlist.html" data-title="办卡充值" href="javascript:;">办卡充值</a></li>
+        </ul>
+      </dd>
+    </dl>
+    <dl id="menu-registration">
+      <dt><i class="Hui-iconfont">&#xe616;</i> 挂号业务<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+      <dd>
+        <ul>
+          <li><a data-href="ticket/bookslist.html" data-title="取预约号" href="javascript:;">取预约号</a></li>
+          <li><a data-href="ticket/buyticket.html" data-title="现场挂号" href="javascript:void(0)">现场挂号</a></li>
+        </ul>
+      </dd>
+    </dl>
+
+    <!-- state eq 2 || state eq 0 -->
+    <dl id="menu-clinic">
+      <dt><i class="Hui-iconfont">&#xe61f;</i> 门诊业务<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+      <dd>
+        <ul>
+          <li><a data-href="doctorvis/index.html" data-title="就医诊断" href="javascript:;">就医诊断</a></li>
+          <li><a data-href="statistics/index.html" data-title="就诊统计" href="javascript:void(0)">就诊统计</a></li>
+        </ul>
+      </dd>
+    </dl>
+
+    <!-- state eq 4 || state eq 0 -->
+    <dl id="menu-house">
+      <dt><i class="Hui-iconfont">&#xe727;</i> 药房业务<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+      <dd>
+        <ul>
+          <li><a data-href="pages/prescriptonlist.html" data-title="发药操作" href="javascript:;">划价发药</a></li>
+        </ul>
+      </dd>
+    </dl>
+
+  </div>
+</aside>
+<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a>
+</div>
+<section class="Hui-article-box">
+  <div id="Hui-tabNav" class="Hui-tabNav hidden-xs">
+    <div class="Hui-tabNav-wp">
+      <ul id="min_title_list" class="acrossTab cl">
+        <li class="active">
+          <span title="首页" data-href="#">我的桌面</span>
+          <em></em>
+        </li>
+      </ul>
+    </div>
+    <div class="Hui-tabNav-more btn-group">
+      <a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;">
+        <i class="Hui-iconfont">&#xe6d4;</i>
+      </a>
+      <a id="js-tabNav-next" class="btn radius btn-default size-S" href="javascript:;">
+        <i class="Hui-iconfont">&#xe6d7;</i>
+      </a>
+    </div>
+  </div>
+  <div id="iframe_box" class="Hui-article">
+    <div class="show_iframe">
+      <div style="display:none" class="loading"></div>
+      <iframe scrolling="yes" frameborder="0" src="ticket/welcome.html"></iframe>
+    </div>
+  </div>
+</section>
+
+<div class="contextMenu" id="Huiadminmenu">
+  <ul>
+    <li id="closethis">关闭当前</li>
+    <li id="closeall">关闭全部</li>
+  </ul>
+</div>
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/jwt-decode.min.js"></script>
+<script src="static/h-ui/js/H-ui.min.js"></script>
+<script src="static/h-ui.admin/js/H-ui.admin.js"></script>
+<script src="static/layer/2.4/layer.js"></script>
+<script src="js/jquery.contextmenu.r2.js"></script>
+<script src="js/hospital.js"></script>
+<script>
+  
+  /* 个人信息 */
+  function myselfinfo(title, url, w, h) {
+    layer_show(title, url, w, h);
+  }
+
+  /* 注销 */
+  function logout() {
+    layer.confirm("真的要注销吗?", () => {
+      
+      window.location.href = "index.html"
+    })
+  }
+
+</script>
+</body>
+</html>
