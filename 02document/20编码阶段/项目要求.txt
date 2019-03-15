@@ -1,4 +1,4 @@
-   代码加上适当的注解，表明其作用
+﻿   代码加上适当的注解，表明其作用
 
 Java：
    工程名：supervise
@@ -19,29 +19,59 @@ Java：
      框架：hui
      页面目录规范：（框架的js/css文件夹保持不变）
       文件夹：
-          my_static
-             引用其它的第三方插件或自己写的sj/css（统一放入（my_static）文件下）
-          index.html（登录页面）与外部文件夹同级
-          main.html  （主页面）
-          message（资讯模块）
-                 最近更新（news.html）
-                 推进中的事项（item_move.html）
-                 事项统计(item_count.html)
-                 事项导出(item_out.html)
+          supervise
+             引用其它的第三方插件或自己写的sj/css（）
+supervise_
+	 |
+	 |--css
+	 |--js
+	 |--images
+	 |--static
+	 |--lib
+	 |--temp
+	  .......
+
+         |--index.html（登录页面）与外部文件夹同级
+	 |
+         |--main.html  （主页面）
+	 |
+         |--message_（资讯模块）
+		   |
+	 |	   |
+                   | --news.html（最近更新）
+		   |
+         |         | --item_move.html（推进中的事项）
+		   |
+         |         | --item_count.html(事项统计)
+	 	   |
+         |         | --item_out.html(事项导出)
          
-          task  (我的待办)
-                 公司领导指定牵头部门(lead_appoint.html)
-                 部门指定事项负责人(dept_appoint.html)
-                 部门账号更新事项进展(dept_update.html)
-                 更新事项基本信息(item_update.html)
+         |--task---_ (我的待办)
+		   |
+	 |	   |--lead_appoint.html（公司领导指定牵头部门）
+		   |
+	 |	   |--dept_appoint.html（部门指定事项负责人）
+		   |
+	 |	   |--dept_update.html （部门账号更新事项进展）
+		   |
+	 |	   |--item_update.html （更新事项基本信息）
+	 
+	 |
 
-          platform(平台管理)
-                  部门管理      (dept.html)
-                  员工账户管理   (user.html)
-                  显示所有领导信息(show.html)
-
-          storeroom(备用库管理)
-                   备用库录入功能(standby.html)
-                   备用库列表显示功能(standby.html)
-                   备用库查询、删除功能(standby.html)
-                              
+	 |--platform(平台管理)	   
+	 	   |
+	 |	   |--dept.html（部门管理）
+	 	   |
+	 |	   |--user.html（员工账户管理）
+	 	   |
+	 |	   |--show.html（显示所有领导信息）
+                
+	 |—storeroom_(备用库管理)
+		      |
+		      |--standby.html(备用库录入功能)
+		      |
+		      |--standby.html(备用库列表显示功能)
+		      |
+		      |--standby.html(备用库查询、删除功能)
+          
+         ....    .....                 
