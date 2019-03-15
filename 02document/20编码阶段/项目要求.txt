@@ -60,15 +60,25 @@ supervise_
 
 	 |--platform(平台管理)	   
 	 	   |
-	 |	   |--dept.html（部门管理）
+	 |	   |--dept（部门管理）
+			 |
+			 |--add-dept.html(添加部门)
+			 |--dept-list.html(部门信息)			
+			 |--update-dept.html(修改部门)			
 	 	   |
-	 |	   |--user.html（员工账户管理）
+	 |	   |--user（员工账户管理）
+			 |
+			 |--add-user.html(添加部门)
+			 |--user-list.html(部门信息)			
+			 |--update-user.html(修改部门)
 	 	   |
-	 |	   |--show.html（显示所有领导信息）
+	 |	   |--leader(董事长)
+			|
+			|show.html（显示所有领导信息）
                 
 	 |—storeroom_(备用库管理)
 		      |
-		      |--standby.html(备用库录入功能)
+		      |--items_list.html(备用库列表)
 		      |
 		      |--standby.html(备用库列表显示功能)
 		      |
