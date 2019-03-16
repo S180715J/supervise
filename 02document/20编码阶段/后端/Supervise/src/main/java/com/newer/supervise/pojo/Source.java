@@ -1,13 +1,17 @@
 package com.newer.supervise.pojo;
 
+import java.io.Serializable;
+
 /**
  * 督办来源类
  * 
  * @author 周裕杰
  *
  */
-public class Source {
+public class Source implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private Integer sourceId;		// 来源id
 	private String sourceType;		// 来源类型
 
