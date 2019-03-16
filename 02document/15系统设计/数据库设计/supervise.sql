@@ -33,6 +33,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`(
  user_id INT(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
  user_name VARCHAR(100) NOT NULL COMMENT '登录用户名',
+ `password` VARCHAR(20) NOT NULL COMMENT '密码',
  real_name VARCHAR(100) NOT NULL COMMENT '用户真实姓名',
  hiredate DATE NOT NULL COMMENT '入职日期',
  edu_id INT NOT NULL COMMENT '学历',
@@ -41,14 +42,15 @@ CREATE TABLE `user`(
  opt_time DATETIME DEFAULT NULL,
  PRIMARY KEY(user_id)
 )ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('zhangwei','张伟','2001-01-01',7,1,1);
-INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('liwei','李伟','2001-01-01',6,1,2);
-INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('wangfang','王芳','2005-06-20',5,2,3);
-INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('zhangdan','张单','2005-06-20',5,2,4);
-INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('songmu','宋睦','2005-06-20',5,3,3);
-INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('songhe','宋和','2005-06-20',5,3,4);
-INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('liuwei','刘伟','2008-05-03',4,4,5);
-INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('zhaoyao','赵鹞','2008-05-03',4,5,5);
+INSERT INTO `user`(user_name,`password`,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('zhangwei','zhang123','张伟','2001-01-01',7,1,1);
+INSERT INTO `user`(user_name,`password`,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('liwei','li1234','李伟','2001-01-01',6,1,2);
+INSERT INTO `user`(user_name,`password`,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('wangfang','wang123','王芳','2005-06-20',5,2,3);
+INSERT INTO `user`(user_name,`password`,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('zhangdan','dan123','张单','2005-06-20',5,2,4);
+INSERT INTO `user`(user_name,`password`,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('songmu','songmu123','宋睦','2005-06-20',5,3,3);
+INSERT INTO `user`(user_name,`password`,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('songhe','songhe123','宋和','2005-06-20',5,3,4);
+INSERT INTO `user`(user_name,`password`,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('liuwei','liu123','刘伟','2008-05-03',4,4,5);
+INSERT INTO `user`(user_name,`password`,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('zhaoyao','zhao123','赵鹞','2008-05-03',4,5,5);
+
 
 
 
