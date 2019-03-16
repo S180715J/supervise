@@ -3,80 +3,57 @@ package com.newer.supervise.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
- * 用户表实体类
+ * 用户实体类
  * 
- * @author W419
+ * @author 周裕杰
  *
  */
-public class User implements Serializable {
+public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 用户ID
-	 */
-	private Long userid;
-	/**
-	 * 用户登录名
-	 */
-	private String userName;
-	/**
-	 * 用户真实姓名
-	 */
-	private String realName;
-	/**
-	 * 入职日期
-	 */
-	private Date hireDate;
-	/**
-	 * 学历
-	 */
-	private String edu;
-	/**
-	 * 性别
-	 */
-	private String gender;
-	/**
-	 * 部门
-	 */
-	private Organication org;
-	/**
-	 * 职务
-	 */
-	private String job;
-	/**
-	 * 职务类别
-	 */
-	private String jobType;
-	/**
-	 * 操作日期
-	 */
-	private Date userTime;
+	
+	private Integer userId; 			// 用户id
+	private String userName; 			// 用户登录名
+	private String password; 			// 用户登录密码
+	private String realName; 			// 真实姓名
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private Date hiredate; 				// 入职日期
+	private Education education; 		// 学历
+	private Duty duty; 					// 职务
+	private Organization organization; // 机构
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date optTime; 				// 操作时间
 
 	public User() {
-
+		
 	}
 
-	public User(Long userid, String userName, String realName, Date hireDate, String edu, String gender,
-			Organication org, String job, String jobType, Date userTime) {
-		this.userid = userid;
+	public User(Integer userId, String userName, String password, String realName, Date hiredate, Education education,
+			Duty duty, Organization organization, Date optTime) {
+		this.userId = userId;
 		this.userName = userName;
+		this.password = password;
 		this.realName = realName;
-		this.hireDate = hireDate;
-		this.edu = edu;
-		this.gender = gender;
-		this.org = org;
-		this.job = job;
-		this.jobType = jobType;
-		this.userTime = userTime;
+		this.hiredate = hiredate;
+		this.education = education;
+		this.duty = duty;
+		this.organization = organization;
+		this.optTime = optTime;
 	}
 
-	public Long getUserid() {
-		return userid;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUserid(Long userid) {
-		this.userid = userid;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public String getUserName() {
@@ -87,6 +64,14 @@ public class User implements Serializable {
 		this.userName = userName;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getRealName() {
 		return realName;
 	}
@@ -95,83 +80,66 @@ public class User implements Serializable {
 		this.realName = realName;
 	}
 
-	public Date getHireDate() {
-		return hireDate;
+	public Date getHiredate() {
+		return hiredate;
 	}
 
-	public void setHireDate(Date hireDate) {
-		this.hireDate = hireDate;
+	public void setHiredate(Date hiredate) {
+		this.hiredate = hiredate;
 	}
 
-	public String getEdu() {
-		return edu;
+	public Education getEducation() {
+		return education;
 	}
 
-	public void setEdu(String edu) {
-		this.edu = edu;
+	public void setEducation(Education education) {
+		this.education = education;
 	}
 
-	public String getGender() {
-		return gender;
+	public Duty getDuty() {
+		return duty;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setDuty(Duty duty) {
+		this.duty = duty;
 	}
 
-	public Organication getOrg() {
-		return org;
+	public Organization getOrganization() {
+		return organization;
 	}
 
-	public void setOrg(Organication org) {
-		this.org = org;
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
 	}
 
-	public String getJob() {
-		return job;
+	public Date getOptTime() {
+		return optTime;
 	}
 
-	public void setJob(String job) {
-		this.job = job;
-	}
-
-	public String getJobType() {
-		return jobType;
-	}
-
-	public void setJobType(String jobType) {
-		this.jobType = jobType;
-	}
-
-	public Date getUserTime() {
-		return userTime;
-	}
-
-	public void setUserTime(Date userTime) {
-		this.userTime = userTime;
+	public void setOptTime(Date optTime) {
+		this.optTime = optTime;
 	}
 
 	@Override
 	public String toString() {
-		return "User [userid=" + userid + ", userName=" + userName + ", realName=" + realName + ", hireDate=" + hireDate
-				+ ", edu=" + edu + ", gender=" + gender + ", org=" + org + ", job=" + job + ", jobType=" + jobType
-				+ ", userTime=" + userTime + "]";
+		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", realName=" + realName
+				+ ", hiredate=" + hiredate + ", education=" + education + ", duty=" + duty + ", organization="
+				+ organization + ", optTime=" + optTime + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((edu == null) ? 0 : edu.hashCode());
-		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-		result = prime * result + ((hireDate == null) ? 0 : hireDate.hashCode());
-		result = prime * result + ((job == null) ? 0 : job.hashCode());
-		result = prime * result + ((jobType == null) ? 0 : jobType.hashCode());
-		result = prime * result + ((org == null) ? 0 : org.hashCode());
+		result = prime * result + ((duty == null) ? 0 : duty.hashCode());
+		result = prime * result + ((education == null) ? 0 : education.hashCode());
+		result = prime * result + ((hiredate == null) ? 0 : hiredate.hashCode());
+		result = prime * result + ((optTime == null) ? 0 : optTime.hashCode());
+		result = prime * result + ((organization == null) ? 0 : organization.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((realName == null) ? 0 : realName.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-		result = prime * result + ((userTime == null) ? 0 : userTime.hashCode());
-		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
 		return result;
 	}
 
@@ -184,55 +152,50 @@ public class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (edu == null) {
-			if (other.edu != null)
+		if (duty == null) {
+			if (other.duty != null)
 				return false;
-		} else if (!edu.equals(other.edu))
+		} else if (!duty.equals(other.duty))
 			return false;
-		if (gender == null) {
-			if (other.gender != null)
+		if (education == null) {
+			if (other.education != null)
 				return false;
-		} else if (!gender.equals(other.gender))
+		} else if (!education.equals(other.education))
 			return false;
-		if (hireDate == null) {
-			if (other.hireDate != null)
+		if (hiredate == null) {
+			if (other.hiredate != null)
 				return false;
-		} else if (!hireDate.equals(other.hireDate))
+		} else if (!hiredate.equals(other.hiredate))
 			return false;
-		if (job == null) {
-			if (other.job != null)
+		if (optTime == null) {
+			if (other.optTime != null)
 				return false;
-		} else if (!job.equals(other.job))
+		} else if (!optTime.equals(other.optTime))
 			return false;
-		if (jobType == null) {
-			if (other.jobType != null)
+		if (organization == null) {
+			if (other.organization != null)
 				return false;
-		} else if (!jobType.equals(other.jobType))
+		} else if (!organization.equals(other.organization))
 			return false;
-		if (org == null) {
-			if (other.org != null)
+		if (password == null) {
+			if (other.password != null)
 				return false;
-		} else if (!org.equals(other.org))
+		} else if (!password.equals(other.password))
 			return false;
 		if (realName == null) {
 			if (other.realName != null)
 				return false;
 		} else if (!realName.equals(other.realName))
 			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
 		if (userName == null) {
 			if (other.userName != null)
 				return false;
 		} else if (!userName.equals(other.userName))
-			return false;
-		if (userTime == null) {
-			if (other.userTime != null)
-				return false;
-		} else if (!userTime.equals(other.userTime))
-			return false;
-		if (userid == null) {
-			if (other.userid != null)
-				return false;
-		} else if (!userid.equals(other.userid))
 			return false;
 		return true;
 	}
