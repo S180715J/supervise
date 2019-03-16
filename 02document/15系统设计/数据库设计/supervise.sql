@@ -1,158 +1,68 @@
+USE supervise;
 
-/*Êý¾Ý¿âÃûsupervise
-»ù×Ö·û¼¯  utf8
-Êý¾Ý¿âÅÅÐò¹æÔòutfu_general_ci*/
+-- å­¦åŽ†è¡¨
+DROP TABLE IF EXISTS education;
+CREATE TABLE education(
+ eid INT(11) NOT NULL AUTO_INCREMENT COMMENT 'å­¦åŽ†id',
+ edu_name VARCHAR(30) NOT NULL COMMENT 'å­¦åŽ†åç§°',
+ PRIMARY KEY(eid)
+)ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+INSERT INTO education (edu_name) VALUES ('å°å­¦'),('åˆä¸­'),('é«˜ä¸­/ä¸­æŠ€/ä¸­ä¸“'),('å¤§ä¸“'),('æœ¬ç§‘'),('ç¡•å£«'),('åšå£«');
 
-DROP TABLE IF EXISTS ATTACHMENT;
+-- æœºæž„è¡¨
+DROP TABLE IF EXISTS organization;
+CREATE TABLE organization(
+ org_id INT(11) NOT NULL  AUTO_INCREMENT COMMENT 'æœºæž„id',
+ org_name VARCHAR(200) NOT NULL COMMENT 'æœºæž„åç§°',
+ parent_orgid INT(11) COMMENT 'çˆ¶æœºæž„id',
+ id_path VARCHAR(300) NOT NULL COMMENT 'æœºæž„idè·¯å¾„',
+ name_path VARCHAR(500) NOT NULL COMMENT 'æœºæž„åç§°è·¯å¾„',
+ introduction VARCHAR(1000) DEFAULT NULL COMMENT 'æœºæž„ç®€ä»‹',
+ responsibility VARCHAR(1000) DEFAULT NULL COMMENT 'æœºæž„èŒè´£',
+ operation_date DATETIME DEFAULT NULL COMMENT 'å¯¹è¯¥éƒ¨é—¨çš„æ“ä½œæ—¥æœŸ',
+ PRIMARY KEY(org_id)
+)ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+INSERT INTO organization(org_name,id_path,name_path,introduction,responsibility,operation_date) VALUES ('ç‰›è€³æ•™è‚²','/1','/ç‰›è€³æ•™è‚²','ç‰›è€³æ•™è‚²æ˜¯ä¸€æ‰€ä¸“ä¸šä»Žäº‹ITèŒä¸šæ•™è‚²çš„æœºæž„ï¼Œæ¹–å—çœæŒ‡å®šâ€œæœåŠ¡å¤–åŒ…äººæ‰åŸ¹è®­åŸºåœ°â€ï¼Œåœ¨å¤§è¿žã€å—äº¬ç­‰çœå¸‚è®¾æœ‰åˆ†éƒ¨å¼å®žè®­åŸºåœ°ã€‚','åŸ¹å…»ITäººæ‰','2001-01-01 12:00:00');
+INSERT INTO organization(org_name,parent_orgid,id_path,name_path,introduction,responsibility,operation_date) VALUES ('ç§»åŠ¨äº’è”ç½‘å­¦é™¢',1,'/1','/ç‰›è€³æ•™è‚²/ç§»åŠ¨äº’è”ç½‘å­¦é™¢',NULL,'åŸ¹è®­äº’è”ç½‘äººæ‰','2001-03-01 12:00:00'),
+													('æ•°å­—è‰ºæœ¯å­¦é™¢',1,'/1','/ç‰›è€³æ•™è‚²/æ•°å­—è‰ºæœ¯å­¦é™¢',NULL,NULL,'2001-03-01 12:00:00');
+INSERT INTO organization(org_name,parent_orgid,id_path,name_path,introduction,responsibility,operation_date) VALUES ('å¼€å‘éƒ¨',2,'/1/2','/ç‰›è€³æ•™è‚²/ç§»åŠ¨äº’è”ç½‘å­¦é™¢/å¼€å‘éƒ¨',NULL,'è´Ÿè´£ä¼ä¸šé—¨æˆ·ç½‘ç«™çš„å¼€å‘','2001-06-01 12:00:00'),
+													('æ•™å­¦éƒ¨',3,'/1/3','/ç‰›è€³æ•™è‚²/æ•°å­—è‰ºæœ¯å­¦é™¢/æ•™å­¦éƒ¨',NULL,'è´Ÿè´£å¯¹å­¦ç”Ÿçš„åŸ¹å…»','2001-06-01 12:00:00');
 
-DROP TABLE IF EXISTS DICT;
+-- ç”¨æˆ·è¡¨
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`(
+ user_id INT(11) NOT NULL AUTO_INCREMENT COMMENT 'ç”¨æˆ·id',
+ user_name VARCHAR(100) NOT NULL COMMENT 'ç™»å½•ç”¨æˆ·å',
+ real_name VARCHAR(100) NOT NULL COMMENT 'ç”¨æˆ·çœŸå®žå§“å',
+ hiredate DATE NOT NULL COMMENT 'å…¥èŒæ—¥æœŸ',
+ edu_id INT NOT NULL COMMENT 'å­¦åŽ†',
+ org_id INT NOT NULL COMMENT 'æ‰€åœ¨éƒ¨é—¨',
+ duty_id INT NOT NULL COMMENT 'èŒåŠ¡id',
+ opt_time DATETIME DEFAULT NULL,
+ PRIMARY KEY(user_id)
+)ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('zhangwei','å¼ ä¼Ÿ','2001-01-01',7,1,1);
+INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('liwei','æŽä¼Ÿ','2001-01-01',6,1,2);
+INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('wangfang','çŽ‹èŠ³','2005-06-20',5,2,3);
+INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('zhangdan','å¼ å•','2005-06-20',5,2,4);
+INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('songmu','å®‹ç¦','2005-06-20',5,3,3);
+INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('songhe','å®‹å’Œ','2005-06-20',5,3,4);
+INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('liuwei','åˆ˜ä¼Ÿ','2008-05-03',4,4,5);
+INSERT INTO `user`(user_name,real_name,hiredate,edu_id,org_id,duty_id) VALUES ('zhaoyao','èµµé¹ž','2008-05-03',4,5,5);
 
-DROP TABLE IF EXISTS ITEM_CHANGE;
 
-DROP TABLE IF EXISTS ITEM_LEADER;
 
-DROP TABLE IF EXISTS ITEM_ORG;
+-- èŒåŠ¡è¡¨ duty
+DROP TABLE IF EXISTS duty;
+CREATE TABLE duty(
+ duty_id INT NOT NULL AUTO_INCREMENT COMMENT 'èŒåŠ¡id',
+ duty_name VARCHAR(100) NOT NULL COMMENT 'èŒåŠ¡åç§°',
+ duty_type VARCHAR(100) NOT NULL COMMENT 'èŒåŠ¡ç±»åˆ«',
+ PRIMARY KEY(duty_id)
+)ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+INSERT INTO duty(duty_name,duty_type) VALUES ('è‘£äº‹é•¿','å…¬å¸é¢†å¯¼'),('CTO','å…¬å¸é¢†å¯¼'),('é«˜ç»','éƒ¨é—¨ä¸»ç®¡'),('å‰¯é«˜ç»','éƒ¨é—¨ä¸»ç®¡'),('æ™®é€šå‘˜å·¥','æ™®é€šå‘˜å·¥');
 
-DROP TABLE IF EXISTS ITEM_PROCESS;
 
-DROP TABLE IF EXISTS ITEM_REPOSITORY;
 
-DROP TABLE IF EXISTS ORGANICATION;
 
-DROP TABLE IF EXISTS USER;
 
-/*==============================================================*/
-/* Table: ATTACHMENT                                            */
-/*==============================================================*/
-CREATE TABLE ATTACHMENT
-(
-   ID                   BIGINT NOT NULL AUTO_INCREMENT,
-   NAME                 VARCHAR(300),
-   PATH                 VARCHAR(1000),
-   ITEM_CODE            VARCHAR(20),
-   OPT_TIME             DATETIME,
-   PRIMARY KEY (ID)
-);
-
-/*==============================================================*/
-/* Table: DICT                                                  */
-/*==============================================================*/
-CREATE TABLE DICT
-(
-   `TYPE`                 VARCHAR(20),
-   TYPE_ID              VARCHAR(20),
-   TYPE_NAME            VARCHAR(100),
-   `DESC`               VARCHAR(250),
-   OPT_TIME             DATETIME,
-   `ORDER`              INT
-);
-
-/*==============================================================*/
-/* Table: ITEM_CHANGE                                           */
-/*==============================================================*/
-CREATE TABLE ITEM_CHANGE
-(
-   ITEM_CODE            VARCHAR(20),
-   ITEM_DETAIL          VARCHAR(300),
-   ITEM_TIME            DATETIME
-);
-
-/*==============================================================*/
-/* Table: ITEM_LEADER                                           */
-/*==============================================================*/
-CREATE TABLE ITEM_LEADER
-(
-   ITEM_CODE            VARCHAR(50),
-   USERID               BIGINT
-);
-
-/*==============================================================*/
-/* Table: ITEM_ORG                                              */
-/*==============================================================*/
-CREATE TABLE ITEM_ORG
-(
-   ITEM_CODE            VARCHAR(50),
-   ORGID                BIGINT,
-   USERID               BIGINT,
-   ISPRIMARY            CHAR(1) COMMENT '1ÊÇ,0·ñ'
-);
-
-/*==============================================================*/
-/* Table: ITEM_PROCESS                                          */
-/*==============================================================*/
-CREATE TABLE ITEM_PROCESS
-(
-   ITEM_CODE            VARCHAR(20),
-   ITEM_STATUS          VARCHAR(2) COMMENT '¶½°ìÁ¢Ïî->Áìµ¼Ö¸¶¨Ç©Í·²¿ÃÅ->²¿ÃÅÖ¸¶¨¸ºÔðÈË->¸ºÔðÈË
-
-¸üÐÂÊÂÏî½øÕ¹->²¿ÃÅÕËºÅ¸üÐÂÊÂÏî½øÕ¹->¶½°ìÔ±¸üÐÂÊÂÏî»ù±¾ÐÅÏ¢->¶½°ìÔ±Ìí¼ÓÅúÊ¾£¨Èç¹ûÓÐ£©->½áÊø',
-   ITEM_STATUS_DESC     VARCHAR(30),
-   OPT_TIME             DATETIME,
-   USER_ID              BIGINT
-);
-
-/*==============================================================*/
-/* Table: ITEM_REPOSITORY                                       */
-/*==============================================================*/
-CREATE TABLE ITEM_REPOSITORY
-(
-   ID                   BIGINT NOT NULL AUTO_INCREMENT,
-   SOURCE               VARCHAR(300),
-   SOURCE_TIME          DATETIME,
-   SERIAL_NUM           VARCHAR(100),
-   FILE_TYPE            VARCHAR(2) COMMENT '´ÓÊý¾Ý×Öµä¶ÁÈ¡
-            ÊÕÎÄ¡¢·¢ÎÄ¡¢Ç©±¨¡¢°×Í·ÎÄ¡¢ÆäËû',
-   DRAFTER              VARCHAR(100),
-   DRAFTER_TEL          VARCHAR(30),
-   ITEM_NAME            VARCHAR(250),
-   ITEM_CODE            VARCHAR(50),
-   ADVERSE_COMPANY      VARCHAR(250),
-   SECRITY              CHAR(1) COMMENT '´ÓÊý¾Ý×Öµä¶Á£º»úÃÜ¡¢ÉÌÃÜÒ»¼¶¡¢ÉÌÃÜ¶þ¼¶¡¢ÉÌÃÜÈý¼¶¡¢ÄÚ
-
-²¿ÐÅÏ¢',
-   ITEM_CONTENT         VARCHAR(2000),
-   OVER_TIME            DATETIME,
-   CALL_BACK            CHAR(1) COMMENT 'Ã¿ÖÜ¡¢Ã¿Ë«ÖÜ¡¢Ã¿ÔÂ¡¢Ã¿2¸öÔÂ¡¢Ã¿¼¾¶È¡¢Ã¿°ëÄê',
-   NEXT_CALLTIME        DATETIME,
-   ITEM_DEPT_IDEA       VARCHAR(2000),
-   LEADER_IDEA          VARCHAR(2000),
-   ITEM_STATUS          VARCHAR(2),
-   REMARK               VARCHAR(2000),
-   PRIMARY KEY (ID)
-);
-
-/*==============================================================*/
-/* Table: ORGANICATION                                          */
-/*==============================================================*/
-CREATE TABLE ORGANICATION
-(
-   ORGID                BIGINT NOT NULL AUTO_INCREMENT,
-   ORGCODE              VARCHAR(20),
-   ORGNAME              VARCHAR(200),
-   PARENT_ORGID         BIGINT,
-   IDPATH               VARCHAR(300),
-   NAMEPATH             VARCHAR(500),
-   INTRO                VARCHAR(1000),
-   JOB                  VARCHAR(1000),
-   OPT_TIME             DATETIME,
-   `ORDER`             INT,
-   PRIMARY KEY (ORGID)
-);
-
-/*==============================================================*/
-/* Table: USER                                                  */
-/*==============================================================*/
-CREATE TABLE USER
-(
-   USERID               BIGINT NOT NULL AUTO_INCREMENT,
-   USERNAME             VARCHAR(100),
-   REALNAME             VARCHAR(250),
-   HIREDATE             DATETIME,
-   EDU                  CHAR(1),
-   GENDER               CHAR(1),
-   ORGID                BIGINT,
-   JOB                  CHAR(2),
-   JOBTYPE              CHAR(2),
-   OPT_TIME             DATETIME,
-   PRIMARY KEY (USERID)
-);
