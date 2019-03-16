@@ -64,5 +64,85 @@ INSERT INTO duty(duty_name,duty_type) VALUES ('董事长','公司领导'),('CTO'
 
 
 
+-- 督办来源表
+DROP TABLE IF EXISTS source;
+CREATE TABLE source(
+  source_id INT(11) NOT NULL AUTO_INCREMENT COMMENT '来源id',
+  source_type VARCHAR(100) NOT NULL COMMENT '来源类型',
+  PRIMARY KEY(source_id)
+)ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+INSERT INTO source(source_type) VALUES ('领导批示'),('专题会议'),('签报领导意见表');
 
+
+
+-- 附件表
+DROP TABLE IF EXISTS attachment;
+CREATE TABLE attachment(
+ att_id INT(11) NOT NULL AUTO_INCREMENT COMMENT '附件id',
+ `name` VARCHAR(300) NOT NULL COMMENT '附件名称',
+  path VARCHAR(1000) NOT NULL COMMENT '附件路径',
+  item_code INT(11) NOT NULL COMMENT '事项id',
+  opt_time DATETIME DEFAULT NULL COMMENT '操作时间',
+  PRIMARY KEY(att_id)
+)ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+
+
+
+-- 保密等级表
+DROP TABLE IF EXISTS secrecy_level;
+CREATE TABLE secrecy_level(
+ level_id INT(11) NOT NULL AUTO_INCREMENT COMMENT '等级id',
+ level_name VARCHAR(50) NOT NULL,
+ PRIMARY KEY(level_id)
+)ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+INSERT INTO secrecy_level(level_name) VALUES ('绝密'),('机密'),('秘密'),('公开');
+
+
+-- 文件类型表
+DROP TABLE IF EXISTS file_type;
+CREATE TABLE file_type(
+ type_id INT(11) NOT NULL AUTO_INCREMENT COMMENT '类型id',
+ type_name VARCHAR(100) NOT NULL,
+ PRIMARY KEY(type_id)
+)ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+INSERT INTO file_type(type_name) VALUES ('发文'),('收文'),('签报'),('白头文');
+
+
+
+-- 备用库
+DROP TABLE IF EXISTS repository;
+CREATE TABLE repository(
+  id INT(11) NOT NULL AUTO_INCREMENT COMMENT '事项id',
+  source_id INT(11) NOT NULL COMMENT '督办来源',
+  source_time DATETIME NOT NULL COMMENT '来源时间',
+  serial_num VARCHAR(100) NOT NULL COMMENT '原流水号',
+  file_type INT NOT NULL COMMENT '文件类型id',
+  drafter VARCHAR(100) NOT NULL COMMENT '原件拟稿人',
+  drafter_phone CHAR(11) NOT NULL COMMENT '拟稿人联系电话',
+  item_name VARCHAR(250) NOT NULL COMMENT '事项名称',
+  item_code VARCHAR(50) DEFAULT NULL COMMENT '事项编号',
+  user_id INT(11) NOT NULL COMMENT '(批示的)公司领导',
+  adverse_company VARCHAR(250) DEFAULT NULL COMMENT '对方单位',
+  secrecy_level INT NOT NULL COMMENT '保密等级',
+  item_content VARCHAR(2000) NOT NULL COMMENT '事项内容',
+  over_time DATETIME NOT NULL COMMENT '结束时间',
+  feedback INT(11) NOT NULL COMMENT '反馈频率',
+  next_feedback DATETIME NOT NULL COMMENT '下次反馈时间',
+  dept_opinion VARCHAR(2000) DEFAULT NULL COMMENT '部门意见',
+  lead_opinion VARCHAR(2000) DEFAULT NULL COMMENT '领导批示',
+  item_statu INT(11) NOT NULL DEFAULT 0 COMMENT '事项状态 0 删除 1未删除',
+  remark VARCHAR(2000) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY(id)
+)ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+
+
+-- 事项进展表
+DROP TABLE IF EXISTS item_process(
+  statu_id INT NOT NULL AUTO_INCREMENT COMMENT '状态id',
+  item_id INT(11) NOT NULL COMMENT '事项id',
+  statu_describe VARCHAR(100) NOT NULL COMMENT '状态描述',
+  opt_time DATETIME NOT NULL COMMENT '操作时间',
+  user_id INT(11) NOT NULL COMMENT '操作人',
+  PRIMARY KEY(statu_id)
+)ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
 
