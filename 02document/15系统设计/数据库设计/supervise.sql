@@ -139,7 +139,8 @@ CREATE TABLE repository(
 
 
 -- 事项进展表
-DROP TABLE IF EXISTS item_process(
+DROP TABLE IF EXISTS item_process;
+CREATE TABLE item_process(
   statu_id INT NOT NULL AUTO_INCREMENT COMMENT '状态id',
   item_id INT(11) NOT NULL COMMENT '事项id',
   statu_describe VARCHAR(100) NOT NULL COMMENT '状态描述',
