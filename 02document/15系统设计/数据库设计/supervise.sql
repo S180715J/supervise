@@ -1,4 +1,4 @@
-USE supervise;
+﻿USE supervise;
 
 -- 学历表
 DROP TABLE IF EXISTS education;
