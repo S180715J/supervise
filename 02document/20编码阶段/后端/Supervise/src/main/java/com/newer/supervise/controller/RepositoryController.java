@@ -17,9 +17,9 @@ import com.newer.supervise.pojo.Source;
 import com.newer.supervise.service.RepositoryService;
 
 /**
- * 备用库的控制器
+ * 备用库控制层
  * 
- * @author 周裕杰
+ * @author W419
  *
  */
 @RestController
@@ -72,4 +72,20 @@ public class RepositoryController {
 		}
 		return new ResponseEntity<String>("no_items", HttpStatus.NO_CONTENT);
 	}
+
+	/**
+	 * 查询备用库所有数据
+	 * 
+	 * @return
+	 */
+	@GetMapping("/item/list")
+	public ResponseEntity<?> queryAll() {
+		List<Repository> list = repositoryService.queryAll();
+		if (list.isEmpty()) {
+			// 如果没查到数据则返回0
+			return new ResponseEntity<Integer>(0, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Repository>>(list, HttpStatus.OK);
+	}
+
 }
