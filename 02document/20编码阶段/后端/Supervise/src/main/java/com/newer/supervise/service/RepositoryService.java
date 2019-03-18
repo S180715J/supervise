@@ -64,4 +64,12 @@ public class RepositoryService {
 	public List<Repository> getAllItem(Integer page, Integer limit){
 		return repositoryMapper.queryAllItem((page - 1) * limit, limit);
 	}
+	
+	/**
+	 * 查询所有的备用库数据
+	 * @return
+	 */
+	public List<Repository>  queryAll(){
+	   return repositoryMapper.queryAll();
+	}
 }
