@@ -73,5 +73,64 @@
     layer_show(title, url, w, h);
   }
 </script>
+<script >
+	$(function(){
+		loadData();
+	})
+	function loadData() {
+		console.info('开始加载数据...')
+		$.get(
+				'http://localhost:8080/org',
+				function(data) {
+					console.info('data:' + data);
+					var tabs = '';
+					$.each(data,function(index, value) {
+								tabs += '<tr>';
+								tabs += '<td>' +value.orgName +'</td>';
+								tabs += '<td>' +value.namePath +'</td>';
+								tabs += '<td>' +value.introduction +'</td>';
+								tabs += '<td>' +value.responsibility +'</td>';
+								tabs +=	'<td><a href="platform/dept/update-dept.html" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>修改</a><a href="javascript:org_del(\''+value.empno+'\')" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>删除</a></td>';
+								tabs += '</tr>';
+							});
+					$('tbody').append(tabs);
+				});
+	}
+	/*删除*/
+	function org_del(orgId) {
+		layer.confirm("确认要删除员工编号为：" + orgId + " 的这条数据吗?", function(index) {
+			$.ajax({
+				url: 'http://localhost:8080/delete'+ orgId,
+				method: 'delete',
+				success: function(data) {
+					if (data == 'ok') {
+						layer.msg(
+							'删除成功', {
+								icon: 1,
+								time: 2000 //2秒关闭（如果不配置，默认是3秒）
+							}
+						);
+						// 刷新窗口
+						window.location.reload();
+					}else{
+						layer.msg(
+							'没有删除数据', {
+								icon: 1,
+								time: 2000 //2秒关闭（如果不配置，默认是3秒）
+							}
+						);
+					}
+
+					
+				},
+				error: function(qXHR, textStatus, errorThrown) {
+					layer.alert("系统出现错误，请联系管理员");
+				}
+			}, 'text');
+
+			layer.close(index);
+		});
+	}
+	</script>
 </body>
 </html>
