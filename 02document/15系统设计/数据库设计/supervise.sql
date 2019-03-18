@@ -133,19 +133,23 @@ CREATE TABLE repository(
   dept_opinion VARCHAR(2000) DEFAULT NULL COMMENT '部门意见',
   lead_opinion VARCHAR(2000) DEFAULT NULL COMMENT '领导批示',
   item_statu INT(11) NOT NULL DEFAULT 0 COMMENT '事项状态 0 删除 1未删除',
+  item_type  INT(11) NOT NULL COMMENT '事项类型 0 新增  1同步 2退回',
   remark VARCHAR(2000) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY(id)
 )ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+INSERT INTO repository (source_id,source_time,serial_num,file_type,drafter,drafter_phone,item_name,item_code,user_id,adverse_company,secrecy_level,item_content,over_time,feedback,next_feedback,dept_opinion,lead_opinion,item_statu,item_type,remark)  
+VALUES(2,'2019-03-20 12:06:13',2222,2,'小三',123456789,'中秋晚会',1002,2,'文艺部',2,'筹备文艺晚会','2019-03-24 11:12:12',2,'2019-03-21 14:12:30','不通过','',0,1,'')
 
 
 -- 事项进展表
 DROP TABLE IF EXISTS item_process;
 CREATE TABLE item_process(
   statu_id INT NOT NULL AUTO_INCREMENT COMMENT '状态id',
-  item_id INT(11) NOT NULL COMMENT '事项id',
-  statu_describe VARCHAR(100) NOT NULL COMMENT '状态描述',
+  item_code VARCHAR(50) NOT NULL COMMENT '事项id',
+  statu_describe VARCHAR(100)  COMMENT '状态描述',
   opt_time DATETIME NOT NULL COMMENT '操作时间',
   user_id INT(11) NOT NULL COMMENT '操作人',
   PRIMARY KEY(statu_id)
 )ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+INSERT INTO item_process (item_code,statu_describe,opt_time,user_id) VALUES(1002,'','2019-03-21 12:10:49',2)
 
