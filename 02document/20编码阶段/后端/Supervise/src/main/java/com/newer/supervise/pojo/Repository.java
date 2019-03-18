@@ -27,7 +27,7 @@ public class Repository implements Serializable {
 	private String drafter; // 拟稿人
 	private String drafterPhone; // 拟稿人电话
 	private String itemName; // 事项名称
-	private String itemCode; // 事项编号
+	private ItemProcess itemCode; // 事项编号
 	private User user; // 批示人(公司领导)
 	private String adverseCompany; // 对方单位
 	private SecrecyLevel secrecyLevel; // 保密等级
@@ -50,7 +50,7 @@ public class Repository implements Serializable {
 	}
 
 	public Repository(Integer id, Source sourceId, Date sourceTime, String serialNum, FileType fileType, String drafter,
-			String drafterPhone, String itemName, String itemCode, User user, String adverseCompany,
+			String drafterPhone, String itemName, ItemProcess itemCode, User user, String adverseCompany,
 			SecrecyLevel secrecyLevel, String itemContent, Date overTime, Integer feedback, Date nextFeedback,
 			String deptOpinion, String leadOpinion, Integer itemStatu, Integer itemType, String remark) {
 		super();
@@ -75,174 +75,6 @@ public class Repository implements Serializable {
 		this.itemStatu = itemStatu;
 		this.itemType = itemType;
 		this.remark = remark;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Source getSourceId() {
-		return sourceId;
-	}
-
-	public void setSourceId(Source sourceId) {
-		this.sourceId = sourceId;
-	}
-
-	public Date getSourceTime() {
-		return sourceTime;
-	}
-
-	public void setSourceTime(Date sourceTime) {
-		this.sourceTime = sourceTime;
-	}
-
-	public String getSerialNum() {
-		return serialNum;
-	}
-
-	public void setSerialNum(String serialNum) {
-		this.serialNum = serialNum;
-	}
-
-	public FileType getFileType() {
-		return fileType;
-	}
-
-	public void setFileType(FileType fileType) {
-		this.fileType = fileType;
-	}
-
-	public String getDrafter() {
-		return drafter;
-	}
-
-	public void setDrafter(String drafter) {
-		this.drafter = drafter;
-	}
-
-	public String getDrafterPhone() {
-		return drafterPhone;
-	}
-
-	public void setDrafterPhone(String drafterPhone) {
-		this.drafterPhone = drafterPhone;
-	}
-
-	public String getItemName() {
-		return itemName;
-	}
-
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-
-	public String getItemCode() {
-		return itemCode;
-	}
-
-	public void setItemCode(String itemCode) {
-		this.itemCode = itemCode;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public String getAdverseCompany() {
-		return adverseCompany;
-	}
-
-	public void setAdverseCompany(String adverseCompany) {
-		this.adverseCompany = adverseCompany;
-	}
-
-	public SecrecyLevel getSecrecyLevel() {
-		return secrecyLevel;
-	}
-
-	public void setSecrecyLevel(SecrecyLevel secrecyLevel) {
-		this.secrecyLevel = secrecyLevel;
-	}
-
-	public String getItemContent() {
-		return itemContent;
-	}
-
-	public void setItemContent(String itemContent) {
-		this.itemContent = itemContent;
-	}
-
-	public Date getOverTime() {
-		return overTime;
-	}
-
-	public void setOverTime(Date overTime) {
-		this.overTime = overTime;
-	}
-
-	public Integer getFeedback() {
-		return feedback;
-	}
-
-	public void setFeedback(Integer feedback) {
-		this.feedback = feedback;
-	}
-
-	public Date getNextFeedback() {
-		return nextFeedback;
-	}
-
-	public void setNextFeedback(Date nextFeedback) {
-		this.nextFeedback = nextFeedback;
-	}
-
-	public String getDeptOpinion() {
-		return deptOpinion;
-	}
-
-	public void setDeptOpinion(String deptOpinion) {
-		this.deptOpinion = deptOpinion;
-	}
-
-	public String getLeadOpinion() {
-		return leadOpinion;
-	}
-
-	public void setLeadOpinion(String leadOpinion) {
-		this.leadOpinion = leadOpinion;
-	}
-
-	public Integer getItemStatu() {
-		return itemStatu;
-	}
-
-	public void setItemStatu(Integer itemStatu) {
-		this.itemStatu = itemStatu;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public Integer getItemType() {
-		return itemType;
-	}
-
-	public void setItemType(Integer itemType) {
-		this.itemType = itemType;
 	}
 
 	@Override
@@ -399,6 +231,174 @@ public class Repository implements Serializable {
 		} else if (!user.equals(other.user))
 			return false;
 		return true;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Source getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(Source sourceId) {
+		this.sourceId = sourceId;
+	}
+
+	public Date getSourceTime() {
+		return sourceTime;
+	}
+
+	public void setSourceTime(Date sourceTime) {
+		this.sourceTime = sourceTime;
+	}
+
+	public String getSerialNum() {
+		return serialNum;
+	}
+
+	public void setSerialNum(String serialNum) {
+		this.serialNum = serialNum;
+	}
+
+	public FileType getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(FileType fileType) {
+		this.fileType = fileType;
+	}
+
+	public String getDrafter() {
+		return drafter;
+	}
+
+	public void setDrafter(String drafter) {
+		this.drafter = drafter;
+	}
+
+	public String getDrafterPhone() {
+		return drafterPhone;
+	}
+
+	public void setDrafterPhone(String drafterPhone) {
+		this.drafterPhone = drafterPhone;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public ItemProcess getItemCode() {
+		return itemCode;
+	}
+
+	public void setItemCode(ItemProcess itemCode) {
+		this.itemCode = itemCode;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getAdverseCompany() {
+		return adverseCompany;
+	}
+
+	public void setAdverseCompany(String adverseCompany) {
+		this.adverseCompany = adverseCompany;
+	}
+
+	public SecrecyLevel getSecrecyLevel() {
+		return secrecyLevel;
+	}
+
+	public void setSecrecyLevel(SecrecyLevel secrecyLevel) {
+		this.secrecyLevel = secrecyLevel;
+	}
+
+	public String getItemContent() {
+		return itemContent;
+	}
+
+	public void setItemContent(String itemContent) {
+		this.itemContent = itemContent;
+	}
+
+	public Date getOverTime() {
+		return overTime;
+	}
+
+	public void setOverTime(Date overTime) {
+		this.overTime = overTime;
+	}
+
+	public Integer getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(Integer feedback) {
+		this.feedback = feedback;
+	}
+
+	public Date getNextFeedback() {
+		return nextFeedback;
+	}
+
+	public void setNextFeedback(Date nextFeedback) {
+		this.nextFeedback = nextFeedback;
+	}
+
+	public String getDeptOpinion() {
+		return deptOpinion;
+	}
+
+	public void setDeptOpinion(String deptOpinion) {
+		this.deptOpinion = deptOpinion;
+	}
+
+	public String getLeadOpinion() {
+		return leadOpinion;
+	}
+
+	public void setLeadOpinion(String leadOpinion) {
+		this.leadOpinion = leadOpinion;
+	}
+
+	public Integer getItemStatu() {
+		return itemStatu;
+	}
+
+	public void setItemStatu(Integer itemStatu) {
+		this.itemStatu = itemStatu;
+	}
+
+	public Integer getItemType() {
+		return itemType;
+	}
+
+	public void setItemType(Integer itemType) {
+		this.itemType = itemType;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 }
