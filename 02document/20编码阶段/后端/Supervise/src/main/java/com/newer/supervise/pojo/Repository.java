@@ -13,45 +13,47 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @author 周裕杰
  *
  */
-public class Repository implements Serializable{
+public class Repository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	private Integer id;					// 事项id
-	private Source sourceId;			// 督办来源
+
+	private Integer id; // 事项id
+	private Source sourceId; // 督办来源
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date sourceTime;			// 来源时间
-	private String serialNum;			// 流水号
-	private FileType fileType;			// 文件类型
-	private String drafter;				// 拟稿人
-	private String drafterPhone;		// 拟稿人电话
-	private String itemName;			// 事项名称
-	private String itemCode;			// 事项编号
-	private User user;					// 批示人(公司领导)
-	private String adverseCompany;		// 对方单位
-	private SecrecyLevel secrecyLevel;	// 保密等级
-	private String itemContent;			// 事项内容
+	private Date sourceTime; // 来源时间
+	private String serialNum; // 流水号
+	private FileType fileType; // 文件类型
+	private String drafter; // 拟稿人
+	private String drafterPhone; // 拟稿人电话
+	private String itemName; // 事项名称
+	private String itemCode; // 事项编号
+	private User user; // 批示人(公司领导)
+	private String adverseCompany; // 对方单位
+	private SecrecyLevel secrecyLevel; // 保密等级
+	private String itemContent; // 事项内容
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date overTime;				// 结束时间
-	private Integer feedback;			// 反馈频率(以数字代表小时)
+	private Date overTime; // 结束时间
+	private Integer feedback; // 反馈频率(以数字代表小时)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date nextFeedback;			// 下次反馈时间
-	private String deptOpinion;			// 部门意见
-	private String leadOpinion;			// 领导批示
-	private Integer itemStatu;			// 事项状态(0为已删除,1为未删除)
-	private String remark;				// 备注
+	private Date nextFeedback; // 下次反馈时间
+	private String deptOpinion; // 部门意见
+	private String leadOpinion; // 领导批示
+	private Integer itemStatu; // 事项状态(0为已删除,1为未删除)
+	private Integer itemType; // 事项类型(0:新增 1:同步 2:退回)
+	private String remark; // 备注
 
 	public Repository() {
-		
+
 	}
 
 	public Repository(Integer id, Source sourceId, Date sourceTime, String serialNum, FileType fileType, String drafter,
 			String drafterPhone, String itemName, String itemCode, User user, String adverseCompany,
 			SecrecyLevel secrecyLevel, String itemContent, Date overTime, Integer feedback, Date nextFeedback,
-			String deptOpinion, String leadOpinion, Integer itemStatu, String remark) {
+			String deptOpinion, String leadOpinion, Integer itemStatu, Integer itemType, String remark) {
+		super();
 		this.id = id;
 		this.sourceId = sourceId;
 		this.sourceTime = sourceTime;
@@ -71,6 +73,7 @@ public class Repository implements Serializable{
 		this.deptOpinion = deptOpinion;
 		this.leadOpinion = leadOpinion;
 		this.itemStatu = itemStatu;
+		this.itemType = itemType;
 		this.remark = remark;
 	}
 
@@ -234,6 +237,14 @@ public class Repository implements Serializable{
 		this.remark = remark;
 	}
 
+	public Integer getItemType() {
+		return itemType;
+	}
+
+	public void setItemType(Integer itemType) {
+		this.itemType = itemType;
+	}
+
 	@Override
 	public String toString() {
 		return "Repository [id=" + id + ", sourceId=" + sourceId + ", sourceTime=" + sourceTime + ", serialNum="
@@ -241,8 +252,8 @@ public class Repository implements Serializable{
 				+ ", itemName=" + itemName + ", itemCode=" + itemCode + ", user=" + user + ", adverseCompany="
 				+ adverseCompany + ", secrecyLevel=" + secrecyLevel + ", itemContent=" + itemContent + ", overTime="
 				+ overTime + ", feedback=" + feedback + ", nextFeedback=" + nextFeedback + ", deptOpinion="
-				+ deptOpinion + ", leadOpinion=" + leadOpinion + ", itemStatu=" + itemStatu + ", remark=" + remark
-				+ "]";
+				+ deptOpinion + ", leadOpinion=" + leadOpinion + ", itemStatu=" + itemStatu + ", itemType=" + itemType
+				+ ", remark=" + remark + "]";
 	}
 
 	@Override
@@ -260,6 +271,7 @@ public class Repository implements Serializable{
 		result = prime * result + ((itemContent == null) ? 0 : itemContent.hashCode());
 		result = prime * result + ((itemName == null) ? 0 : itemName.hashCode());
 		result = prime * result + ((itemStatu == null) ? 0 : itemStatu.hashCode());
+		result = prime * result + ((itemType == null) ? 0 : itemType.hashCode());
 		result = prime * result + ((leadOpinion == null) ? 0 : leadOpinion.hashCode());
 		result = prime * result + ((nextFeedback == null) ? 0 : nextFeedback.hashCode());
 		result = prime * result + ((overTime == null) ? 0 : overTime.hashCode());
@@ -335,6 +347,11 @@ public class Repository implements Serializable{
 			if (other.itemStatu != null)
 				return false;
 		} else if (!itemStatu.equals(other.itemStatu))
+			return false;
+		if (itemType == null) {
+			if (other.itemType != null)
+				return false;
+		} else if (!itemType.equals(other.itemType))
 			return false;
 		if (leadOpinion == null) {
 			if (other.leadOpinion != null)
