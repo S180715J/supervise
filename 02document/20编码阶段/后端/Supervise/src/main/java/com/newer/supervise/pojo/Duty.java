@@ -1,13 +1,17 @@
 package com.newer.supervise.pojo;
 
+import java.io.Serializable;
+
 /**
  * 职务类
  * 
  * @author 周裕杰
  *
  */
-public class Duty {
+public class Duty implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private Integer dutyId;		// 职务id
 	private String dutyName;	// 职务名称
 	private String dutyType;	// 职务类别

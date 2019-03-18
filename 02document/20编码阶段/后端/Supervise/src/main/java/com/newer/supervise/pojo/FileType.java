@@ -1,13 +1,17 @@
 package com.newer.supervise.pojo;
 
+import java.io.Serializable;
+
 /**
  * 文件类型实体类
  * 
  * @author 周裕杰
  *
  */
-public class FileType {
+public class FileType implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private Integer typeId; // 类型id
 	private String typeName; // 类型名称
 
