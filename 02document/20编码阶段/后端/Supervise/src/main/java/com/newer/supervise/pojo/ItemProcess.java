@@ -15,13 +15,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class ItemProcess implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Integer statuId;
-	private String itemCode;
-	private String statuDescribe;
+	private Integer statuId;//保存进程记录id
+	private String itemCode;//事项编号
+	private String statuDescribe;//状态描述
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date optTime;
-	private User userId;
+	private Date optTime;//操作时间
+	private User userId;//操作人
 
 	public Integer getStatuId() {
 		return statuId;
