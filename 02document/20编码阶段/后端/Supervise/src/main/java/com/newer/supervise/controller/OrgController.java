@@ -1,7 +1,6 @@
-package com.supervise.controller;
+package com.newer.supervise.controller;
 
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.supervise.pojo.Organization;
-import com.supervise.service.OrgService;
+import com.newer.supervise.pojo.Organization;
+import com.newer.supervise.service.OrgService;
+
+
 
 @RestController
 public class OrgController {

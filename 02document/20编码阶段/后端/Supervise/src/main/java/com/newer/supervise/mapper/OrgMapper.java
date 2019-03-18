@@ -1,4 +1,4 @@
-package com.supervise.mapper;
+package com.newer.supervise.mapper;
 
 import java.util.List;
 
@@ -9,7 +9,9 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
-import com.supervise.pojo.Organization;
+import com.newer.supervise.pojo.Organization;
+
+
 
 
 

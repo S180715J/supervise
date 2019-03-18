@@ -1,12 +1,14 @@
-package com.supervise.service;
+package com.newer.supervise.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.supervise.mapper.OrgMapper;
-import com.supervise.pojo.Organization;
+import com.newer.supervise.mapper.OrgMapper;
+import com.newer.supervise.pojo.Organization;
+
+
 
 @Service
 public class OrgService {
