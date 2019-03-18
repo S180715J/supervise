@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newer.supervise.mapper.RepositoryMapper">
+	
+	<select id="searchAnySimilar">
+		SELECT * FROM repository
+		<where>
+			<if test="source.sourceType != null">
+				
+			</if>
+			<if test="itemContent != null">
+				AND item_content LIKE #{itemContent}
+			</if>
+			<if test="serialNum != null">
+				AND serial_num LIKE #{serialNum}
+			</if>
+			<if test="sourceTime != null">
+				AND source_time LIKE #{sourceTime}
+			</if>
+			<if test=""></if>
+			<if test="itemStatu != null">
+				AND item_statu = #{itemStatu}
+			</if>
+			<if test=""></if>
+			<if test="fileType.typeName != null">
+				
+			</if>
+			<if test="adverseCompany != null">
+				adverse_company LIKE #{adverseCompany}
+			</if>
+		</where>
+		LIMIT #{},#{}
+	</select>
+	
+	<select id="queryAllItem">
+		SELECT source_type AS "source.sourceType",item_content,source_time,adverse_company,f.`type_name`,item_statu FROM repository r 
+		LEFT JOIN source s ON r.`source_id`=s.`source_id`
+		LEFT JOIN file_type f ON r.`file_type`=f.`type_id`
+		LIMIT #{},#{};
+	</select>
+</mapper>

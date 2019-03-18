@@ -1,297 +1,437 @@
 <!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="renderer" content="webkit|ie-comp|ie-stand">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-		<meta http-equiv="Cache-Control" content="no-siteapp" />
-		<link rel="Bookmark" href="/favicon.ico">
-		<link rel="Shortcut Icon" href="/favicon.ico" />
-		<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
-		<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
-		<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
-		<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
-		<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
-		<title>备用库管理-新建事项</title>
-	</head>
-	<body>
-		<article class="page-container">
-			<form action="" method="post" class="form form-horizontal" id="form-member-add">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="Bookmark" href="/favicon.ico">
+    <link rel="Shortcut Icon" href="/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css"/>
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin"/>
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css"/>
+    <title>备用库管理-新建事项</title>
+</head>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form-member-add">
+        <table class="table   table-bg">
+            <thead>
+            <tr class="text-c">
+                <th>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-6">督办来源：</label>
+                        <div class="formControls col-xs-8 col-sm-4">
+                                <span class="select-box">
+                                    <select name="source" class="select" id="source">
+                                        <option value="-1">---请选择---</option>
+                                    </select>
+                                </span>
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">来源时间：</label>
+                        <div class="formControls col-xs-8 col-sm-4">
+                            <input type="text" class="input-text" value="" placeholder="" id="sourceTime"
+                                   name="sourceTime">
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr class="text-c">
+                <th>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-6">（公文）原流水号：</label>
+                        <div class="formControls col-xs-8 col-sm-4">
+                            <input type="text" class="input-text" value="" placeholder="" id="serialNum"
+                                   name="serialNum">
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">文件类型：</label>
+                        <div class="formControls col-xs-8 col-sm-4">
+                            <span class="select-box">
+                                <select name="" class="select" id="fileType">
+                                    <option value="-1">---请选择---</option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr class="text-c">
+                <th>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-6">原件拟稿人：</label>
+                        <div class="formControls col-xs-8 col-sm-4">
+                            <input type="text" class="input-text" value="" placeholder="" id="drafter"
+                                   name="drafter">
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">原件联系电话：</label>
+                        <div class="formControls col-xs-8 col-sm-4">
+                            <input type="text" class="input-text" value="" placeholder="" id="drafterPhone"
+                                   name="drafterPhone">
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr class="text-c">
+                <th>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-6"><span class="c-red">*</span>事项名称：</label>
+                        <div class="formControls col-xs-8 col-sm-4">
+                            <input type="text" class="input-text" value="" placeholder="" id="itemName"
+                                   name="itemName">
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">事项编号：</label>
+                        <div class="formControls col-xs-8 col-sm-4">
+                            <input type="text" class="input-text" value="" placeholder="" id="itemCode"
+                                   name="itemCode">
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr class="text-c">
+                <th>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-6"><span class="c-red">*</span>公司领导：</label>
+                        <div class="formControls col-xs-8 col-sm-4">
+                            <span class="select-box">
+                                <select name="user" class="select" id="user">
+                                    <option value="-1">---请选择---</option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">对方单位：</label>
+                        <div class="formControls col-xs-8 col-sm-4">
+                            <input type="text" class="input-text" value="" placeholder="" id="adverseCompany"
+                                   name="adverseCompany">
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-6" style="">密级：</label>
+                        <div class="formControls col-xs-8 col-sm-4">
+                                <span class="select-box">
+                                    <select name="secrecyLevel" class="select" id="secrecyLevel">
+                                        <option value="-1">---请选择---</option>
+                                    </select>
+                                </span>
+                        </div>
+                    </div>
+                </th>
+                <th>
+                </th>
+            </tr>
 
-				<form>
-					<table class="table   table-bg">
-						<thead>
-
-							<tr class="text-c">
-								<th>
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-6">督办来源：</label>
-										<div class="formControls col-xs-8 col-sm-4">
-											<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-										</div>
-									</div>
-								</th>
-								<th>
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-3">来源时间：</label>
-										<div class="formControls col-xs-8 col-sm-4">
-											<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-										</div>
-									</div>
-								</th>
-							</tr>
-							<tr class="text-c">
-								<th>
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-6">（公文）原流水号：</label>
-										<div class="formControls col-xs-8 col-sm-4">
-											<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-										</div>
-									</div>
-								</th>
-								<th>
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-3">文件类型：</label>
-										<div class="formControls col-xs-8 col-sm-4">
-											<span class="select-box">
-												<select name="" class="select">
-													
-													<option value="1">发文</option>
-													<option value="2">收文</option>
-													<option value="3">签报</option>
-													<option value="4">白头文</option>
-
-												</select>
-											</span>
-										</div>
-									</div>
-								</th>
-							</tr>
-							<tr class="text-c">
-								<th>
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-6">原件拟稿人：</label>
-										<div class="formControls col-xs-8 col-sm-4">
-											<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-										</div>
-									</div>
-								</th>
-								<th>
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-3">原件联系电话：</label>
-										<div class="formControls col-xs-8 col-sm-4">
-											<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-										</div>
-									</div>
-								</th>
-							</tr>
-							<tr class="text-c">
-								<th>
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-6"><span class="c-red">*</span>事项名称：</label>
-										<div class="formControls col-xs-8 col-sm-4">
-											<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-										</div>
-									</div>
-								</th>
-								<th>
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-3">事项编号：</label>
-										<div class="formControls col-xs-8 col-sm-4">
-											<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-										</div>
-									</div>
-								</th>
-							</tr>
-							<tr class="text-c">
-								<th>
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-6"><span class="c-red">*</span>公司领导：</label>
-										<div class="formControls col-xs-8 col-sm-4">
-											<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-										</div>
-									</div>
-								</th>
-								<th>
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-3">对方单位：</label>
-										<div class="formControls col-xs-8 col-sm-4">
-											<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-										</div>
-									</div>
-								</th>
-							</tr>
-							<tr>
-								<th>
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-6" style="">密级：</label>
-										<div class="formControls col-xs-8 col-sm-4">
-											<span class="select-box">
-												<select name="" class="select">
-													<option value="1">绝密</option>
-													<option value="2">机密</option>
-													<option value="3">秘密</option>
-													<option value="4">公开</option>
-
-												</select>
-											</span>
-										</div>
-									</div>
-								</th>
-								<th>
-								</th>
-							</tr>
-
-							<tr>
-								<th scope="col" colspan="2">
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>事项内容：</label>
-										<div class="formControls col-xs-8 col-sm-7">
-											<textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...最少输入10个字符" datatype="*10-100"
-											 dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
-											<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
-										</div>
-									</div>
-								</th>
-							</tr>
-							<tr>
-								<th scope="col" colspan="2">
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-3">部门意见：</label>
-										<div class="formControls col-xs-8 col-sm-7">
-											<textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...最少输入10个字符" datatype="*10-100"
-											 dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
-											<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
-										</div>
-									</div>
-								</th>
-							</tr>
-							<tr>
-								<th scope="col" colspan="2">
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-3">领导批示：</label>
-										<div class="formControls col-xs-8 col-sm-7">
-											<textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...最少输入10个字符" datatype="*10-100"
-											 dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
-											<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
-										</div>
-									</div>
-								</th>
-							</tr>
-							<tr>
-								<th scope="col" colspan="2">
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-3">备注：</label>
-										<div class="formControls col-xs-8 col-sm-7">
-											<textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...最少输入10个字符" datatype="*10-100"
-											 dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
-											<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
-										</div>
-									</div>
-								</th>
-							</tr>
-							<tr>
-								<th scope="col" colspan="2">
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-3">附件：</label>
-										<div class="formControls col-xs-8 col-sm-9">
+            <tr>
+                <th scope="col" colspan="2">
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>事项内容：</label>
+                        <div class="formControls col-xs-8 col-sm-7">
+											<textarea name="itemContent" cols="" rows="" class="textarea"
+                                                      id="itemContent"
+                                                      placeholder="说点什么...最少输入10个字符" datatype="*10-100"
+                                                      dragonfly="true" nullmsg="备注不能为空！"
+                                                      onKeyUp="$.Huitextarealength(this,200)"></textarea>
+                            <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th scope="col" colspan="2">
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">部门意见：</label>
+                        <div class="formControls col-xs-8 col-sm-7">
+											<textarea name="deptOpinion" cols="" rows="" class="textarea"
+                                                      id="deptOpinion"
+                                                      placeholder="说点什么...最少输入10个字符" datatype="*10-100"
+                                                      dragonfly="true" nullmsg="备注不能为空！"
+                                                      onKeyUp="$.Huitextarealength(this,200)"></textarea>
+                            <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th scope="col" colspan="2">
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">领导批示：</label>
+                        <div class="formControls col-xs-8 col-sm-7">
+											<textarea name="leadOpinion" cols="" rows="" class="textarea"
+                                                      id="leadOpinion"
+                                                      placeholder="说点什么...最少输入10个字符" datatype="*10-100"
+                                                      dragonfly="true" nullmsg="备注不能为空！"
+                                                      onKeyUp="$.Huitextarealength(this,200)"></textarea>
+                            <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th scope="col" colspan="2">
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">备注：</label>
+                        <div class="formControls col-xs-8 col-sm-7">
+											<textarea name="" cols="" rows="" class="textarea"
+                                                      placeholder="说点什么...最少输入10个字符" datatype="*10-100"
+                                                      dragonfly="true" nullmsg="备注不能为空！"
+                                                      onKeyUp="$.Huitextarealength(this,200)"></textarea>
+                            <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th scope="col" colspan="2">
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">附件：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
 											<span class="btn-upload form-group">
-												<input class="input-text upload-url" type="text" name="uploadfile" id="uploadfile" readonly nullmsg="请添加附件！"
-												 style="width:200px">
-												<a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont">&#xe642;</i>
+												<input class="input-text upload-url" type="text" name="uploadfile"
+                                                       id="uploadfile" readonly nullmsg="请添加附件！"
+                                                       style="width:200px">
+												<a href="javascript:void();"
+                                                   class="btn btn-primary radius upload-btn"><i class="Hui-iconfont">&#xe642;</i>
 													浏览文件</a>
 												<input type="file" multiple name="file-2" class="input-file">
 
 											</span>
-											<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;上传&nbsp;&nbsp;">
-										</div>
-									</div>
-								</th>
-							</tr>
+                            <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;上传&nbsp;&nbsp;">
+                        </div>
+                    </div>
+                </th>
+            </tr>
 
-							</tr>
-							<tr>
-								<th>
-									<div class="row cl">
-										<div class="col-xs-9 col-sm-9 col-xs-offset-4 col-sm-offset-6">
-											<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;创建&nbsp;&nbsp;">
-										</div>
-									</div>
-								</th>
-								<th>
-									<div class="row cl">
-										<div class="col-xs-9 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-											<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;关闭&nbsp;&nbsp;">
-										</div>
-									</div>
-								</th>
-							</tr>
-						</thead>
-					</table>
-
-
+            </tr>
+            <tr>
+                <th>
+                    <div class="row cl">
+                        <div class="col-xs-9 col-sm-9 col-xs-offset-4 col-sm-offset-6">
+                            <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;创建&nbsp;&nbsp;">
+                        </div>
+                    </div>
+                </th>
+                <th>
+                    <div class="row cl">
+                        <div class="col-xs-9 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                            <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;关闭&nbsp;&nbsp;">
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+        </table>
 
 
-				</form>
-		</article>
+    </form>
+</article>
 
-		<!--_footer 作为公共模版分离出去-->
-		<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
-		<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
-		<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script>
-		<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
-		<!--/_footer 作为公共模版分离出去-->
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<!--/_footer 作为公共模版分离出去-->
 
-		<!--请在下方写此页面业务相关的脚本-->
-		<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
-		<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
-		<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
-		<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
-		<script type="text/javascript">
-			$(function() {
-				$('.skin-minimal input').iCheck({
-					checkboxClass: 'icheckbox-blue',
-					radioClass: 'iradio-blue',
-					increaseArea: '20%'
-				});
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/jquery.serializejson.min.js"></script>
+<script type="text/javascript" src="../layui/layui.js"></script>
+<script type="text/javascript">
+    $(function () {
+        // 初始化督办来源
+        sourceInit();
+        fileTypeInit();
+        SecrecyInit();
+        leaderInit();
 
-				$("#form-member-add").validate({
-					rules: {
-						username: {
-							required: true,
-							minlength: 2,
-							maxlength: 16
-						},
-						sex: {
-							required: true,
-						},
-						mobile: {
-							required: true,
-							isMobile: true,
-						},
-						email: {
-							required: true,
-							email: true,
-						},
-						uploadfile: {
-							required: true,
-						},
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
 
-					},
-					onkeyup: false,
-					focusCleanup: true,
-					success: "valid",
-					submitHandler: function(form) {
-						//$(form).ajaxSubmit();
-						var index = parent.layer.getFrameIndex(window.name);
-						//parent.$('.btn-refresh').click();
-						parent.layer.close(index);
-					}
-				});
-			});
-		</script>
-		<!--/请在上方写此页面业务相关的脚本-->
-	</body>
+        $("#form-member-add").validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 16
+                },
+                sex: {
+                    required: true,
+                },
+                mobile: {
+                    required: true,
+                    isMobile: true,
+                },
+                email: {
+                    required: true,
+                    email: true,
+                },
+                uploadfile: {
+                    required: true,
+                },
+
+            },
+            onkeyup: false,
+            focusCleanup: true,
+            success: "valid",
+            submitHandler: function (form) {
+                //$(form).ajaxSubmit();
+                var index = parent.layer.getFrameIndex(window.name);
+                //parent.$('.btn-refresh').click();
+                parent.layer.close(index);
+            }
+        });
+    });
+
+    /**
+     * 初始化事项来源
+     */
+    function sourceInit() {
+        $.ajax({
+            url: HOST_URL + 'showSource',
+            type: 'GET',
+            success: function (data) {
+                var itemSource = '';
+                if (!(data == 'no_source')) {
+                    $.each(data, function (i, source) {
+                        itemSource += '<option value=' + source.sourceId + '>' + source.sourceType + '</option>';
+                    });
+                    $('#source').append(itemSource);
+                } else {
+                    itemSource = '暂无来源';
+                    $('#source').append(itemSource);
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+                layer.alert('系统出现错误，请联系管理员');
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+        }, 'JSON');
+    }
+
+    /**
+     * 初始化文件类型下拉框
+     */
+    function fileTypeInit() {
+        $.ajax({
+            url: HOST_URL + 'showFileType',
+            type: 'GET',
+            contentType: '',
+            success: function (data) {
+                var file = '';
+                if (!(data == 'no_type')) {
+                    $.each(data, function (i, filetype) {
+                        file += '<option value=' + filetype.typeId + '>' + filetype.typeName + '</option>';
+                    });
+                    $('#fileType').append(file);
+                } else {
+                    file = '暂无类型';
+                    $('#fileType').append(file);
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+                layer.alert('系统出现错误，请联系管理员');
+            },
+            xhrFields: {
+                withCredentials: true
+            }
+        }, 'JSON');
+    }
+
+    /**
+     * 初始化保密等级
+     */
+    function SecrecyInit() {
+        $.ajax({
+            url: HOST_URL + 'showLevel',
+            type: 'GET',
+            contentType: '',
+            success: function (data) {
+                var level = '';
+                if (!(data == 'no_level')) {
+                    $.each(data, function (i, secrecyLevel) {
+                        level += '<option value=' + secrecyLevel.levelId + '>' + secrecyLevel.levelName + '</option>';
+                    });
+                    $('#secrecyLevel').append(level);
+                } else {
+                    level = '暂无密级';
+                    $('#secrecyLevel').append(level);
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+                layer.alert('系统出现错误，请联系管理员');
+            },
+            xhrFields: {
+                withCredentials: true
+            }
+        }, 'JSON');
+    }
+
+    /**
+     * 初始化批示领导
+     */
+    function leaderInit() {
+        $.ajax({
+            url: HOST_URL + 'showLeader',
+            type: 'GET',
+            contentType: '',
+            success: function (data) {
+                var leader = '';
+                if (!(data == 'no_leader')) {
+                    $.each(data, function (i, user) {
+                        leader += '<option value=' + user.userId + '>' + user.duty.dutyName + '</option>';
+                    });
+                    $('#user').append(leader);
+                } else {
+                    leader = '暂无领导';
+                    $('#user').append(leader);
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+                layer.alert('系统出现错误，请联系管理员');
+            },
+            xhrFields: {
+                withCredentials: true
+            }
+        }, 'JSON');
+    }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
 </html>
