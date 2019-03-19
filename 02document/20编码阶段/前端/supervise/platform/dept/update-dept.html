@@ -28,21 +28,20 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>机构编码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<!-- 回显 不可修改 -->
-				<input type="text" class="input-text" value="" placeholder="" id="" name="" readonly="readonly">
+				<input type="text" class="input-text" value="" placeholder="" id="orgId" name="orgId">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">机构名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="">
+				<input type="text" class="input-text" value="" placeholder="" id="orgName" name="orgName">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择父机构：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
-				<select name="" class="select">
+				<select name="farpath" class="select">
 					<option value="0">全部栏目</option>
 					<option value="1">新闻资讯</option>
 					<option value="11">├行业动态</option>
@@ -52,36 +51,30 @@
 				</span>
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">排序号：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="排序号" id="" name="">
-			</div>
-		</div>
 		
 		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">机构ID路径：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="机构ID路径" id="" name="" readonly="readonly">
+				<input type="text" class="input-text" value="" placeholder="机构ID路径" id="idPath" name="idPath" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">机构名称路径：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="机构名称路径" id="" name="" readonly="readonly">
+				<input type="text" class="input-text" value="" placeholder="机构名称路径" id="namePath" name="namePath" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">简介：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="简介" id="" name="">
+				<input type="text" class="input-text" value="" placeholder="简介" id="introduction" name="introduction">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">部门简介：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
+				<textarea name="responsibility" id="responsibility" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 			</div>
 		</div>
@@ -89,9 +82,9 @@
 		
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button onClick="article_save_submit();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
+				<button id="save" onClick="article_save_submit();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
 				
-				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+				<button id="cancel" onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
 		</div>
 	</form>
@@ -115,8 +108,85 @@ function article_save(){
 	window.parent.location.reload();
 }
 
+	$(function(){
+		fartherpath();
+		add_path();
+		$('#save').on('click', function() {
+			save_dept();
+			alert("保存成功")
+			window.location.href="platform/dept/dept-list.html";
+		});
+		$('#cancel').on('click', function() {
+			// 刷新父窗口
+			window.parent.location.reload();
+		}
+	})
+		/*
+		*	对机构ID路径和机构名称路径进行赋值
+		*/
+		function add_path(){
+		var orgid=$("#orgId").text();
+		var orgname=$("orgName").text();
+		var fidpath=$("#farpath option:selected").val();//获得value值
+		var fnamepath=$("#farpath option:selected").text();//获得文本值
+		if(orgid !=""){
+			var idpath="/"+fidpath+"/"+orgid;//得到机构ID路径
+		}
+		if(orgname !=""){
+			var namepath="/"+fnamepath+"/"+orgname;//得到机构名称路径
+		}
+	}
+	/*
+	*	从数据库得到父路径并将值赋给下拉框
+	*/
+		function fartherpath(){
+		$.get(
+				"http://localhost:8080/org",
+				function(date){
+					var fidpath=date.orgId;
+					$("#farpath option:selected").val(fidpath);
+					var fnamepath=date.orgName;
+					$("#farpath option:selected").text(fnamepath);
+				}
+		);
+	}
+		/*
+		*保存部门信息
+		*/
+		function save_dept(){
+			var formData = $('#form-article-add').serializeJSON(); 
+			var p = JSON.stringify(formData);
+			console.info("发送数据：" + p);
+			var x = $.ajax({
+				url:'http://localhost:8080/insertorg',
+				method: 'post',
+				data: p,
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: 
+						layer.msg(
+							'保存成功', {
+								icon: 1,
+								time: 3000 //2秒关闭（如果不配置，默认是3秒）
+							}
+						);
 
+						// 刷新父窗口
+						window.parent.location.reload();
+						// 关闭窗口
+						var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+						parent.layer.close(index); // 关闭layer
+					}
 
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					layer.alert("系统出现错误,请联系管理员!");
+				},
+				xhrFields: {
+					withCredentials: true
+				}
+			});
+		}
 </script>
 </body>
 </html>
