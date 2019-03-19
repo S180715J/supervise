@@ -113,30 +113,30 @@ INSERT INTO file_type(type_name) VALUES ('发文'),('收文'),('签报'),('白�
 
 -- 备用库
 DROP TABLE IF EXISTS repository;
-CREATE TABLE repository(
-  id INT(11) NOT NULL AUTO_INCREMENT COMMENT '事项id',
-  source_id INT(11) NOT NULL COMMENT '督办来源',
-  source_time DATETIME NOT NULL COMMENT '来源时间',
-  serial_num VARCHAR(100) NOT NULL COMMENT '原流水号',
-  file_type INT NOT NULL COMMENT '文件类型id',
-  drafter VARCHAR(100) NOT NULL COMMENT '原件拟稿人',
-  drafter_phone CHAR(11) NOT NULL COMMENT '拟稿人联系电话',
-  item_name VARCHAR(250) NOT NULL COMMENT '事项名称',
-  item_code VARCHAR(50) DEFAULT NULL COMMENT '事项编号',
-  user_id INT(11) NOT NULL COMMENT '(批示的)公司领导',
-  adverse_company VARCHAR(250) DEFAULT NULL COMMENT '对方单位',
-  secrecy_level INT NOT NULL COMMENT '保密等级',
-  item_content VARCHAR(2000) NOT NULL COMMENT '事项内容',
-  over_time DATETIME NOT NULL COMMENT '结束时间',
-  feedback INT(11) NOT NULL COMMENT '反馈频率',
-  next_feedback DATETIME NOT NULL COMMENT '下次反馈时间',
-  dept_opinion VARCHAR(2000) DEFAULT NULL COMMENT '部门意见',
-  lead_opinion VARCHAR(2000) DEFAULT NULL COMMENT '领导批示',
-  item_statu INT(11) NOT NULL DEFAULT 0 COMMENT '事项状态 0 删除 1未删除',
-  item_type  INT(11) NOT NULL COMMENT '事项类型 0 新增  1同步 2退回',
-  remark VARCHAR(2000) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY(id)
-)ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
+CREATE TABLE repository (
+  id int(11) NOT NULL AUTO_INCREMENT COMMENT '事项id',
+  source_id int(11) NOT NULL COMMENT '督办来源',
+  source_time datetime NOT NULL COMMENT '来源时间',
+  serial_num varchar(100) NOT NULL COMMENT '原流水号',
+  file_type int(11) NOT NULL COMMENT '文件类型id',
+  drafter varchar(100) NOT NULL COMMENT '原件拟稿人',
+  drafter_phone char(11) NOT NULL COMMENT '拟稿人联系电话',
+  item_name varchar(250) NOT NULL COMMENT '事项名称',
+  item_code varchar(50) NOT NULL COMMENT '事项编号',
+  user_id int(11) NOT NULL COMMENT '(批示的)公司领导',
+  adverse_company varchar(250) NOT NULL COMMENT '对方单位',
+  secrecy_level int(11) NOT NULL COMMENT '保密等级',
+  item_content varchar(2000) NOT NULL COMMENT '事项内容',
+  over_time datetime DEFAULT NULL COMMENT '结束时间',
+  feedback int(11) DEFAULT NULL COMMENT '反馈频率',
+  next_feedback datetime DEFAULT NULL COMMENT '下次反馈时间',
+  dept_opinion varchar(2000) DEFAULT NULL COMMENT '部门意见',
+  lead_opinion varchar(2000) DEFAULT NULL COMMENT '领导批示',
+  item_statu int(11) DEFAULT '0' COMMENT '事项状态 0 删除 1未删除',
+  item_type  int(11) DEFAULT '0' COMMENT '事项类型 0 新增  1同步 2退回',
+  remark varchar(2000) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8
 INSERT INTO repository (source_id,source_time,serial_num,file_type,drafter,drafter_phone,item_name,item_code,user_id,adverse_company,secrecy_level,item_content,over_time,feedback,next_feedback,dept_opinion,lead_opinion,item_statu,item_type,remark)  
 VALUES(2,'2019-03-20 12:06:13',2222,2,'小三',123456789,'中秋晚会',1002,2,'文艺部',2,'筹备文艺晚会','2019-03-24 11:12:12',2,'2019-03-21 14:12:30','不通过','',0,1,'')
 
