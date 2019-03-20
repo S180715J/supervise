@@ -79,4 +79,13 @@ public class RepositoryService {
 	public List<Repository> queryAll() {
 		return repositoryMapper.queryAll();
 	}
+
+	/**
+	 * 添加新事项
+	 * @param rep
+	 * @return
+	 */
+	public Integer insert(Repository rep) {
+		return repositoryMapper.insert(rep);
+	}
 }
