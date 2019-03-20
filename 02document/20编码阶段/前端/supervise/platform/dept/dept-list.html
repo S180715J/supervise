@@ -1,128 +1,148 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="renderer" content="webkit|ie-comp|ie-stand">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport"
-        content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-  <meta http-equiv="Cache-Control" content="no-siteapp"/>
-  <title>NEWER督办平台-部门管理</title>
-  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../../static/h-ui/css/H-ui.min.css">
-  <link rel="stylesheet" href="../../static/h-ui.admin/css/H-ui.admin.css">
-  <link rel="stylesheet" href="../../static/Hui-iconfont/1.0.8/iconfont.css">
-  <link rel="stylesheet" href="../../static/h-ui.admin/skin/default/skin.css" id="skin">
-  <link rel="stylesheet" href="../../static/h-ui.admin/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>NEWER督办平台-部门管理</title>
+    <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../static/h-ui/css/H-ui.min.css">
+    <link rel="stylesheet" href="../../static/h-ui.admin/css/H-ui.admin.css">
+    <link rel="stylesheet" href="../../static/Hui-iconfont/1.0.8/iconfont.css">
+    <link rel="stylesheet" href="../../static/h-ui.admin/skin/default/skin.css" id="skin">
+    <link rel="stylesheet" href="../../static/h-ui.admin/css/style.css">
+    <link rel="stylesheet" href="../../layui/css/layui.css"/>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>
-  部门管理 <span class="c-gray en">&gt;</span>部门管理列表 <a id="refresh" class="btn btn-success radius r"
-                                                     style="line-height:1.6em;margin-top:3px"
-                                                     href="javascript:location.replace(location.href);" title="刷新">
-    <i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i> 首页
+    <span class="c-gray en">&gt;</span>
+    部门管理
+    <span class="c-gray en">&gt;</span>部门管理列表
+    <a id="refresh" class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
 <div class="page-container">
-  <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;"
-                                                               onclick="admin_add('添加部门','add-dept.html','500','450')"
-                                                               class="btn btn-primary radius">
-		<i class="Hui-iconfont">&#xe600;</i>添加部门</a></span></div>
-  <div class="mt-20">
-    <table class="table table-border table-bordered table-hover table-bg table-sort">
-      <thead>
-      <tr class="text-c">
-        <th width="50">机构名称</th>
-        <th width="80">机构路径</th>
-        <th width="70">部门简介</th>
-        <th width="80">部门职责</th>
-        <th width="100">操作</th>
-      </tr>
-      </thead>
-     
-      <tbody>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l">
+            <a href="javascript:;" onclick="admin_add('添加部门','add-dept.html','500','450')" class="btn btn-primary radius">
+                <i class="Hui-iconfont">&#xe600;</i>
+                添加部门
+            </a>
+        </span>
+    </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="50">机构名称</th>
+                <th width="80">机构路径</th>
+                <th width="70">部门简介</th>
+                <th width="80">部门职责</th>
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
 
-      </tbody>
-    </table>
-  </div>
+            </tbody>
+        </table>
+    </div>
 </div>
 <footer class="footer mt-20">
-  <div class="container">
-    Copyright &copy;2017-2027 SONG.net All Rights Reserved.
-  </div>
+    <div class="container">
+        Copyright &copy;2017-2027 SONG.net All Rights Reserved.
+    </div>
 </footer>
 
 <script src="../../js/jquery-3.3.1.min.js"></script>
 <script src="../../js/jquery.dataTables.min.js"></script>
 <script src="../../static/h-ui/js/H-ui.min.js"></script>
-<script src="../../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script src="../../static/h-ui.admin/js/H-ui.admin.js"></script>i
 <script src="../../static/WdatePicker/WdatePicker.js"></script>
 <script src="../../static/layer/2.4/layer.js"></script>
 <script src="../../static/layer/laypage.js"></script>
+<script src="../../js/jquery.serializejson.min.js"></script>
 <script src="../../js/hospital.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../layui/layui.js"></script>
 <script>
-  
-  /*添加*/
-  function admin_add(title, url, w, h) {
-    layer_show(title, url, w, h);
-  }
+
+    /*添加*/
+    function admin_add(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
 </script>
-<script >
-	$(function(){
-		loadData();
-	})
-	function loadData() {
-		console.info('开始加载数据...')
-		$.get(
-				'http://localhost:8080/org',
-				function(data) {
-					console.info('data:' + data);
-					var tabs = '';
-					$.each(data,function(index, value) {
-								tabs += '<tr>';
-								tabs += '<td>' +value.orgName +'</td>';
-								tabs += '<td>' +value.namePath +'</td>';
-								tabs += '<td>' +value.introduction +'</td>';
-								tabs += '<td>' +value.responsibility +'</td>';
-								tabs +=	'<td><a href="platform/dept/update-dept.html" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>修改</a><a href="javascript:org_del(\''+value.empno+'\')" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>删除</a></td>';
-								tabs += '</tr>';
-							});
-					$('tbody').append(tabs);
-				});
-	}
-	/*删除*/
-	function org_del(orgId) {
-		layer.confirm("确认要删除员工编号为：" + orgId + " 的这条数据吗?", function(index) {
-			$.ajax({
-				url: 'http://localhost:8080/delete'+ orgId,
-				method: 'delete',
-				success: function(data) {
-					if (data == 'ok') {
-						layer.msg(
-							'删除成功', {
-								icon: 1,
-								time: 2000 //2秒关闭（如果不配置，默认是3秒）
-							}
-						);
-						// 刷新窗口
-						window.location.reload();
-					}else{
-						layer.msg(
-							'没有删除数据', {
-								icon: 1,
-								time: 2000 //2秒关闭（如果不配置，默认是3秒）
-							}
-						);
-					}
+<script>
+    $(function () {
+        loadData();
+    });
 
-					
-				},
-				error: function(qXHR, textStatus, errorThrown) {
-					layer.alert("系统出现错误，请联系管理员");
-				}
-			}, 'text');
+    /* 初始化页面数据 */
+    function loadData() {
+        $.get(
+            HOST_URL + 'org',
+            function (data) {
+                var tabs = '';
+                $.each(data, function (index, value) {
+                    tabs += '<tr>';
+                    tabs += '<td>' + value.orgName + '</td>';
+                    tabs += '<td>' + value.namePath + '</td>';
+                    if (value.introduction == null) {
+                        tabs += '<td>暂无简介</td>';
+                    } else {
+                        tabs += '<td>' + value.introduction + '</td>';
+                    }
+                    if (value.responsibility == null) {
+                        tabs += '<td></td>';
+                    } else {
+                        tabs += '<td>' + value.responsibility + '</td>';
+                    }
+                    tabs += '<td><a href="update-dept.html" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>修改</a><a href="javascript:org_del(' + value.orgId + ')" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>删除</a></td>';
+                    tabs += '</tr>';
+                });
+                $('tbody').append(tabs);
+            });
+    }
 
-			layer.close(index);
-		});
-	}
-	</script>
+    /*删除部门*/
+    function org_del(orgId) {
+        layer.confirm("确认要删除编号为：【" + orgId + "】的部门吗?", function (index) {
+            $.ajax({
+                url: HOST_URL + 'delete/' + orgId,
+                method: 'DELETE',
+                success: function (data) {
+                    if (data == 'ok') {
+                        layer.msg(
+                            '删除成功',
+                            {
+                                icon: 1,
+                                time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                            },
+                            function () {
+                                // 刷新窗口
+                                window.location.reload();
+                            }
+                        );
+                    } else {
+                        layer.msg(
+                            '删除失败', {
+                                icon: 1,
+                                time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                            }
+                        );
+                    }
+                },
+                error: function (qXHR, textStatus, errorThrown) {
+                    layer.alert("系统出现错误，请联系管理员");
+                }
+            }, 'text');
+            layer.close(index);
+        });
+    }
+</script>
 </body>
 </html>
