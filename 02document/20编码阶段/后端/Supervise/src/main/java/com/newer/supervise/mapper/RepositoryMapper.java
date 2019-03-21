@@ -28,7 +28,7 @@ public interface RepositoryMapper {
 	 * 
 	 * @return
 	 */
-	@Select("SELECT  id, b.source_type,a.item_content,a.source_time,a.adverse_company,c.type_name,a.item_type,a.item_statu,d.opt_time   FROM  repository   a\r\n"
+	@Select("SELECT  id,item_name, b.source_type,a.item_content,a.source_time,a.adverse_company,c.type_name,a.item_type,a.item_statu,d.opt_time   FROM  repository   a\r\n"
 			+ "LEFT  JOIN  source  b  ON  a.source_id=b.source_id  \r\n"
 			+ "LEFT  JOIN  file_type c  ON  a.file_type=c.type_id\r\n"
 			+ "LEFT  JOIN  item_process d ON  a.item_code=d.item_code")
