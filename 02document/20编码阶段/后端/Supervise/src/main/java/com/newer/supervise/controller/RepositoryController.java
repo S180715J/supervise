@@ -1,12 +1,12 @@
 package com.newer.supervise.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,12 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.newer.supervise.model.Page;
 import com.newer.supervise.pojo.FileType;
-import com.newer.supervise.pojo.ItemProcess;
 import com.newer.supervise.pojo.Repository;
 import com.newer.supervise.pojo.SecrecyLevel;
 import com.newer.supervise.pojo.Source;
-import com.newer.supervise.pojo.User;
-import com.newer.supervise.service.ItemProcessService;
 import com.newer.supervise.service.RepositoryService;
 
 /**
@@ -33,8 +30,6 @@ public class RepositoryController {
 
 	@Autowired
 	private RepositoryService repositoryService;
-	@Autowired
-	private ItemProcessService itemService;
 
 	@GetMapping("/showSource")
 	public ResponseEntity<?> putSourceToPage() {
@@ -91,9 +86,24 @@ public class RepositoryController {
 		List<Repository> list = repositoryService.queryAll();
 		if (list.isEmpty()) {
 			// 如果没查到数据则返回0
-			return new ResponseEntity<Integer>(0, HttpStatus.OK);
+			return new ResponseEntity<Integer>(0, HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<Repository>>(list, HttpStatus.OK);
+	}
+
+	/**
+	 * 查询单个
+	 * 
+	 * @return
+	 */
+	@GetMapping("/item/one/{id}")
+	public ResponseEntity<?> queryOne(@PathVariable("id") Integer id) {
+		Repository one = repositoryService.queryOne(id);
+		if (one == null) {
+			// 如果没查到数据则返回0
+			return new ResponseEntity<Integer>(0, HttpStatus.OK);
+		}
+		return new ResponseEntity<Repository>(one, HttpStatus.OK);
 	}
 
 	/**
@@ -104,21 +114,39 @@ public class RepositoryController {
 	 */
 	@PostMapping("/item/add")
 	public ResponseEntity<?> insert(@RequestBody Repository rep) {
-		//新增事项时插入事项进程一条数据（之后的审批流程围绕这条数据修改）
-		String itemCode = rep.getItemCode().getItemCode();
-		User userId = rep.getUser();
-		ItemProcess item = new ItemProcess();
-		item.setItemCode(itemCode);
-		item.setOptTime(new Date());
-		item.setUserId(userId);
-		
-		Integer i = itemService.insert(item);
-		if (i>0) {
+		// 查事项名称，事项编号的重复
+		Integer e = repositoryService.selectEquals(rep);
+		// 如果e>0,则数据存在,否则执行else下的代码
+		if (e > 0) {
+			// 这里的返回判断有重复的则返回-1
+			return new ResponseEntity<Integer>(-1, HttpStatus.NO_CONTENT);
+		} else {
 			Integer insert = repositoryService.insert(rep);
+			// 这里的返回判断添加事项(备用库)是否成功
 			return new ResponseEntity<Integer>(insert, HttpStatus.OK);
-			// 如果i大于0，则插入成功，否则失败
 		}
-		return new ResponseEntity<Integer>(0, HttpStatus.NO_CONTENT);
+	}
+
+	/**
+	 * 修改
+	 * 
+	 * @param rep
+	 * @return
+	 */
+	@PostMapping("/item/update")
+	public ResponseEntity<?> update(@RequestBody Repository rep) {
+		// 查事项名称，事项编号的重复
+		Integer e = repositoryService.updateEquals(rep);
+		// 如果e>0,则数据存在,否则执行else下的代码
+		if (e!=null) {
+			// 这里的返回判断有重复的则返回-1
+			return new ResponseEntity<Integer>(-1, HttpStatus.OK);
+		} else {
+			Integer i = repositoryService.update(rep);
+			System.out.println(i);
+			// 这里的返回判断添加事项(备用库)是否成功
+			return new ResponseEntity<Integer>(i, HttpStatus.OK);
+		}
 	}
 
 }
