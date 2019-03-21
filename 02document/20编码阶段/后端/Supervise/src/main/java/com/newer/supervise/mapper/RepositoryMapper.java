@@ -28,13 +28,14 @@ public interface RepositoryMapper {
 	 * 
 	 * @return
 	 */
-	@Select("SELECT  id,item_name, b.source_type,a.item_content,a.source_time,a.adverse_company,c.type_name,a.item_type,a.item_statu,d.opt_time   FROM  repository   a\r\n"
+	@Select("SELECT  id,item_name, b.source_type,a.item_content,a.source_time,o.org_name,c.type_name,a.item_type,a.item_statu,a.item_code  FROM  repository   a\r\n"
 			+ "LEFT  JOIN  source  b  ON  a.source_id=b.source_id  \r\n"
-			+ "LEFT  JOIN  file_type c  ON  a.file_type=c.type_id\r\n"
-			+ "LEFT  JOIN  item_process d ON  a.item_code=d.item_code")
+			+ "LEFT  JOIN  file_type c  ON  a.file_type=c.type_id \r\n"
+			+ "LEFT  JOIN  organization o  ON  a.org_id=o.org_id  ORDER  BY id ASC")
 	@Results({ @Result(column = "source_type", property = "sourceId.sourceType"),
+			@Result(column = "org_name", property = "orgId.orgName"),
 			@Result(column = "type_name", property = "fileType.typeName"),
-			@Result(column = "opt_time", property = "itemCode.optTime") })
+			@Result(column = "item_code", property = "itemCode.itemCode") })
 	public List<Repository> queryAll();
 
 	/**
@@ -42,32 +43,38 @@ public interface RepositoryMapper {
 	 * 
 	 * @return
 	 */
-	@Select("SELECT  id,item_name,d.item_code,u.user_id,remark,b.source_type,a.item_content,a.source_time,a.adverse_company,c.type_name,a.item_type,a.item_statu,d.opt_time   FROM  repository   a\r\n"
-			+ "LEFT  JOIN  source  b  ON  a.source_id=b.source_id  \r\n"
-			+ "LEFT  JOIN  file_type c  ON  a.file_type=c.type_id  \r\n"
-			+ "LEFT  JOIN  item_process d ON  a.item_code=d.item_code \r\n"
-			+ "LEFT  JOIN  `user`  u  ON   a.user_id=u.user_id WHERE id=#{id} ")
+	@Select("SELECT a.id,s.source_type,a.source_time,a.serial_num,f.type_name,a.drafter,a.drafter_phone,a.item_name,a.item_code,u.real_name,u.duty_id,o.org_name,sl.level_name,a.item_content  FROM  repository  a \r\n"
+			+ "LEFT JOIN source  s  ON  a.source_id=s.source_id \r\n"
+			+ "LEFT JOIN file_type f ON a.file_type=f.type_id \r\n"
+			+ "LEFT JOIN item_process i  ON a.item_code=i.item_code \r\n"
+			+ "LEFT JOIN `user`  u   ON  a.user_id=u.duty_id \r\n"
+			+ "LEFT JOIN  organization o  ON a.org_id=o.org_id \r\n"
+			+ "LEFT JOIN  secrecy_level sl ON a.secrecy_level=sl.level_id  WHERE id=1")
 	@Results({ @Result(column = "source_type", property = "sourceId.sourceType"),
-			@Result(column = "item_code", property = "itemCode.itemCode"),
-			@Result(column = "user_id", property = "user.userId"),
 			@Result(column = "type_name", property = "fileType.typeName"),
-			@Result(column = "opt_time", property = "itemCode.optTime") })
+			@Result(column = "item_code", property = "itemCode.itemCode"),
+			@Result(column = "real_name", property = "user.realName"),
+			@Result(column = "duty_id", property = "user.duty.dutyId"),
+			@Result(column = "org_name", property = "orgId.orgName"),
+			@Result(column = "level_name", property = "secrecyLevel.levelName"), })
 	public Repository queryOne(@Param("id") Integer id);
-	
+
 	/**
-	 *查事项名称，事项编号的重复问题
+	 * 查事项名称，事项编号的重复问题
+	 * 
 	 * @param rep
 	 * @return
 	 */
 	@Select("SELECT  item_name,item_code FROM  repository  WHERE  item_name=#{itemName} OR item_code=#{itemCode.itemCode}")
-	public Integer  selectEquals(Repository rep);
-	
+	public Integer selectEquals(Repository rep);
+
 	/**
 	 * 修改时查重
+	 * 
 	 * @return
 	 */
 	@Select("SELECT id, item_name,item_code FROM  repository  WHERE id!=#{id} AND (item_name=#{itemName} OR item_code=#{itemCode.itemCode}) ")
-	public Integer  updateEquals(Repository rep);
+	public Integer updateEquals(Repository rep);
 
 	/**
 	 * 添加新数据
@@ -75,13 +82,13 @@ public interface RepositoryMapper {
 	 * @param rep
 	 * @return
 	 */
-	@Insert("INSERT INTO repository (source_id,source_time,serial_num,file_type,drafter,drafter_phone,item_name,item_code,user_id,adverse_company,secrecy_level,item_content,over_time,feedback,next_feedback,dept_opinion,lead_opinion,item_statu,item_type,remark)  \r\n"
-			+ "VALUES(#{sourceId.sourceId},#{sourceTime},#{serialNum},#{fileType.typeId},#{drafter},#{drafterPhone},#{itemName},#{itemCode.itemCode},#{user.userId},#{adverseCompany},#{secrecyLevel.levelId},#{itemContent},#{overTime},#{feedback},#{nextFeedback},#{deptOpinion},#{leadOpinion},#{itemStatu},#{itemType},#{remark})")
+	@Insert("INSERT INTO repository (source_id,source_time,serial_num,file_type,drafter,drafter_phone,item_name,item_code,user_id,org_id,secrecy_level,item_content,over_time,feedback,next_feedback,dept_opinion,lead_opinion,item_statu,item_type,remark)  \r\n"
+			+ "VALUES(#{sourceId.sourceId},#{sourceTime},#{serialNum},#{fileType.typeId},#{drafter},#{drafterPhone},#{itemName},#{itemCode.itemCode},#{user.userId},#{orgId.orgId},#{secrecyLevel.levelId},#{itemContent},#{overTime},#{feedback},#{nextFeedback},#{deptOpinion},#{leadOpinion},#{itemStatu},#{itemType},#{remark})")
 	public Integer insert(Repository rep);
-	
-	
+
 	/**
 	 * 修改
+	 * 
 	 * @param rep
 	 * @return
 	 */

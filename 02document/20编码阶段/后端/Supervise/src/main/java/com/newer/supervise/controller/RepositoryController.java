@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.newer.supervise.model.Page;
 import com.newer.supervise.pojo.FileType;
+import com.newer.supervise.pojo.ItemProcess;
 import com.newer.supervise.pojo.Repository;
 import com.newer.supervise.pojo.SecrecyLevel;
 import com.newer.supervise.pojo.Source;
@@ -92,7 +93,7 @@ public class RepositoryController {
 	}
 
 	/**
-	 * 查询单个
+	 * 查询单个,用于修改回显,立项回显
 	 * 
 	 * @return
 	 */
@@ -117,7 +118,7 @@ public class RepositoryController {
 		// 查事项名称，事项编号的重复
 		Integer e = repositoryService.selectEquals(rep);
 		// 如果e>0,则数据存在,否则执行else下的代码
-		if (e > 0) {
+		if (e != null) {
 			// 这里的返回判断有重复的则返回-1
 			return new ResponseEntity<Integer>(-1, HttpStatus.NO_CONTENT);
 		} else {
@@ -133,20 +134,34 @@ public class RepositoryController {
 	 * @param rep
 	 * @return
 	 */
-	@PostMapping("/item/update")
-	public ResponseEntity<?> update(@RequestBody Repository rep) {
+	@PostMapping("/item/update/{oldCode}")
+	public ResponseEntity<?> update(@RequestBody Repository rep, @PathVariable("oldCode") String oldCode) {
 		// 查事项名称，事项编号的重复
 		Integer e = repositoryService.updateEquals(rep);
 		// 如果e>0,则数据存在,否则执行else下的代码
-		if (e!=null) {
+		if (e != null) {
 			// 这里的返回判断有重复的则返回-1
 			return new ResponseEntity<Integer>(-1, HttpStatus.OK);
 		} else {
-			Integer i = repositoryService.update(rep);
+			Integer i = repositoryService.update(rep, oldCode);
 			System.out.println(i);
 			// 这里的返回判断添加事项(备用库)是否成功
 			return new ResponseEntity<Integer>(i, HttpStatus.OK);
 		}
 	}
 
+	/**
+	 * 得到最后操作时间
+	 * 
+	 * @param itemCode
+	 * @return
+	 */
+	@GetMapping("/item/Time/{itemCode}")
+	public ResponseEntity<?> selectTime(@PathVariable("itemCode") String itemCode) {
+		ItemProcess item = repositoryService.selectTime(itemCode);
+		if (item != null) {
+			return new ResponseEntity<ItemProcess>(item, HttpStatus.OK);
+		}
+		return new ResponseEntity<Integer>(0, HttpStatus.OK);
+	}
 }

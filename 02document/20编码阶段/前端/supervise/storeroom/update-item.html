@@ -134,6 +134,7 @@
 						</tr>
 					</thead>
 				</table>
+				<input type="hidden" name="oldCode" value="" id="oldCode">
 			</form>
 	</article>
 
@@ -206,15 +207,16 @@
 			}
 			// url传递的信息
 			var $urlMsg = parseUrl(window.location.search);
-			var $oldCode;
 			$.ajax({
 				url: HOST_URL + "item/one/" + $urlMsg,
 				type: "GET",
 				dataType: "json",
 				success: function(data) {
-					$oldCode = itemCode.itemCode;
 					$("#itemName").val(data.itemName);
+					//回显事项编号
 					$("#itemCode").val(data.itemCode.itemCode);
+					//给隐藏域赋旧编号
+					$("#oldCode").val(data.itemCode.itemCode);
 					$("select option:eq(" + data.user.duty.dutyId + ")").attr("selected", "selected");
 					$("#remark").val(data.remark);
 				},
@@ -222,7 +224,6 @@
 					withCredentials: true
 				}
 			});
-
 			//提交
 			$("input[type=submit]:eq(0)").click(function() {
 				//表单以json形式提交
@@ -240,9 +241,10 @@
 				};
 				$dataFrom.user = userId;
 				$dataFrom.id = $urlMsg
-				alert($oldCode)
 				//json转字符串类型
 				var dataJSON = JSON.stringify($dataFrom);
+				//得到旧编号
+				var $oldCode = $("#oldCode").val();
 				$.ajax({
 					url: HOST_URL + "item/update/" + $oldCode,
 					type: "POST",
@@ -270,6 +272,7 @@
 					}
 				});
 			});
+
 		});
 	</script>
 

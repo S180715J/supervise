@@ -1,6 +1,5 @@
 package com.newer.supervise.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import com.newer.supervise.pojo.ItemProcess;
 import com.newer.supervise.pojo.Repository;
 import com.newer.supervise.pojo.SecrecyLevel;
 import com.newer.supervise.pojo.Source;
-import com.newer.supervise.pojo.User;
 
 /**
  * 备用库的服务层
@@ -94,25 +92,16 @@ public class RepositoryService {
 	 * @param rep
 	 * @return
 	 */
-	@Transactional
 	public Integer insert(Repository rep) {
-		// 新增事项时插入事项进程一条数据（之后的审批流程围绕这条数据修改）
-		String itemCode = rep.getItemCode().getItemCode();
-		User userId = rep.getUser();
-		ItemProcess item = new ItemProcess();
-		item.setItemCode(itemCode);
-		item.setOptTime(new Date());
-		item.setUserId(userId);
-		itemMapper.insert(item);
-
 		return repositoryMapper.insert(rep);
 	}
 
 	/**
+	 * 查询单个,用于修改回显,立项回显
 	 * 
-	 * 查询单个
+	 * @param id
+	 * @return
 	 */
-
 	public Repository queryOne(Integer id) {
 		return repositoryMapper.queryOne(id);
 	}
@@ -124,10 +113,9 @@ public class RepositoryService {
 	 * @return
 	 */
 	@Transactional
-	public Integer update(Repository rep) {
+	public Integer update(Repository rep, String oldCode) {
 		String itemCode = rep.getItemCode().getItemCode();
-		Integer id = rep.getId();
-		 itemMapper.update(itemCode, id);
+		itemMapper.update(itemCode, oldCode);
 
 		return repositoryMapper.update(rep);
 	}
@@ -141,13 +129,24 @@ public class RepositoryService {
 	public Integer selectEquals(Repository rep) {
 		return repositoryMapper.selectEquals(rep);
 	}
-	
+
 	/**
 	 * 修改时查重
+	 * 
 	 * @param rep
 	 * @return
 	 */
 	public Integer updateEquals(Repository rep) {
 		return repositoryMapper.updateEquals(rep);
+	}
+
+	/**
+	 * 得到最后的操作时间
+	 * 
+	 * @param itemCode
+	 * @return
+	 */
+	public ItemProcess selectTime(String itemCode) {
+		return itemMapper.selectTime(itemCode);
 	}
 }
