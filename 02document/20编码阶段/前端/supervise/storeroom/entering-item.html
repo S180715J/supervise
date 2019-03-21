@@ -28,7 +28,7 @@
             <th>
               <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-6">督办来源：</label>
-                <div class="formControls col-xs-8 col-sm-4">
+                <div class="formControls col-xs-8 col-sm-5">
                   <span class="select-box">
                                     <select name="sourceId" class="select" id="source">
                                         <option value="-1">---请选择---</option>
@@ -40,7 +40,7 @@
             <th>
               <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">来源时间：</label>
-                <div class="formControls col-xs-8 col-sm-4">
+                <div class="formControls col-xs-8 col-sm-5">
                   <input type="text" class="input-text" value="" placeholder="" id="sourceTime"
                                    name="sourceTime">
                         </div>
@@ -51,7 +51,7 @@
             <th>
               <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-6">（公文）原流水号：</label>
-                <div class="formControls col-xs-8 col-sm-4">
+                <div class="formControls col-xs-8 col-sm-5">
                   <input type="text" class="input-text" value="" placeholder="" id="serialNum"
                                    name="serialNum">
                         </div>
@@ -60,7 +60,7 @@
             <th>
               <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">文件类型：</label>
-                <div class="formControls col-xs-8 col-sm-4">
+                <div class="formControls col-xs-8 col-sm-5">
                   <span class="select-box">
                                 <select name="fileType" class="select" id="fileType">
                                     <option value="-1">---请选择---</option>
@@ -74,7 +74,7 @@
             <th>
               <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-6">原件拟稿人：</label>
-                <div class="formControls col-xs-8 col-sm-4">
+                <div class="formControls col-xs-8 col-sm-5">
                   <input type="text" class="input-text" value="" placeholder="" id="drafter"
                                    name="drafter">
                         </div>
@@ -83,7 +83,7 @@
             <th>
               <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">原件联系电话：</label>
-                <div class="formControls col-xs-8 col-sm-4">
+                <div class="formControls col-xs-8 col-sm-5">
                   <input type="text" class="input-text" value="" placeholder="" id="drafterPhone"
                                    name="drafterPhone">
                         </div>
@@ -94,7 +94,7 @@
             <th>
               <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-6"><span class="c-red">*</span>事项名称：</label>
-                <div class="formControls col-xs-8 col-sm-4">
+                <div class="formControls col-xs-8 col-sm-5">
                   <input type="text" class="input-text" value="" placeholder="" id="itemName"
                                    name="itemName">
                         </div>
@@ -103,7 +103,7 @@
             <th>
               <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">事项编号：</label>
-                <div class="formControls col-xs-8 col-sm-4">
+                <div class="formControls col-xs-8 col-sm-5">
                   <input type="text" class="input-text" value="" placeholder="" id="itemCode"
                                    name="itemCode">
                         </div>
@@ -114,7 +114,7 @@
             <th>
               <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-6"><span class="c-red">*</span>公司领导：</label>
-                <div class="formControls col-xs-8 col-sm-4">
+                <div class="formControls col-xs-8 col-sm-5">
                   <span class="select-box">
                                 <select name="user" class="select" id="userId">
                                     <option value="-1">---请选择---</option>
@@ -125,19 +125,22 @@
             </th>
             <th>
               <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">对方单位：</label>
-                <div class="formControls col-xs-8 col-sm-4">
-                  <input type="text" class="input-text" value="" placeholder="" id="adverseCompany"
-                                   name="adverseCompany">
-                        </div>
+                <label class="form-label col-xs-4 col-sm-3">来源部门：</label>
+                <div class="formControls col-xs-8 col-sm-5">
+                  <span class="select-box">
+                                    <select name="orgId" class="select" id="orgId">
+                                        <option value="-1">---请选择---</option>
+                                    </select>
+                                </span>
                 </div>
+              </div>
             </th>
           </tr>
           <tr>
             <th>
               <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-6" style="">密级：</label>
-                <div class="formControls col-xs-8 col-sm-4">
+                <div class="formControls col-xs-8 col-sm-5">
                   <span class="select-box">
                                     <select name="secrecyLevel" class="select" id="secrecyLevel">
                                         <option value="-1">---请选择---</option>
@@ -277,6 +280,7 @@
       fileTypeInit();
       SecrecyInit();
       leaderInit();
+      orgInit();
 
       $('.skin-minimal input').iCheck({
         checkboxClass: 'icheckbox-blue',
@@ -437,6 +441,32 @@
         }
       }, 'JSON');
     }
+    /**
+     * 初始化部门
+     */
+    function orgInit() {
+      $.ajax({
+        url: HOST_URL + 'org',
+        type: 'GET',
+        contentType: '',
+        success: function(data) {
+          var leader = '';
+          if (!(data == '0')) {
+            $.each(data, function(i, user) {
+              leader += '<option value=' + user.orgId + '>' + user.orgName + '</option>';
+            });
+            $('#orgId').append(leader);
+          }
+          else {
+            leader = '暂无部门';
+            $('#orgId').append(leader);
+          }
+        },
+        xhrFields: {
+          withCredentials: true
+        }
+      }, 'JSON');
+    }
   </script>
 
   <script type="text/javascript">
@@ -457,7 +487,7 @@
         //-----------------------------------------------------------------------
         var $sourceTime = $("#sourceTime").val();
         $dataFrom.sourceTime = $sourceTime;
-        //-----------------------------------------------------------------------
+        //-----------------督办来源--------------------------------------------------
         var $fileType = $("select:eq(1) option:selected").val();
         var typeId = {
           "typeId": $fileType
@@ -469,19 +499,25 @@
           "itemCode": $itemCode
         };
         $dataFrom.itemCode = itemCode;
-        //-----------------------------------------------------------------------
+        //-------------------文件类型------------------------------------------
         var $user = $("select:eq(2) option:selected").val();
         var userId = {
           "userId": $user
         };
         $dataFrom.user = userId;
-        //-----------------------------------------------------------------------
-
-        var $secrecyLevel = $("select:eq(3) option:selected").val();
+        //--------------------来源部门-----------------------------------------
+        var $orgId = $("select:eq(3) option:selected").val();
+        var orgId = {
+          "orgId": $orgId
+        };
+        $dataFrom.orgId = orgId;
+        //---------------------密级-------------------------------------------
+        var $secrecyLevel = $("select:eq(4) option:selected").val();
         var levelId = {
           "levelId": $secrecyLevel
         };
         $dataFrom.secrecyLevel = levelId;
+
 
         //json转字符串类型
         var dataJSON = JSON.stringify($dataFrom);
@@ -506,7 +542,7 @@
             window.parent.location.reload();
           },
           error: function(xhr, type, errorThrown) {
-            layer.alert('系统出现错误，请联系管理员');
+            layer.alert('您输入的事项名称/事项编号有重复');
           },
           xhrFields: {
             withCredentials: true

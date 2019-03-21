@@ -29,7 +29,7 @@ public class Repository implements Serializable {
 	private String itemName; // 事项名称
 	private ItemProcess itemCode; // 事项编号
 	private User user; // 批示人(公司领导)
-	private String adverseCompany; // 对方单位
+	private Organization orgId; //来源部门
 	private SecrecyLevel secrecyLevel; // 保密等级
 	private String itemContent; // 事项内容
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -50,7 +50,7 @@ public class Repository implements Serializable {
 	}
 
 	public Repository(Integer id, Source sourceId, Date sourceTime, String serialNum, FileType fileType, String drafter,
-			String drafterPhone, String itemName, ItemProcess itemCode, User user, String adverseCompany,
+			String drafterPhone, String itemName, ItemProcess itemCode, User user, Organization orgId,
 			SecrecyLevel secrecyLevel, String itemContent, Date overTime, Integer feedback, Date nextFeedback,
 			String deptOpinion, String leadOpinion, Integer itemStatu, Integer itemType, String remark) {
 		super();
@@ -64,7 +64,7 @@ public class Repository implements Serializable {
 		this.itemName = itemName;
 		this.itemCode = itemCode;
 		this.user = user;
-		this.adverseCompany = adverseCompany;
+		this.orgId = orgId;
 		this.secrecyLevel = secrecyLevel;
 		this.itemContent = itemContent;
 		this.overTime = overTime;
@@ -81,18 +81,17 @@ public class Repository implements Serializable {
 	public String toString() {
 		return "Repository [id=" + id + ", sourceId=" + sourceId + ", sourceTime=" + sourceTime + ", serialNum="
 				+ serialNum + ", fileType=" + fileType + ", drafter=" + drafter + ", drafterPhone=" + drafterPhone
-				+ ", itemName=" + itemName + ", itemCode=" + itemCode + ", user=" + user + ", adverseCompany="
-				+ adverseCompany + ", secrecyLevel=" + secrecyLevel + ", itemContent=" + itemContent + ", overTime="
-				+ overTime + ", feedback=" + feedback + ", nextFeedback=" + nextFeedback + ", deptOpinion="
-				+ deptOpinion + ", leadOpinion=" + leadOpinion + ", itemStatu=" + itemStatu + ", itemType=" + itemType
-				+ ", remark=" + remark + "]";
+				+ ", itemName=" + itemName + ", itemCode=" + itemCode + ", user=" + user + ", orgId=" + orgId
+				+ ", secrecyLevel=" + secrecyLevel + ", itemContent=" + itemContent + ", overTime=" + overTime
+				+ ", feedback=" + feedback + ", nextFeedback=" + nextFeedback + ", deptOpinion=" + deptOpinion
+				+ ", leadOpinion=" + leadOpinion + ", itemStatu=" + itemStatu + ", itemType=" + itemType + ", remark="
+				+ remark + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((adverseCompany == null) ? 0 : adverseCompany.hashCode());
 		result = prime * result + ((deptOpinion == null) ? 0 : deptOpinion.hashCode());
 		result = prime * result + ((drafter == null) ? 0 : drafter.hashCode());
 		result = prime * result + ((drafterPhone == null) ? 0 : drafterPhone.hashCode());
@@ -106,6 +105,7 @@ public class Repository implements Serializable {
 		result = prime * result + ((itemType == null) ? 0 : itemType.hashCode());
 		result = prime * result + ((leadOpinion == null) ? 0 : leadOpinion.hashCode());
 		result = prime * result + ((nextFeedback == null) ? 0 : nextFeedback.hashCode());
+		result = prime * result + ((orgId == null) ? 0 : orgId.hashCode());
 		result = prime * result + ((overTime == null) ? 0 : overTime.hashCode());
 		result = prime * result + ((remark == null) ? 0 : remark.hashCode());
 		result = prime * result + ((secrecyLevel == null) ? 0 : secrecyLevel.hashCode());
@@ -125,11 +125,6 @@ public class Repository implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Repository other = (Repository) obj;
-		if (adverseCompany == null) {
-			if (other.adverseCompany != null)
-				return false;
-		} else if (!adverseCompany.equals(other.adverseCompany))
-			return false;
 		if (deptOpinion == null) {
 			if (other.deptOpinion != null)
 				return false;
@@ -194,6 +189,11 @@ public class Repository implements Serializable {
 			if (other.nextFeedback != null)
 				return false;
 		} else if (!nextFeedback.equals(other.nextFeedback))
+			return false;
+		if (orgId == null) {
+			if (other.orgId != null)
+				return false;
+		} else if (!orgId.equals(other.orgId))
 			return false;
 		if (overTime == null) {
 			if (other.overTime != null)
@@ -313,12 +313,12 @@ public class Repository implements Serializable {
 		this.user = user;
 	}
 
-	public String getAdverseCompany() {
-		return adverseCompany;
+	public Organization getOrgId() {
+		return orgId;
 	}
 
-	public void setAdverseCompany(String adverseCompany) {
-		this.adverseCompany = adverseCompany;
+	public void setOrgId(Organization orgId) {
+		this.orgId = orgId;
 	}
 
 	public SecrecyLevel getSecrecyLevel() {
@@ -401,4 +401,5 @@ public class Repository implements Serializable {
 		this.remark = remark;
 	}
 
+	
 }

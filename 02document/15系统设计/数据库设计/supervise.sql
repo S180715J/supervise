@@ -114,31 +114,31 @@ INSERT INTO file_type(type_name) VALUES ('发文'),('收文'),('签报'),('白�
 -- 备用库
 DROP TABLE IF EXISTS repository;
 CREATE TABLE repository (
-  id int(11) NOT NULL AUTO_INCREMENT COMMENT '事项id',
-  source_id int(11) NOT NULL COMMENT '督办来源',
+  id INT(11) NOT NULL AUTO_INCREMENT COMMENT '事项id',
+  source_id INT(11) NOT NULL COMMENT '督办来源',
   source_time datetime NOT NULL COMMENT '来源时间',
   serial_num varchar(100) NOT NULL COMMENT '原流水号',
-  file_type int(11) NOT NULL COMMENT '文件类型id',
+  file_type INT(11) NOT NULL COMMENT '文件类型id',
   drafter varchar(100) NOT NULL COMMENT '原件拟稿人',
   drafter_phone char(11) NOT NULL COMMENT '拟稿人联系电话',
   item_name varchar(250) NOT NULL COMMENT '事项名称',
   item_code varchar(50) NOT NULL COMMENT '事项编号',
-  user_id int(11) NOT NULL COMMENT '(批示的)公司领导',
-  adverse_company varchar(250) NOT NULL COMMENT '对方单位',
+  user_id INT(11) NOT NULL COMMENT '(批示的)公司领导',
+  org_id INT(11) NOT NULL COMMENT '来源部门',
   secrecy_level int(11) NOT NULL COMMENT '保密等级',
   item_content varchar(2000) NOT NULL COMMENT '事项内容',
   over_time datetime DEFAULT NULL COMMENT '结束时间',
-  feedback int(11) DEFAULT NULL COMMENT '反馈频率',
+  feedback INT(11) DEFAULT NULL COMMENT '反馈频率',
   next_feedback datetime DEFAULT NULL COMMENT '下次反馈时间',
   dept_opinion varchar(2000) DEFAULT NULL COMMENT '部门意见',
   lead_opinion varchar(2000) DEFAULT NULL COMMENT '领导批示',
-  item_statu int(11) DEFAULT '0' COMMENT '事项状态 0 删除 1未删除',
-  item_type  int(11) DEFAULT '0' COMMENT '事项类型 0 新增  1同步 2退回',
+  item_statu INT(11) DEFAULT '0' COMMENT '事项状态 0 删除 1未删除',
+  item_type  INT(11) DEFAULT '0' COMMENT '事项类型 0 新增  1同步 2退回',
   remark varchar(2000) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8
 INSERT INTO repository (source_id,source_time,serial_num,file_type,drafter,drafter_phone,item_name,item_code,user_id,adverse_company,secrecy_level,item_content,over_time,feedback,next_feedback,dept_opinion,lead_opinion,item_statu,item_type,remark)  
-VALUES(2,'2019-03-20 12:06:13',2222,2,'小三',123456789,'中秋晚会',1002,2,'文艺部',2,'筹备文艺晚会','2019-03-24 11:12:12',2,'2019-03-21 14:12:30','不通过','',0,1,'')
+VALUES(2,'2019-03-20 12:06:13',2222,2,'小三',123456789,'中秋晚会',1002,2,3,2,'筹备文艺晚会','2019-03-24 11:12:12',2,'2019-03-21 14:12:30','不通过','',0,1,'')
 
 
 -- 事项进展表
@@ -149,7 +149,10 @@ CREATE TABLE item_process(
   statu_describe VARCHAR(100)  COMMENT '状态描述',
   opt_time DATETIME NOT NULL COMMENT '操作时间',
   user_id INT(11) NOT NULL COMMENT '操作人',
+  sup_statu INT(11) DEFAULT NULL COMMENT '0:未完成 1:已完成 2:退回 督办员操作',
+  org_statu INT(11) DEFAULT NULL COMMENT '0:未完成 1:已完成 2:退回 部门操作',
+  staff_statu INT(11) DEFAULT NULL COMMENT '0:未完成 1:已完成 2:退回 员工操作',
   PRIMARY KEY(statu_id)
 )ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
-INSERT INTO item_process (item_code,statu_describe,opt_time,user_id) VALUES(1002,'','2019-03-21 12:10:49',2)
+-- INSERT INTO item_process (item_code,statu_describe,opt_time,user_id) VALUES(1002,'','2019-03-21 12:10:49',2)
 
