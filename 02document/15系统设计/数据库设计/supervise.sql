@@ -154,5 +154,5 @@ CREATE TABLE item_process(
   staff_statu INT(11) DEFAULT NULL COMMENT '0:未完成 1:已完成 2:退回 员工操作',
   PRIMARY KEY(statu_id)
 )ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8;
-INSERT INTO item_process (item_code,statu_describe,opt_time,user_id) VALUES(1002,'','2019-03-21 12:10:49',2)
+-- INSERT INTO item_process (item_code,statu_describe,opt_time,user_id) VALUES(1002,'','2019-03-21 12:10:49',2)
 
