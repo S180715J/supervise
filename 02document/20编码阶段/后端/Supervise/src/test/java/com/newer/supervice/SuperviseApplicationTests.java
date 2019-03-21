@@ -1,4 +1,4 @@
-package com.newer.supervise;
+package com.newer.supervice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

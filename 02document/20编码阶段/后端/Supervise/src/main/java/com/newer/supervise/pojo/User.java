@@ -27,8 +27,8 @@ public class User implements Serializable{
 	private Education education; 		// 学历
 	private Duty duty; 					// 职务
 	private Organization organization; // 机构
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date optTime; 				// 操作时间
 
 	public User() {
