@@ -24,33 +24,21 @@
 <article class="page-container">
 	<form action="" method="post" class="form form-horizontal" id="form-member-add">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户登录名：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="不可修改" id="username" name="username" readonly="readonly">
+			<label class="form-label col-xs-4 col-sm-4"><span class="c-red">*</span>用户登录名：</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="text" class="input-text" value="" placeholder="不可修改" id="userName" name="userName" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户姓名：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-			</div>
-		</div>
-		<!-- 默认密码888888 -->
-		<div class="row cl">
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="hidden" class="input-text" autocomplete="off" value="888888" placeholder="密码" id="pwd" name="pwd">
+			<label class="form-label col-xs-4 col-sm-4"><span class="c-red">*</span>用户姓名：</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="text" class="input-text" value="" placeholder="" id="realName" name="realName">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">性别：<span class="c-red"></span></label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="不可修改" id="username" name="username" readonly="readonly">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">入职时间：<span class="c-red"></span></label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="不可修改" id="username" name="username" readonly="readonly">
+			<label class="form-label col-xs-4 col-sm-4">入职时间：<span class="c-red"></span></label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="text" class="input-text" value="" placeholder="不可修改" id="hiredate" name="hiredate" readonly="readonly">
 			</div>
 		</div>
 		
@@ -58,9 +46,9 @@
 		
 		
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">学历：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="city">
+			<label class="form-label col-xs-4 col-sm-4">学历：</label>
+			<div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
+				<select id="education" name="education" class="select" size="1" name="city">
 					<option value="" selected>请选择学历</option>
 					<option value="1">无</option>
 					<option value="2">高中</option>
@@ -70,9 +58,9 @@
 				</span> </div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">所属部门：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="city">
+			<label class="form-label col-xs-4 col-sm-4">所属部门：</label>
+			<div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
+				<select id="organization" name="organization" class="select" size="1" name="city">
 					<option value="" selected>请选择部门</option>
 					<option value="1">无</option>
 					<option value="2">开发部</option>
@@ -85,9 +73,9 @@
 		</div>
 		
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">职务：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="city">
+			<label class="form-label col-xs-4 col-sm-4">职务：</label>
+			<div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
+				<select id="duty" name="duty" class="select" size="1" name="city">
 					<option value="" selected>请选择职务</option>
 					<option value="1">无</option>
 					<option value="2">董事长</option>
@@ -99,8 +87,8 @@
 				</span> </div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>职位类型：</label>
-			<div class="formControls col-xs-8 col-sm-9">
+			<label class="form-label col-xs-4 col-sm-4"><span class="c-red">*</span>职位类型：</label>
+			<div class="formControls col-xs-8 col-sm-3">
 				<input type="text" class="input-text" value="" placeholder="无" id="mobile" name="mobile" readonly="readonly">
 			</div>
 		</div>
@@ -125,7 +113,32 @@
 <script type="text/javascript" src="../../lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 
+<script type="text/javascript">
+	$(function(){
+		initUser()
+	});
+	
+	/* 回显数据*/
+	function initUser() {
+		var userId = localStorage.getItem('userId');
+		$.ajax({
+			url : 'http://localhost:8888/Supervise/queryuser/' + userId,
+			type : 'GET',
+			contentType: "application/json;charset=utf-8",
+			success : function(data){
+				$('#userName').val(data.userName);
+				$('#realName').val(data.realName);
+				$('#hiredate').val(data.hiredate);
+				
+// 				$('#organization').val(data.);
+// 				$('#duty').val(data.);
+			},
+		});
+	}
+</script>
+
+
 </script> 
-<!--/请在上方写此页面业务相关的脚本-->
+
 </body>
 </html>

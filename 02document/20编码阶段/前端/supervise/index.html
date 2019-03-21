@@ -345,7 +345,7 @@
 
 				//判断登录密码
 				var regExpwd = new RegExp("^[a-zA-Z0-9_-]{6,16}$");
-				if (!regExp.test(password)) {
+				if (!regExpwd.test(password)) {
 					$.pt({
 						target: $("#login-password"),
 						position: 'r',
@@ -375,7 +375,7 @@
 				formData.password = pwd;
 				var userData = JSON.stringify(formData);
 				$.ajax({
-					url: 'http://localhost:8888/Supervise/api/' + 'logins',
+					url: 'http://localhost:8888/Supervise/user/' + 'logins',
 					method: 'POST',
 					data: userData,
 					/* dataType : 'json', */
