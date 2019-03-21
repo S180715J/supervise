@@ -127,10 +127,13 @@
               <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">对方单位：</label>
                 <div class="formControls col-xs-8 col-sm-4">
-                  <input type="text" class="input-text" value="" placeholder="" id="adverseCompany"
-                                   name="adverseCompany">
-                        </div>
+                  <span class="select-box">
+                                    <select name="orgId" class="select" id="orgId">
+                                        <option value="-1">---请选择---</option>
+                                    </select>
+                                </span>
                 </div>
+              </div>
             </th>
           </tr>
           <tr>
@@ -277,6 +280,7 @@
       fileTypeInit();
       SecrecyInit();
       leaderInit();
+      orgInit();
 
       $('.skin-minimal input').iCheck({
         checkboxClass: 'icheckbox-blue',
@@ -431,6 +435,32 @@
         },
         error: function(xhr, type, errorThrown) {
           layer.alert('系统出现错误，请联系管理员');
+        },
+        xhrFields: {
+          withCredentials: true
+        }
+      }, 'JSON');
+    }
+    /**
+     * 初始化部门
+     */
+    function orgInit() {
+      $.ajax({
+        url: HOST_URL + 'org',
+        type: 'GET',
+        contentType: '',
+        success: function(data) {
+          var leader = '';
+          if (!(data == '0')) {
+            $.each(data, function(i, user) {
+              leader += '<option value=' + user.orgId + '>' + user.orgName + '</option>';
+            });
+            $('#orgId').append(leader);
+          }
+          else {
+            leader = '暂无部门';
+            $('#orgId').append(leader);
+          }
         },
         xhrFields: {
           withCredentials: true
