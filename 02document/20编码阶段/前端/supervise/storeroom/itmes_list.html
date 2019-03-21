@@ -138,7 +138,7 @@
 
 							<th>
 								<div class="row cl">
-									<label class="form-label col-xs-4 col-sm-6">对方单位：</label>
+									<label class="form-label col-xs-4 col-sm-6">来源部门</label>
 									<div class="formControls col-xs-8 col-sm-6">
 										<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
 										</div>
@@ -170,9 +170,9 @@
 					<th scope="col" colspan="10">备用库列表</th>
 				</tr>
 				<tr class="text-c">
-					<th width="20"><input type="checkbox" name="" value="">全选</th>
+					<th width="50"><input type="checkbox" name="" value="">全选</th>
 					<th width="60">督办来源</th>
-					<th width="150">事项名称</th>
+					<th width="90">事项名称</th>
 					<th width="130">来源时间</th>
 					<th width="80">对方单位</th>
 					<th width="50">文件类型</th>
@@ -256,13 +256,13 @@
 								"<td>" + v.sourceId.sourceType + "</td>" +
 								"<td>" + v.itemName + "</td>" +
 								"<td>" + v.sourceTime + "</td>" +
-								"<td>" + v.adverseCompany + "</td>" +
+								"<td>" + v.orgId.orgName + "</td>" +
 								"<td>" + v.fileType.typeName + "</td>" +
 								"<td>" + $type + "</td>" +
 								$statu_td +
 								$id_td +
 								" <a title='编辑' href='javascript:' onclick='admin_edit(\"修改事项\",\"update-item.html?id=" + v.id + "\"," + v.id +
-								",\"1000\",\"500\")'class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> <a title='立项' href='javascript:;'onclick='admin_up(\"立项\",\"Initiation-item.html\"," + v.id +
+								",\"1000\",\"500\")'class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> <a title='立项' href='javascript:;'onclick='admin_up(\"立项\",\"Initiation-item.html?id=" + v.id + "\"," + v.id +
 								",\"1000\",\"500\")'class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe603;</i></a></td>" +
 								"<td>" + v.itemCode.optTime + "</td>" +
 								"</tr>";

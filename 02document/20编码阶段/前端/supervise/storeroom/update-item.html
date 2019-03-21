@@ -70,7 +70,7 @@
 									<div class="formControls col-xs-8 col-sm-7">
 										<textarea name="remark" cols="" rows="" id="remark" class="textarea" placeholder="说点什么...最少输入10个字符" datatype="*10-100"
 											 dragonfly="true" nullmsg="备注"></textarea>
-										<!--onKeyUp="$.Huitextarealength(this,200)"-->
+										<!--onKeyUp="$.Huitextarealength(this,200)"文本域方法-->
 										<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 									</div>
 								</div>
@@ -206,15 +206,16 @@
 			}
 			// url传递的信息
 			var $urlMsg = parseUrl(window.location.search);
-
+			var $oldCode;
 			$.ajax({
 				url: HOST_URL + "item/one/" + $urlMsg,
 				type: "GET",
 				dataType: "json",
 				success: function(data) {
+					$oldCode = itemCode.itemCode;
 					$("#itemName").val(data.itemName);
 					$("#itemCode").val(data.itemCode.itemCode);
-					$("select option:eq(" + data.user.userId + ")").attr("selected", "selected");
+					$("select option:eq(" + data.user.duty.dutyId + ")").attr("selected", "selected");
 					$("#remark").val(data.remark);
 				},
 				xhrFields: {
@@ -238,11 +239,12 @@
 					"userId": $user
 				};
 				$dataFrom.user = userId;
-				$dataFrom.id = $urlMsg;
+				$dataFrom.id = $urlMsg
+				alert($oldCode)
 				//json转字符串类型
 				var dataJSON = JSON.stringify($dataFrom);
 				$.ajax({
-					url: HOST_URL + "item/update",
+					url: HOST_URL + "item/update/" + $oldCode,
 					type: "POST",
 					data: dataJSON,
 					dataType: "json",
