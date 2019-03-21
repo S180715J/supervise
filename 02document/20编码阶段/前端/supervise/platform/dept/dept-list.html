@@ -35,22 +35,9 @@
             </a>
         </span>
     </div>
-    <div class="mt-20">
-        <table class="table table-border table-bordered table-hover table-bg table-sort">
-            <thead>
-            <tr class="text-c">
-                <th width="50">机构名称</th>
-                <th width="80">机构路径</th>
-                <th width="70">部门简介</th>
-                <th width="80">部门职责</th>
-                <th width="100">操作</th>
-            </tr>
-            </thead>
-            <tbody>
+        <table id="dept_page">
 
-            </tbody>
         </table>
-    </div>
 </div>
 <footer class="footer mt-20">
     <div class="container">
@@ -70,42 +57,55 @@
 <script src="../../js/common.js"></script>
 <script src="../../layui/layui.js"></script>
 <script>
+    /**
+     * layUI分页展示机构数据
+     */
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#dept_page',
+            height: 435,
+            url: 'http://localhost:8080/Supervise/orgPaging', //数据接口
+            page: true, //开启分页
+            cols: [[ //表头
+                {field: 'orgName', title: '机构名称', width:160, sort: true, fixed: 'left', align: 'center'},
+                {field: 'namePath', title: '机构路径', width:230, align: 'center', sort: true},
+                {field: 'introduction', title: '部门简介', width:300, align: 'center', sort: true},
+                {field: 'responsibility', title: '部门职责', width:190, align: 'center', sort: true},
 
-    /*添加*/
+                {fixed: 'right', title: '操作', width: 220, align: 'center', toolbar: '#barDemo', sort: true}
+            ]],
+            parseData: function(res) { //将原始数据解析成 table 组件所规定的数据
+                return {
+                    "code": res.code, //解析接口状态
+                    "count": res.count, //解析数据长度
+                    "data": res.data //解析数据列表
+                };
+            }
+        });
+    });
+
+
+</script>
+<script type="text/html" id="operate"></script>
+<script>
+    /*前往添加机构页面*/
     function admin_add(title, url, w, h) {
         layer_show(title, url, w, h);
     }
-</script>
-<script>
-    $(function () {
-        loadData();
-    });
 
-    /* 初始化页面数据 */
-    function loadData() {
-        $.get(
-            HOST_URL + 'org',
-            function (data) {
-                var tabs = '';
-                $.each(data, function (index, value) {
-                    tabs += '<tr>';
-                    tabs += '<td>' + value.orgName + '</td>';
-                    tabs += '<td>' + value.namePath + '</td>';
-                    if (value.introduction == null) {
-                        tabs += '<td>暂无简介</td>';
-                    } else {
-                        tabs += '<td>' + value.introduction + '</td>';
-                    }
-                    if (value.responsibility == null) {
-                        tabs += '<td></td>';
-                    } else {
-                        tabs += '<td>' + value.responsibility + '</td>';
-                    }
-                    tabs += '<td><a href="update-dept.html" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>修改</a><a href="javascript:org_del(' + value.orgId + ')" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>删除</a></td>';
-                    tabs += '</tr>';
-                });
-                $('tbody').append(tabs);
-            });
+    /**
+     * 前往修改机构页面
+     */
+    function toUpdateDept(orgId) {
+        localStorage.setItem("orgId",orgId);
+        layer.open({
+            type: 2,
+            title: '修改机构信息',
+            content: 'update-dept.html',
+            area: ['600px', '400px'],
+            maxmin: true
+        });
     }
 
     /*删除部门*/

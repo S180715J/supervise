@@ -19,7 +19,7 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>添加部门</title>
+<title>修改机构信息</title>
 <link href="lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -28,31 +28,31 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>机构编码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="orgId" name="orgId">
+				<input type="text" class="input-text" onchange="add_path()" value="" placeholder="" id="orgId" name="orgId">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">机构名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="orgName" name="orgName">
+				<input type="text" class="input-text" onchange="add_path()" value="" placeholder="" id="orgName" name="orgName">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择父机构：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
-				<select name="farpath" class="select">
-					<option value="0">全部栏目</option>
-					<option value="1">新闻资讯</option>
-					<option value="11">├行业动态</option>
-					<option value="12">├行业资讯</option>
-					<option value="13">├行业新闻</option>
+				<select name="parentOrgidPath" id="parentOrgidPath" onchange="add_path()" class="select">
+					<option value="-1">---请选择---</option>
 				</select>
 				</span>
 			</div>
 		</div>
-		
-		
+		<div class="row cl" style="display: none">
+			<label class="form-label col-xs-4 col-sm-2">父机构ID：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="机构ID路径" id="parentOrgid" name="parentOrgid" readonly="readonly">
+			</div>
+		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">机构ID路径：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -72,7 +72,7 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">部门简介：</label>
+			<label class="form-label col-xs-4 col-sm-2">职责：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<textarea name="responsibility" id="responsibility" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
@@ -82,8 +82,7 @@
 		
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button id="save" onClick="article_save_submit();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
-				
+				<button id="update" onClick="update_dept();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
 				<button id="cancel" onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
 		</div>
@@ -101,92 +100,159 @@
 <script type="text/javascript" src="../../lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="../../lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="../../lib/jquery.validation/1.14.0/messages_zh.js"></script> 
-<script type="text/javascript" src="../../lib/webuploader/0.1.5/webuploader.min.js"></script> 
+<script type="text/javascript" src="../../lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script src="../../js/jquery.serializejson.min.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../layui/layui.js"></script>
 <script type="text/javascript">
-function article_save(){
-	alert("刷新父级的时候会自动关闭弹层。")
-	window.parent.location.reload();
-}
 
 	$(function(){
-		fartherpath();
-		add_path();
-		$('#save').on('click', function() {
-			save_dept();
-			alert("保存成功")
-			window.location.href="platform/dept/dept-list.html";
-		});
-		$('#cancel').on('click', function() {
-			// 刷新父窗口
-			window.parent.location.reload();
-		}
-	})
-		/*
-		*	对机构ID路径和机构名称路径进行赋值
-		*/
-		function add_path(){
-		var orgid=$("#orgId").text();
-		var orgname=$("orgName").text();
-		var fidpath=$("#farpath option:selected").val();//获得value值
-		var fnamepath=$("#farpath option:selected").text();//获得文本值
-		if(orgid !=""){
-			var idpath="/"+fidpath+"/"+orgid;//得到机构ID路径
-		}
-		if(orgname !=""){
-			var namepath="/"+fnamepath+"/"+orgname;//得到机构名称路径
+        parentPathInit();
+        pageDataInit();
+    });
+	/**
+	 * 回显要修改的信息
+	 */
+	function pageDataInit() {
+		var orgId = localStorage.getItem("orgId");
+		$.ajax({
+			url : HOST_URL + 'org/' + orgId,
+			type : 'GET',
+            contentType: "application/json;charset=utf-8",
+			success : function (data) {
+				if (data != 'no_org'){
+					$('#orgId').val(data.orgId);
+                    $('#orgName').val(data.orgName);
+                    $('#parentOrgid').val(data.parentOrgid);
+                    $('#idPath').val(data.idPath);
+                    $('#namePath').val(data.namePath);
+                    $('#introduction').val(data.introduction);
+                    $('#responsibility').val(data.responsibility);
+                    var index = data.idPath.lastIndexOf('/');
+                    var parentPath = data.idPath.substr(0,index);
+                    $('#parentOrgidPath option').each(function () {
+                        if (parentPath == $(this).val()){
+                            $(this).attr('selected', true);
+                            return false;
+                        }
+                    });
+				}
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                layer.alert("系统出现错误,请联系管理员!");
+            },
+            xhrFields: {
+                withCredentials: true
+            }
+		},'JSON');
+    }
+
+	/**
+	 * 生成机构ID、名称路径
+	 */
+	function add_path(){
+        var orgId=$("#orgId").val();
+        var orgName=$("#orgName").val();
+        var parentIdPath=$("#parentOrgidPath option:selected").val();//获得value值
+        var parentNamePath=$("#parentOrgidPath option:selected").text();//获得文本值
+        if (parentIdPath != -1 || parentNamePath != '---请选择---'){
+            if($.trim(orgId) != ''){
+                // 拼接机构ID路径
+                var idPath= parentIdPath+"/"+orgId;
+                var parentId = generateParentMechanism(idPath);
+                $('#parentOrgid').val(parentId);
+                $('#idPath').val(idPath);
+            } else {
+                $('#idPath').val('');
+            }
+            if($.trim(orgName) != "") {
+                // 拼接机构名称路径
+                var namePath = parentNamePath + "/" + orgName;
+                $('#namePath').val(namePath);
+            } else {
+                $('#namePath').val('');
+            }
+        } else {
+            $('#namePath').val('');
+            $('#idPath').val('');
+        }
+    }
+
+	/* 生成父机构id */
+	function generateParentMechanism(idPath) {
+		var id = idPath.split('/');
+		var parentId = '';
+		for (i = 0; i < id.length; i++){
+			if (i == id.length - 2){
+				parentId = id[i];
+				return parentId;
+			}
 		}
 	}
 	/*
-	*	从数据库得到父路径并将值赋给下拉框
+	* 从数据库得到父路径并将值赋给下拉框
 	*/
-		function fartherpath(){
+	function parentPathInit(){
+		var parent = "";
 		$.get(
-				"http://localhost:8080/org",
-				function(date){
-					var fidpath=date.orgId;
-					$("#farpath option:selected").val(fidpath);
-					var fnamepath=date.orgName;
-					$("#farpath option:selected").text(fnamepath);
+			HOST_URL + "org",
+			function(data){
+				if (data != 'no_org'){
+					$.each(data, function (i, org) {
+						parent += "<option value=" + org.idPath + ">" + org.namePath + "</option>";
+					});
+				} else {
+					$("#parentOrgidPath").val('');
+					parent += "<option>暂无机构数据</option>";
 				}
+				$("#parentOrgidPath").append(parent);
+			}
 		);
 	}
-		/*
-		*保存部门信息
-		*/
-		function save_dept(){
-			var formData = $('#form-article-add').serializeJSON(); 
-			var p = JSON.stringify(formData);
-			console.info("发送数据：" + p);
-			var x = $.ajax({
-				url:'http://localhost:8080/insertorg',
-				method: 'post',
-				data: p,
-				dataType: "json",
-				contentType: "application/json;charset=utf-8",
-				success: 
-						layer.msg(
-							'保存成功', {
-								icon: 1,
-								time: 3000 //2秒关闭（如果不配置，默认是3秒）
-							}
-						);
 
-						// 刷新父窗口
-						window.parent.location.reload();
-						// 关闭窗口
-						var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
-						parent.layer.close(index); // 关闭layer
-					}
 
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					layer.alert("系统出现错误,请联系管理员!");
-				},
-				xhrFields: {
-					withCredentials: true
+	/*
+	*更新部门信息
+	*/
+	function update_dept(){
+		var formData = $('#form-article-add').serializeJSON();
+		var p = JSON.stringify(formData);
+		console.info("发送数据：" + p);
+		var x = $.ajax({
+			url: HOST_URL + 'update',
+			method: 'PUT',
+			data: p,
+			contentType: "application/json;charset=utf-8",
+			success: function(respData) {
+			    if (respData == 'updated'){
+					layer.msg(
+						'保存修改成功', {
+							icon: 1,
+							time: 1000 //2秒关闭（如果不配置，默认是3秒）
+						}
+					);
+                } else {
+                    layer.msg(
+                        '修改失败', {
+                            icon: 3,
+                            time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                        }
+                    );
 				}
-			});
-		}
+                // 刷新父窗口
+                window.parent.location.reload();
+                // 关闭窗口
+                var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+                parent.layer.close(index); // 关闭layer
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				layer.alert("系统出现错误,请联系管理员!");
+			},
+			xhrFields: {
+				withCredentials: true
+			}
+		},'JSON');
+	}
 </script>
 </body>
 </html>
