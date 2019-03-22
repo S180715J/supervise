@@ -19,18 +19,9 @@ public interface OrgMapper {
 	 * 
 	 * @return
 	 */
-	
-	
 	@Select("SELECT * FROM organization LIMIT #{page},#{limit}")
-	public List<Organization> getorg();
-	
-	@Select("SELECT * FROM organization LIMIT #{page},#{limit}")
-	public List<Organization> getorg( Integer page, Integer limit);
+	public List<Organization> getorg(Integer page, Integer limit);
 
-	
-	
-	
-	
 	/**
 	 * 按org_id查询该机构所有信息
 	 * 

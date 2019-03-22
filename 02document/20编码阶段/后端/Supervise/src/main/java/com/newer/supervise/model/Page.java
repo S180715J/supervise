@@ -9,8 +9,8 @@ import java.util.List;
  * 泛型可方便使用者自定义类型，所有分页均可通过传入具体类型而完成<br>
  * 注意：编写分页方法者需传递参数page(当前页码),limit(限制条数)<br>
  * 参数page和limit可通过在controller层使用@RequestParam获得<br>
- * 示例:@RequestParam(value="page",required=false,default=1)<br>
- * @RequestParam(value="limit",required=false,default=5)<br>
+ * 示例:@RequestParam(value="page",required=false,defaultValue="1")<br>
+ * @RequestParam(value="limit",required=false,defaultValue="5")<br>
  * 注意：value值不可改变，为layUI所定义参数！<br>
  * 
  * @author 周裕杰
