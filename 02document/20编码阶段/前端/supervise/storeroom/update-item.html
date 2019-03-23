@@ -134,6 +134,7 @@
 						</tr>
 					</thead>
 				</table>
+				<!--隐藏域-->
 				<input type="hidden" name="oldCode" value="" id="oldCode">
 			</form>
 	</article>
@@ -247,7 +248,7 @@
 				var $oldCode = $("#oldCode").val();
 				$.ajax({
 					url: HOST_URL + "item/update/" + $oldCode,
-					type: "POST",
+					type: "PUT",
 					data: dataJSON,
 					dataType: "json",
 					contentType: "application/json;charset=utf-8",
