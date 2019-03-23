@@ -38,7 +38,7 @@
 									<div class="formControls col-xs-8 col-sm-7">
 										<span class="select-box">
 	                                    <select name="sourceId" class="select" id="sourceId">
-	                                        <option value="">请选择</option>
+	                                        <option value="-1">---请选择---</option>
 	                                    </select>
 	                                </span>
 									</div>
@@ -89,6 +89,7 @@
 									<div class="formControls col-xs-8 col-sm-7">
 										<span class="select-box">
 												<select name="itemStatu" class="select">
+													<option value="-1">---请选择---</option>
 													<option value="0">已删除</option>
 													<option value="1">未删除</option>
 												</select>
@@ -102,6 +103,7 @@
 									<div class="formControls col-xs-8 col-sm-7">
 										<span class="select-box">
 												<select name="itemType"  class="select">
+													<option value="-1">---请选择---</option>
 													<option value="0">新增事项</option>
 													<option value="1">同步事项</option>
 													<option value="2">退回事项</option>
@@ -116,7 +118,7 @@
 									<div class="formControls col-xs-8 col-sm-7">
 										<span class="select-box">
 												<select name="fileType" class="select" id="fileType">
-								        	<option value="null">---请选择---</option>
+								        	<option value="-1">---请选择---</option>
 												</select>
 											</span>
 									</div>
@@ -129,7 +131,7 @@
 									<div class="formControls col-xs-8 col-sm-7">
 										<span class="select-box">
 																			<select name="orgId" class="select" id="orgId">
-																					<option value="null">---请选择---</option>
+																					<option value="-1">---请选择---</option>
 																			</select>
 																	</span>
 									</div>
@@ -221,6 +223,7 @@
 					else {
 						var int;
 						$.each(data, function(i, v) {
+							//调用each的方法，遍历数据，返回数据的个数
 							int = each(i, v);
 						});
 						$("strong").html(int + 1);
@@ -237,7 +240,7 @@
 					type: "GET",
 					dataType: "json",
 					success: function(data) {
-						if (data != 0) {
+						if (data.optTime != null) {
 							$("tbody tr:eq(" + i + ") td:eq(9)").html(data.optTime);
 						}
 						else {
@@ -300,6 +303,76 @@
 				//返回循环次数得到数据总数
 				return i;
 			}
+
+			/**
+			 * 模糊搜索
+			 */
+			$("input[type=submit]:eq(0)").click(function() {
+				//表单以json形式提交
+				var $dataFrom = $("#form-member-add").serializeJSON();
+				var $sourceId = $("select:eq(0) option:selected").val();
+				var sourceId = {
+					"sourceId": $sourceId
+				};
+				$dataFrom.sourceId = sourceId;
+				//-----------------------------------------------------------------------
+				var $optTime = $("#optTime").val();
+				var itemCode = {
+					"optTime": $optTime
+				}
+				$dataFrom.itemCode = itemCode;
+				//-----------------------------------------------------------------------
+				var $itemStatu = $("select:eq(1) option:selected").val();
+				$dataFrom.itemStatu = $itemStatu;
+				//-----------------------------------------------------------------------
+				var $itemType = $("select:eq(2) option:selected").val();
+				$dataFrom.itemType = $itemType;
+				//-----------------------------------------------------------------------
+				var $fileType = $("select:eq(3) option:selected").val();
+				var typeId = {
+					"typeId": $fileType
+				}
+				$dataFrom.fileType = typeId;
+				//-----------------------------------------------------------------------
+				var $orgId = $("select:eq(4) option:selected").val();
+				var orgId = {
+					"orgId": $orgId
+				}
+				$dataFrom.orgId = orgId;
+
+				//json转字符串类型
+				var dataJSON = JSON.stringify($dataFrom);
+				$.ajax({
+					url: HOST_URL + "item/dim",
+					type: "POST",
+					data: dataJSON,
+					dataType: "json",
+					contentType: "application/json;charset=utf-8",
+					success: function(data) {
+						if (data != "0") {
+							var int;
+							//模糊查询时，先删除先前的数据
+							$("tbody tr").remove();
+							$.each(data, function(i, v) {
+								//调用each的方法，遍历数据，返回数据的个数
+								int = each(i, v);
+							});
+							$("strong").html(int + 1);
+						}
+						else {
+							//模糊查询时，先删除先前的数据
+							$("tbody tr").remove();
+							var $p = "<p>没有数据</p>";
+							$("tbody").append($p);
+							$("strong").html("0");
+						}
+					},
+					xhrFields: {
+						withCredentials: true
+					}
+				});
+				return false;
+			});
 		});
 	</script>
 	<script type="text/javascript">
@@ -380,70 +453,6 @@
 			});
 		}
 	</script>
-	<script type="text/javascript">
-		//模糊搜索
-		$(function() {
-			$("input[type=submit]:eq(0)").click(function() {
-				//表单以json形式提交
-				var $dataFrom = $("#form-member-add").serializeJSON();
-				var $sourceId = $("select:eq(0) option:selected").val();
-				var sourceId = {
-					"sourceId": $sourceId
-				};
-				$dataFrom.sourceId = sourceId;
-				//-----------------------------------------------------------------------
-				var $optTime = $("#optTime").val();
-				var itemCode = {
-					"optTime": $optTime
-				}
-				$dataFrom.itemCode = itemCode;
-				//-----------------------------------------------------------------------
-				var $itemStatu = $("select:eq(1) option:selected").val();
-				$dataFrom.itemStatu = $itemStatu;
-				//-----------------------------------------------------------------------
-				var $itemType = $("select:eq(2) option:selected").val();
-				$dataFrom.itemType = $itemType;
-				//-----------------------------------------------------------------------
-				var $fileType = $("select:eq(3) option:selected").val();
-				var typeId = {
-					"typeId": $fileType
-				}
-				$dataFrom.fileType = typeId;
-				//-----------------------------------------------------------------------
-				var $orgId = $("select:eq(4) option:selected").val();
-				var orgId = {
-					"orgId": $orgId
-				}
-				$dataFrom.orgId = orgId;
-
-				//json转字符串类型
-				var dataJSON = JSON.stringify($dataFrom);
-				$.ajax({
-					url: HOST_URL + "item/dim",
-					type: "POST",
-					data: dataJSON,
-					dataType: "json",
-					contentType: "application/json;charset=utf-8",
-					success: function(data) {
-						if (data == 0) {
-							var $p = "<p>没有数据</p>";
-							$("tbody").append($p);
-						}
-						else {
-							var int;
-							$.each(data, function(i, v) {
-								int = each(i, v);
-							});
-							$("strong").html(int + 1);
-						}
-					},
-					xhrFields: {
-						withCredentials: true
-					}
-				});
-			});
-
-		});
 	</script>
 	<script type="text/javascript">
 		$(function() {
