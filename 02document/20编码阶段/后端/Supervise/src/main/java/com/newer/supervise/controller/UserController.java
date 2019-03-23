@@ -127,13 +127,14 @@ public class Usercontroller {
 	 */
 	@RequestMapping(value = "/updateuser", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateEmp(@RequestBody User user) {
-		log.info("开始修改用户对象，编号为{}...............", user.getUserId());
+		log.info("开始修改用户对象，编号为{}....{}...............", user.getDuty().getDutyId(),user.getUserId());
 		Integer userId = user.getUserId();
 		User queryUser = userService.queryUser(userId);
+		
 		if (queryUser == null) {
 			return new ResponseEntity<>("Not Found:" + userId, HttpStatus.NOT_FOUND);
 		}
-		Integer updateUser = userService.updateUser(queryUser);
+		Integer updateUser = userService.updateUser(user);
 		log.info("{}员工修改成功", updateUser);
 		if (updateUser > 0) {
 			return new ResponseEntity<User>(user, HttpStatus.CREATED);
@@ -161,7 +162,7 @@ public class Usercontroller {
 		return new ResponseEntity<String>(deleteUser > 0 ? "ok" : "nodata", HttpStatus.OK);
 	}
 
-
+	//查询职务
 	@RequestMapping(value = "/duty", method = RequestMethod.GET)
 	public ResponseEntity<?> queryDuty() {
 		log.info("开始加载职务信息.............." );		
@@ -170,7 +171,7 @@ public class Usercontroller {
 
 	}
 	
-	
+	//查询学历
 	@RequestMapping(value = "/education", method = RequestMethod.GET)
 	public ResponseEntity<?> queryEducation() {
 		log.info("开始加载学历信息.............." );
@@ -179,13 +180,19 @@ public class Usercontroller {
 
 	}
 	
-	
+	//查询职称
 	@RequestMapping(value = "/duty/{dutyId}", method = RequestMethod.GET)
 	public ResponseEntity<?> findDuty(@PathVariable ("dutyId") Integer dutyId) {
 		log.info("开始加载职称信息.............." );
 		Duty findDuty = userService.findDuty(dutyId);
 		return new ResponseEntity<>(findDuty, HttpStatus.OK);
-
+	}
+	
+	//账号去重
+	@RequestMapping(value="/queryUserName/{username}",method=RequestMethod.GET)
+	public ResponseEntity<?> queryUserName(@PathVariable("username") String userName){
+		User queryUserName = userService.queryUserName(userName);
+		return new ResponseEntity<User>(queryUserName,HttpStatus.OK);
 	}
 	
 }
