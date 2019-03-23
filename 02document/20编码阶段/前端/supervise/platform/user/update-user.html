@@ -111,7 +111,6 @@
 <script type="text/javascript" src="../../lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="../../lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="../../lib/jquery.validation/1.14.0/messages_zh.js"></script>
-<script type="text/javascript">
 
 <script type="text/javascript">
 	$(function(){
@@ -122,7 +121,7 @@
 	function initUser() {
 		var userId = localStorage.getItem('userId');
 		$.ajax({
-			url : 'http://localhost:8888/Supervise/queryuser/' + userId,
+			url : 'http://localhost:8080/Supervise/queryuser/' + userId,
 			type : 'GET',
 			contentType: "application/json;charset=utf-8",
 			success : function(data){
@@ -136,9 +135,6 @@
 		});
 	}
 </script>
-
-
-</script> 
 
 </body>
 </html>

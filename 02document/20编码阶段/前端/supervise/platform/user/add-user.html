@@ -131,7 +131,7 @@
 		/** 显示下拉列表 */
 		function initDept() {
 			//部门
-			$.get('http://localhost:8888/Supervise/org', function(data) {
+			$.get('http://localhost:8080/Supervise/org', function(data) {
 	
 				$.each(data, (i, item) => {
 					var text = '<option value="' + item.orgId + '">' + item.orgName + '</option>';
@@ -142,7 +142,7 @@
 	
 	
 			//职务
-			$.get('http://localhost:8888/Supervise/user/duty', function(data) {
+			$.get('http://localhost:8080/Supervise/user/duty', function(data) {
 	
 				$.each(data, (i, item) => {
 					var text = '<option value="' + item.dutyId + '">' + item.dutyName + '</option>';
@@ -153,7 +153,7 @@
 	
 	
 			//学历
-			$.get('http://localhost:8888/Supervise/user/education', function(data) {
+			$.get('http://localhost:8080/Supervise/user/education', function(data) {
 	
 				$.each(data, (i, item) => {
 					var text = '<option value="' + item.eid + '">' + item.eduName + '</option>';
@@ -174,7 +174,7 @@
 				});
 			}
 			console.info(dutyId);
-			$.get('http://localhost:8888/Supervise/user/duty/' + dutyId, function(data) {
+			$.get('http://localhost:8080/Supervise/user/duty/' + dutyId, function(data) {
 				$('#dutyType').attr({
 					value: data.dutyType,
 				});
