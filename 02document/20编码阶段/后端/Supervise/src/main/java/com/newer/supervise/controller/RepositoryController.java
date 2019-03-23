@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -134,7 +135,7 @@ public class RepositoryController {
 	 * @param rep
 	 * @return
 	 */
-	@PostMapping("/item/update/{oldCode}")
+	@PutMapping("/item/update/{oldCode}")
 	public ResponseEntity<?> update(@RequestBody Repository rep, @PathVariable("oldCode") String oldCode) {
 		// 查事项名称，事项编号的重复
 		Integer e = repositoryService.updateEquals(rep);
@@ -163,5 +164,59 @@ public class RepositoryController {
 			return new ResponseEntity<ItemProcess>(item, HttpStatus.OK);
 		}
 		return new ResponseEntity<Integer>(0, HttpStatus.OK);
+	}
+
+	/**
+	 * 立项时保存事项进程表记录
+	 * 
+	 * @param itemCode
+	 * @param userId
+	 * @return
+	 */
+	@PostMapping("/item/addItem")
+	public ResponseEntity<?> insertItem(@RequestParam("itemCode") String itemCode,
+			@RequestParam("userId") Integer userId) {
+		Integer i = repositoryService.insertItem(itemCode, userId);
+		return new ResponseEntity<Integer>(i, HttpStatus.OK);
+	}
+
+	/**
+	 * 模糊查询
+	 * 
+	 * @param rep
+	 * @return
+	 */
+	@PostMapping("/item/dim")
+	public ResponseEntity<?> queryDim(@RequestBody Repository rep) {
+		List<Repository> list = repositoryService.queryDim(rep);
+		if (list.isEmpty()) {
+			// 如果没查到数据则返回0
+			return new ResponseEntity<Integer>(0, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Repository>>(list, HttpStatus.OK);
+	}
+
+	/**
+	 * 修改备用库状态
+	 * 
+	 * @param statu
+	 * @param id
+	 * @return
+	 */
+	@PutMapping("/item/statu")
+	public ResponseEntity<?> updateStatu(@RequestParam("statu") Integer statu, @RequestParam("id") Integer id) {
+		Integer i = repositoryService.updateStatu(statu, id);
+		return new ResponseEntity<Integer>(i, HttpStatus.OK);
+	}
+
+	/**
+	 * 批量修改
+	 * 
+	 * @return
+	 */
+	@PutMapping("/item/updateArray")
+	public ResponseEntity<?> updateArray(@RequestBody Integer[] arr) {
+		Integer i = repositoryService.updateArray(arr, 0);
+		return new ResponseEntity<Integer>(i, HttpStatus.OK);
 	}
 }

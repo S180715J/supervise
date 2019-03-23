@@ -147,7 +147,7 @@ CREATE TABLE item_process(
   statu_id INT NOT NULL AUTO_INCREMENT COMMENT '状态id',
   item_code VARCHAR(50) NOT NULL COMMENT '事项id',
   statu_describe VARCHAR(100)  COMMENT '状态描述',
-  opt_time DATETIME NOT NULL COMMENT '操作时间',
+  opt_time DATETIME  NULL COMMENT '操作时间',
   user_id INT(11) NOT NULL COMMENT '操作人',
   sup_statu INT(11) DEFAULT NULL COMMENT '0:未完成 1:已完成 2:退回 督办员操作',
   org_statu INT(11) DEFAULT NULL COMMENT '0:未完成 1:已完成 2:退回 部门操作',

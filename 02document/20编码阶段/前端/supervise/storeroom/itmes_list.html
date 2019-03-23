@@ -26,7 +26,7 @@
 	<div class="page-container">
 
 		<div class="text-c">
-			<form>
+			<form action="" method="get" class="form form-horizontal" id="form-member-add">
 				<table class="table  table-bg">
 					<thead>
 
@@ -36,15 +36,19 @@
 								<div class="row cl">
 									<label class="form-label col-xs-4 col-sm-5">督办<br/>来源</label>
 									<div class="formControls col-xs-8 col-sm-7">
-										<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-										</div>
+										<span class="select-box">
+	                                    <select name="sourceId" class="select" id="sourceId">
+	                                        <option value="-1">---请选择---</option>
+	                                    </select>
+	                                </span>
 									</div>
+								</div>
 							</th>
 							<th>
 								<div class="row cl">
-									<label class="form-label col-xs-4 col-sm-5">事项<br/>内容</label>
+									<label class="form-label col-xs-4 col-sm-5">事项<br/>名称</label>
 									<div class="formControls col-xs-8 col-sm-7">
-										<input type="text" class="input-text" value="" placeholder="" id="username" name="username"/>
+										<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName"/>
 										</div>
 									</div>
 							</th>
@@ -52,31 +56,25 @@
 								<div class="row cl">
 									<label class="form-label col-xs-4 col-sm-5">原流<br/>水号</label>
 									<div class="formControls col-xs-8 col-sm-7">
-										<input type="text" class="input-text" value="" placeholder="" id="username" name="username"/>
+										<input type="text" class="input-text" value="" placeholder="" id="serialNum" name="serialNum"/>
 										</div>
 									</div>
 							</th>
 
 							<th>
 								<div class="row cl">
-									<label class="form-label col-xs-4 col-sm-5"><br/>来源<br/>时间</label>
+									<label class="form-label col-xs-4 col-sm-4"><br/>来源<br/>时间</label>
 									<div class="formControls col-xs-8 col-sm-7">
-										<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin"
-											 class="input-text Wdate" style="width:120px;"/>
-											-
-										<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax"
+										<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="sourceTime"
 											 class="input-text Wdate" style="width:120px;"/>
 										</div>
 									</div>
 							</th>
 							<th>
 								<div class="row cl">
-									<label class="form-label col-xs-4 col-sm-5"><br/>最后<br/>修改<br/>时间</label>
+									<label class="form-label col-xs-4 col-sm-5"><br/>最后修<br/>改时间</label>
 									<div class="formControls col-xs-8 col-sm-6">
-										<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin"
-											 class="input-text Wdate" style="width:120px;">
-											-
-										<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax"
+										<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="optTime"
 											 class="input-text Wdate" style="width:120px;">
 										</div>
 									</div>
@@ -90,12 +88,10 @@
 									<label class="form-label col-xs-4 col-sm-5">删除<br/>状态</label>
 									<div class="formControls col-xs-8 col-sm-7">
 										<span class="select-box">
-												<select name="" class="select">
-
+												<select name="itemStatu" class="select">
+													<option value="-1">---请选择---</option>
+													<option value="0">已删除</option>
 													<option value="1">未删除</option>
-													<option value="2">已删除</option>
-
-
 												</select>
 											</span>
 									</div>
@@ -106,12 +102,11 @@
 									<label class="form-label col-xs-4 col-sm-5">事项<br/>类型</label>
 									<div class="formControls col-xs-8 col-sm-7">
 										<span class="select-box">
-												<select name="" class="select">
-
-													<option value="1">新增事项</option>
-													<option value="2">同步事项</option>
-													<option value="3">退回事项</option>
-
+												<select name="itemType"  class="select">
+													<option value="-1">---请选择---</option>
+													<option value="0">新增事项</option>
+													<option value="1">同步事项</option>
+													<option value="2">退回事项</option>
 												</select>
 											</span>
 									</div>
@@ -122,14 +117,8 @@
 									<label class="form-label col-xs-4 col-sm-5">文件<br/>类型</label>
 									<div class="formControls col-xs-8 col-sm-7">
 										<span class="select-box">
-												<select name="" class="select">
-
-													<option value="1">发文</option>
-													<option value="2">收文</option>
-													<option value="3">签报</option>
-													<option value="4">白头文</option>
-
-
+												<select name="fileType" class="select" id="fileType">
+								        	<option value="-1">---请选择---</option>
 												</select>
 											</span>
 									</div>
@@ -138,11 +127,15 @@
 
 							<th>
 								<div class="row cl">
-									<label class="form-label col-xs-4 col-sm-6">来源部门</label>
-									<div class="formControls col-xs-8 col-sm-6">
-										<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
-										</div>
+									<label class="form-label col-xs-4 col-sm-5">来源部门</label>
+									<div class="formControls col-xs-8 col-sm-7">
+										<span class="select-box">
+																			<select name="orgId" class="select" id="orgId">
+																					<option value="-1">---请选择---</option>
+																			</select>
+																	</span>
 									</div>
+								</div>
 							</th>
 							<th>
 								<div class="row cl">
@@ -159,7 +152,7 @@
 			</form>
 		</div>
 		<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;"
-										 onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;"
+										 id="delete" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;"
 										 onclick="admin_add('添加事项','entering-item.html','1000','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>
 											新增</a></span> <span class="r">共有数据：<strong>xxx</strong>
 										条</span>
@@ -199,6 +192,8 @@
 	<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.serializejson.min.js"></script>
 	<script type="text/javascript">
 		/*
 	参数解释：
@@ -228,47 +223,8 @@
 					else {
 						var int;
 						$.each(data, function(i, v) {
-							var $type;
-							if (v.itemType == 0) {
-								$type = "新增事项";
-							}
-							if (v.itemType == 1) {
-								$type = "同步事项";
-							}
-							if (v.itemType == 2) {
-								$type = "退回事项";
-							}
-							var $statu_tr;
-							var $id_td;
-							if (v.itemStatu > 0) {
-								// $("tbody td:eq(7) span")
-								// 	.toggleClass("label label-success redius")
-								// 	.html("未删除");
-								$statu_td = "<td> <span class='label label-success redius'>未删除</span></td>";
-								$id_td = "<td class='td-manage'><a style='text-decoration:none' onClick='admin_stop(this," + v.id + ")' href='javascript:;' title='停用'><i class='Hui-iconfont'>&#xe631;</i></a>";
-							}
-							else {
-								$statu_td = "<td> <span class='label label-default redius'>已删除</span></td>";
-								$id_td = "<td class='td-manage'><a style='text-decoration:none' onClick='admin_start(this," + v.id + ")' href='javascript:;' title='启用'><i class='Hui-iconfont'>&#xe615;</i></a>";
-							}
-							var $tr = "<tr>" +
-								"<td><input type='checkbox' value='1' name=''></td>" +
-								"<td>" + v.sourceId.sourceType + "</td>" +
-								"<td>" + v.itemName + "</td>" +
-								"<td>" + v.sourceTime + "</td>" +
-								"<td>" + v.orgId.orgName + "</td>" +
-								"<td>" + v.fileType.typeName + "</td>" +
-								"<td>" + $type + "</td>" +
-								$statu_td +
-								$id_td +
-								" <a title='编辑' href='javascript:' onclick='admin_edit(\"修改事项\",\"update-item.html?id=" + v.id + "\"," + v.id +
-								",\"1000\",\"500\")'class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> <a title='立项' href='javascript:;'onclick='admin_up(\"立项\",\"Initiation-item.html?id=" + v.id + "\"," + v.id +
-								",\"1000\",\"500\")'class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe603;</i></a></td>" +
-								"<td></td>"
-							"</tr>";
-							$("tbody").append($tr);
-							getOptTime(v.itemCode.itemCode, i);
-							int = i;
+							//调用each的方法，遍历数据，返回数据的个数
+							int = each(i, v);
 						});
 						$("strong").html(int + 1);
 					}
@@ -284,7 +240,7 @@
 					type: "GET",
 					dataType: "json",
 					success: function(data) {
-						if (data != 0) {
+						if (data.optTime != null) {
 							$("tbody tr:eq(" + i + ") td:eq(9)").html(data.optTime);
 						}
 						else {
@@ -296,6 +252,127 @@
 					}
 				});
 			}
+
+			/**
+			 * 对后台返回数据的each方法
+			 */
+			function each(i, v) {
+				var $type;
+				if (v.itemType == 0) {
+					$type = "新增事项";
+				}
+				if (v.itemType == 1) {
+					$type = "同步事项";
+				}
+				if (v.itemType == 2) {
+					$type = "退回事项";
+				}
+				var $statu_tr;
+				var $id_td;
+				if (v.itemStatu > 0) {
+					// $("tbody td:eq(7) span")
+					// 	.toggleClass("label label-success redius")
+					// 	.html("未删除");
+					$statu_td = "<td> <span class='label label-success redius'>未删除</span></td>";
+					$id_td = "<td class='td-manage'><a style='text-decoration:none' onClick='admin_stop(this," + v.id + ")' href='javascript:;' title='停用'><i class='Hui-iconfont'>&#xe631;</i></a>";
+				}
+				else {
+					$statu_td = "<td> <span class='label label-default redius'>已删除</span></td>";
+					$id_td = "<td class='td-manage'><a style='text-decoration:none' onClick='admin_start(this," + v.id + ")' href='javascript:;' title='启用'><i class='Hui-iconfont'>&#xe615;</i></a>";
+				}
+				var $tr = "<tr>" +
+					"<td><input type='checkbox' value='" + (i + 1) + "' name=''></td>" +
+					"<td>" + v.sourceId.sourceType + "</td>" +
+					"<td>" + v.itemName + "</td>" +
+					"<td>" + v.sourceTime + "</td>" +
+					"<td>" + v.orgId.orgName + "</td>" +
+					"<td>" + v.fileType.typeName + "</td>" +
+					"<td>" + $type + "</td>" +
+					$statu_td +
+					$id_td +
+					" <a title='编辑' href='javascript:' onclick='admin_edit(\"修改事项\",\"update-item.html?id=" + v.id + "\"," + v.id +
+					",\"1000\",\"500\")'class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> <a title='立项' href='javascript:;'onclick='admin_up(\"立项\",\"Initiation-item.html?id=" + v.id + "\"," + v.id +
+					",\"1000\",\"500\")'class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe603;</i></a></td>" +
+					"<td></td>"
+				"</tr>";
+				$("tbody").append($tr);
+				/**
+				 * 对操作时间与事项对应的同步操作
+				 */
+				getOptTime(v.itemCode.itemCode, i);
+				//返回循环次数得到数据总数
+				return i;
+			}
+
+			/**
+			 * 模糊搜索
+			 */
+			$("input[type=submit]:eq(0)").click(function() {
+				//表单以json形式提交
+				var $dataFrom = $("#form-member-add").serializeJSON();
+				var $sourceId = $("select:eq(0) option:selected").val();
+				var sourceId = {
+					"sourceId": $sourceId
+				};
+				$dataFrom.sourceId = sourceId;
+				//-----------------------------------------------------------------------
+				var $optTime = $("#optTime").val();
+				var itemCode = {
+					"optTime": $optTime
+				}
+				$dataFrom.itemCode = itemCode;
+				//-----------------------------------------------------------------------
+				var $itemStatu = $("select:eq(1) option:selected").val();
+				$dataFrom.itemStatu = $itemStatu;
+				//-----------------------------------------------------------------------
+				var $itemType = $("select:eq(2) option:selected").val();
+				$dataFrom.itemType = $itemType;
+				//-----------------------------------------------------------------------
+				var $fileType = $("select:eq(3) option:selected").val();
+				var typeId = {
+					"typeId": $fileType
+				}
+				$dataFrom.fileType = typeId;
+				//-----------------------------------------------------------------------
+				var $orgId = $("select:eq(4) option:selected").val();
+				var orgId = {
+					"orgId": $orgId
+				}
+				$dataFrom.orgId = orgId;
+
+				//json转字符串类型
+				var dataJSON = JSON.stringify($dataFrom);
+				$.ajax({
+					url: HOST_URL + "item/dim",
+					type: "POST",
+					data: dataJSON,
+					dataType: "json",
+					contentType: "application/json;charset=utf-8",
+					success: function(data) {
+						if (data != "0") {
+							var int;
+							//模糊查询时，先删除先前的数据
+							$("tbody tr").remove();
+							$.each(data, function(i, v) {
+								//调用each的方法，遍历数据，返回数据的个数
+								int = each(i, v);
+							});
+							$("strong").html(int + 1);
+						}
+						else {
+							//模糊查询时，先删除先前的数据
+							$("tbody tr").remove();
+							var $p = "<p>没有数据</p>";
+							$("tbody").append($p);
+							$("strong").html("0");
+						}
+					},
+					xhrFields: {
+						withCredentials: true
+					}
+				});
+				return false;
+			});
 		});
 	</script>
 	<script type="text/javascript">
@@ -312,15 +389,32 @@
 		function admin_stop(obj, id) {
 			layer.confirm('确认要删除吗？', function(index) {
 				//此处请求后台程序，下方是成功后的前台处理……
-
-				$(obj).parents("tr").find(".td-manage").prepend(
-					'<a onClick="admin_start(this,id)" href="javascript:;" title="恢复" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>'
-				);
-				$(obj).parents("tr").find("td:eq(7)").html('<span class="label label-default radius">已删除</span>');
-				$(obj).remove();
-				layer.msg('已删除!', {
-					icon: 5,
-					time: 1000
+				$.ajax({
+					url: HOST_URL + "item/statu",
+					type: "PUT",
+					data: {
+						"id": id,
+						"statu": 0
+					},
+					success: function(data) {
+						if (data == "1") {
+							$(obj).parents("tr").find(".td-manage").prepend(
+								'<a onClick="admin_start(this,id)" href="javascript:;" title="恢复" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>'
+							);
+							$(obj).parents("tr").find("td:eq(7)").html('<span class="label label-default radius">已删除</span>');
+							$(obj).remove();
+							layer.msg('已删除!', {
+								icon: 5,
+								time: 1000
+							});
+						}
+						else {
+							layer.alert("修改失败");
+						}
+					},
+					xhrFields: {
+						withCredentials: true
+					}
 				});
 			});
 		}
@@ -329,17 +423,164 @@
 		function admin_start(obj, id) {
 			layer.confirm('确认要恢复吗？', function(index) {
 				//此处请求后台程序，下方是成功后的前台处理……
-
-				$(obj).parents("tr").find(".td-manage").prepend(
-					'<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>'
-				);
-				$(obj).parents("tr").find("td:eq(7)").html('<span class="label label-success radius">未删除</span>');
-				$(obj).remove();
-				layer.msg('已恢复!', {
-					icon: 6,
-					time: 1000
+				$.ajax({
+					url: HOST_URL + "item/statu",
+					type: "PUT",
+					data: {
+						"id": id,
+						"statu": 1
+					},
+					success: function(data) {
+						if (data == "1") {
+							$(obj).parents("tr").find(".td-manage").prepend(
+								'<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>'
+							);
+							$(obj).parents("tr").find("td:eq(7)").html('<span class="label label-success radius">未删除</span>');
+							$(obj).remove();
+							layer.msg('已恢复!', {
+								icon: 6,
+								time: 1000
+							});
+						}
+						else {
+							layer.alert("修改失败");
+						}
+					},
+					xhrFields: {
+						withCredentials: true
+					}
 				});
 			});
+		}
+	</script>
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			/**
+			 *   批量删除
+			 */
+			$("#delete").click(function() {
+				var arr = new Array();
+				$("input[type='checkbox']:checked").each(function() {
+					//将得到的id放入数组
+					arr.push($(this).val());
+				});
+				$.ajax({
+					url: HOST_URL + "item/updateArray",
+					type: "PUT",
+					contentType: 'application/json',
+					data: JSON.stringify(arr),
+					dataType: "json",
+					traditional: true,
+					success: function(data) {
+						if (data != "0") {
+							layer.alert("删除成功");
+							// 刷新窗口
+							window.location.reload();
+						}
+						else {
+							layer.alert("删除失败");
+							// 刷新窗口
+							window.location.reload();
+						}
+					},
+					xhrFields: {
+						withCredentials: true
+					}
+				});
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
+		fileTypeInit();
+		orgInit();
+		sourceInit()
+		/**
+		 * 初始化文件类型下拉框
+		 */
+		function fileTypeInit() {
+			$.ajax({
+				url: HOST_URL + 'showFileType',
+				type: 'GET',
+				contentType: '',
+				success: function(data) {
+					var file = '';
+					if (!(data == 'no_type')) {
+						$.each(data, function(i, filetype) {
+							file += '<option value=' + filetype.typeId + '>' + filetype.typeName + '</option>';
+						});
+						$('#fileType').append(file);
+					}
+					else {
+						file = '暂无类型';
+						$('#fileType').append(file);
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					layer.alert('系统出现错误，请联系管理员');
+				},
+				xhrFields: {
+					withCredentials: true
+				}
+			}, 'JSON');
+		}
+
+
+		/**
+		 * 初始化部门
+		 */
+		function orgInit() {
+			$.ajax({
+				url: HOST_URL + 'org',
+				type: 'GET',
+				contentType: '',
+				success: function(data) {
+					var leader = '';
+					if (!(data == '0')) {
+						$.each(data, function(i, user) {
+							leader += '<option value=' + user.orgId + '>' + user.orgName + '</option>';
+						});
+						$('#orgId').append(leader);
+					}
+					else {
+						leader = '暂无部门';
+						$('#orgId').append(leader);
+					}
+				},
+				xhrFields: {
+					withCredentials: true
+				}
+			}, 'JSON');
+		}
+
+		/**
+		 * 初始化事项来源
+		 */
+		function sourceInit() {
+			$.ajax({
+				url: HOST_URL + 'showSource',
+				type: 'GET',
+				success: function(data) {
+					var itemSource = '';
+					if (!(data == 'no_source')) {
+						$.each(data, function(i, source) {
+							itemSource += '<option value=' + source.sourceId + '>' + source.sourceType + '</option>';
+						});
+						$('#sourceId').append(itemSource);
+					}
+					else {
+						itemSource = '暂无来源';
+						$('#sourceId').append(itemSource);
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					layer.alert('系统出现错误，请联系管理员');
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+			}, 'JSON');
 		}
 	</script>
 </body>

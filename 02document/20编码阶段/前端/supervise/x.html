@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">			
+			var dutytest = JSON.parse(window.localStorage.getItem("user"));
+			var test=dutytest.duty.dutyId;
+	 		console.info(test); 
+			if(test=='1'||test=='2'){
+				window.location.href = "lead-x.html";
+			}else if(test=='3'||test=='4'){
+				window.location.href = "governor-x.html";
+			}else if(test=='5'){
+				window.location.href = "emp-x.html";
+			}else if(test=='6'){
+				window.location.href = "main.html";
+			}else{
+				
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

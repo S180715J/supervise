@@ -390,8 +390,13 @@
 								}
 							);
 							// 去主页
-							localStorage.setItem('userId', respData.userId);
-							setTimeout('window.location.href="main.html"', 1000);
+							window.localStorage.setItem('user',JSON.stringify(respData))
+							/* 
+							取数据
+							JSON.parse(window.localStorage.getItem("key"))
+							存入单个值
+							localStorage.setItem('userId', respData.userId); */
+							setTimeout('window.location.href="x.html"', 1000);
 						} else {
 							layer.msg(
 								'用户名或密码错误', {
