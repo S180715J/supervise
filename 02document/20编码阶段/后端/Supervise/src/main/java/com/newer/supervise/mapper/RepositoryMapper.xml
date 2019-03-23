@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newer.supervise.mapper.RepositoryMapper">
+	<!-- 模糊查询 -->
+	<select id="queryDim"
+		resultType="com.newer.supervise.pojo.Repository">
+		SELECT
+		a.id,s.source_id AS `sourceId.sourceId` ,a.item_name,a.serial_num,a.source_time,a.item_code AS `itemCode.optTime`,a.item_statu,a.item_type,a.file_type AS `fileType.typeId`,a.org_id AS `orgId.orgId`  
+		FROM repository a
+		LEFT JOIN source s ON a.source_id=s.source_id
+		LEFT JOIN item_process i ON a.item_code=i.item_code
+		LEFT JOIN file_type f ON a.file_type=f.type_id
+		LEFT JOIN organization o ON a.org_id=o.org_id
+		ORDER BY id ASC
+
+		<where>
+			<if test="sourceId !=null">
+				source_id=#{sourceId.sourceId}
+			</if>
+			<if test="itemName !=null">
+				AND item_name=#{itemName}
+			</if>
+			<if test="serialNum !=null">
+				AND serial_num=#{serialNum}
+			</if>
+			<if test="sourceTime !=null">
+				AND source_time=#{sourceTime}
+			</if>
+			<if test="itemCode !=null">
+				AND opt_time=#{itemCode.optTime}
+			</if>
+			<if test="itemStatu !=null">
+				AND item_statu=#{itemStatu}
+			</if>
+			<if test="itemType !=null">
+				AND item_type=#{itemType}
+			</if>
+			<if test="fileType !=null">
+				AND type_id=#{fileType.typeId}
+			</if>
+			<if test="orgId !=null">
+				AND org_id=#{orgId.orgId}
+			</if>
+		</where>
+
+	</select>
+	
+	<update id="updateArray">
+	     <if test="arr != null and arr.length > 0">
+	      UPDATE repository  SET  item_statu=#{statu}  WHERE id in 
+	      <foreach collection="arr" open="(" separator="," close=")" item="id">
+	              #{id}
+	      </foreach>
+	     </if>
+
+	</update>
+</mapper>

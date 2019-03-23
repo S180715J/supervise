@@ -15,15 +15,15 @@ import com.newer.supervise.pojo.ItemProcess;
 public interface ItemProcessMapper {
          
 	    /**
-	     * 当新增事项时，调用此方法，保存事项编号，操作人（领导），创建时间
+	     * 调用此方法，保存事项编号，操作人，操作时间
 	     * @param item
 	     * @return
 	     */
-	    @Insert("INSERT INTO item_process (item_code,statu_describe,opt_time,user_id,sup_statu,org_statu,staff_statu) VALUES(#{itemCode},#{statuDescribe},#{optTime},#{userId.userId},,,,)")
+	    @Insert("INSERT INTO item_process (item_code,statu_describe,opt_time,user_id,sup_statu,org_statu,staff_statu) VALUES(#{itemCode},#{statuDescribe},#{optTime},#{userId.userId},#{supStatu},#{orgStatu},#{staffStatu})")
 	    public Integer insert(ItemProcess item);
 	    
 	    /**
-	     * 修改事项进程表中事项编号
+	     * 修改事项进程表中所有事项编号
 	     * @param itemCode
 	     * @param id
 	     * @return
@@ -38,4 +38,12 @@ public interface ItemProcessMapper {
 	     */
 	    @Select("SELECT item_code,MAX(opt_time)  FROM  item_process  WHERE item_code=#{itemCode}")
 	    public ItemProcess  selectTime(String itemCode);
+	    
+	    
+	    /**
+	     * 更改事项进程表操作数据
+	     * @return
+	     */
+	    @Update("UPDATE  item_process  SET  statu_describe=#{statuDescribe} ,opt_time=#{optTime}, sup_statu=#{supStatu},org_statu=#{orgStatu},staff_statu=#{staffStatu} WHERE  item_code=#{itemCode} AND user_id=#{userId.userId}  ")
+	    public Integer  updateStatu(ItemProcess item);
 }

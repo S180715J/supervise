@@ -16,6 +16,7 @@ import com.newer.supervise.pojo.ItemProcess;
 import com.newer.supervise.pojo.Repository;
 import com.newer.supervise.pojo.SecrecyLevel;
 import com.newer.supervise.pojo.Source;
+import com.newer.supervise.pojo.User;
 
 /**
  * 备用库的服务层
@@ -148,5 +149,51 @@ public class RepositoryService {
 	 */
 	public ItemProcess selectTime(String itemCode) {
 		return itemMapper.selectTime(itemCode);
+	}
+
+	/**
+	 * 保存事项进程记录
+	 * 
+	 * @param itemCode
+	 * @param userId
+	 * @return
+	 */
+	public Integer insertItem(String itemCode, Integer userId) {
+		ItemProcess item = new ItemProcess();
+		item.setItemCode(itemCode);
+		User user = new User();
+		user.setUserId(userId);
+		item.setUserId(user);
+		
+		return itemMapper.insert(item);
+	}
+	
+	/**
+	 * 模糊查询
+	 * @param rep
+	 * @return
+	 */
+	public List<Repository> queryDim(Repository rep){
+		  return repositoryMapper.queryDim(rep);
+	}
+	
+	/**
+	 * 修改备用库表的状态
+	 * @param statu
+	 * @param id
+	 * @return
+	 */
+	public Integer updateStatu(Integer statu,Integer id) {
+		  return repositoryMapper.updateStatu(statu, id);
+	}
+	
+	/**
+	 * 批量修改
+	 * @param id
+	 * @param statu
+	 * @return
+	 */
+	public Integer updateArray(Integer[] arr,Integer statu) {
+		return repositoryMapper.updateArray(arr, statu);
 	}
 }

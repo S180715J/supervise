@@ -43,18 +43,18 @@ public interface RepositoryMapper {
 	 * 
 	 * @return
 	 */
-	@Select("SELECT a.id,s.source_type,a.source_time,a.serial_num,f.type_name,a.drafter,a.drafter_phone,a.item_name,a.item_code,u.real_name,u.duty_id,o.org_name,sl.level_name,a.item_content  FROM  repository  a \r\n"
+	@Select("SELECT a.id,s.source_type,a.source_time,a.serial_num,f.type_name,a.drafter,a.drafter_phone,a.item_name,a.item_code,u.real_name,u.duty_id,u.user_id,o.org_name,sl.level_name,a.item_content,a.item_statu  FROM  repository  a \r\n"
 			+ "LEFT JOIN source  s  ON  a.source_id=s.source_id \r\n"
 			+ "LEFT JOIN file_type f ON a.file_type=f.type_id \r\n"
 			+ "LEFT JOIN item_process i  ON a.item_code=i.item_code \r\n"
-			+ "LEFT JOIN `user`  u   ON  a.user_id=u.duty_id \r\n"
-			+ "LEFT JOIN  organization o  ON a.org_id=o.org_id \r\n"
-			+ "LEFT JOIN  secrecy_level sl ON a.secrecy_level=sl.level_id  WHERE id=1")
+			+ "LEFT JOIN user  u   ON  a.user_id=u.duty_id \r\n" + "LEFT JOIN organization o  ON a.org_id=o.org_id \r\n"
+			+ "LEFT JOIN secrecy_level sl ON a.secrecy_level=sl.level_id  WHERE id=#{id}")
 	@Results({ @Result(column = "source_type", property = "sourceId.sourceType"),
 			@Result(column = "type_name", property = "fileType.typeName"),
 			@Result(column = "item_code", property = "itemCode.itemCode"),
 			@Result(column = "real_name", property = "user.realName"),
 			@Result(column = "duty_id", property = "user.duty.dutyId"),
+			@Result(column = "user_id", property = "user.userId"),
 			@Result(column = "org_name", property = "orgId.orgName"),
 			@Result(column = "level_name", property = "secrecyLevel.levelName"), })
 	public Repository queryOne(@Param("id") Integer id);
@@ -95,4 +95,36 @@ public interface RepositoryMapper {
 	@Update("UPDATE repository SET item_name=#{itemName}, item_code=#{itemCode.itemCode}, user_id=#{user.userId}, remark=#{remark}  WHERE  id=#{id} ")
 	public Integer update(Repository rep);
 
+	/**
+	 * 修改备用库状态
+	 * 
+	 * @param statu
+	 * @return
+	 */
+	@Update("UPDATE repository  SET  item_statu=#{statu}  WHERE id=#{id}")
+	public Integer updateStatu(@Param("statu")Integer statu,@Param("id") Integer id);
+
+	/**
+	 * 修改事项类型
+	 * 
+	 * @param statu
+	 * @return
+	 */
+	@Update("")
+	public Integer updateType(Integer type);
+
+	/**
+	 * 模糊查询
+	 * 
+	 * @return
+	 */
+	public List<Repository> queryDim(Repository rep);
+
+	/**
+	 * 批量修改
+	 * @param id
+	 * @param statu
+	 * @return
+	 */
+	public Integer updateArray(@Param("arr")Integer[] arr,@Param("statu")Integer statu);
 }
