@@ -22,104 +22,120 @@ import com.newer.supervise.pojo.User;
 public interface UserMapper {
 	/**
 	 * 查询账号和密码（登录）
+	 * 
 	 * @param user
 	 * @return
 	 */
-	@Select("SELECT * FROM  USER WHERE user_name=#{userName} AND password=#{password}")
+	@Select("SELECT user_id,d.duty_id,password FROM `USER` AS u  LEFT JOIN duty AS d ON d.duty_id=u.duty_id WHERE user_name=#{userName} AND password=#{password}")
+	@Results({ @Result(column = "duty_id", property = "duty.dutyId"),
+			@Result(column = "user_name", property = "userName"),
+			@Result(column = "password", property = "password"),
+			@Result(column = "user_id", property = "userId") })
 	User findUsernamAndpwd(User user);
-	
+
 	/**
 	 * 判断用户是否已被注册
+	 * 
 	 * @param username
 	 * @return
 	 */
 	@Select("select user_name from USER where user_name=#{userName}")
 	User findUsername(String username);
-	
-	
+
 	/**
 	 * 注册
+	 * 
 	 * @param user
 	 * @return
 	 */
 	@Insert("INSERT INTO USER (user_name,password,hiredate) VALUES(username=#{user_name},password=#{password},hiredate=#{hiredate})")
 	int saveUser(User user);
-	
-	
+
 	/**
 	 * 查询所有用户信息
+	 * 
 	 * @return
 	 */
 	@Select("SELECT d.duty_name,d.duty_type,e.edu_name,o.org_name,u.* FROM USER AS u LEFT JOIN education AS e ON e.eid=u.edu_id LEFT JOIN duty AS d ON d.duty_id=u.duty_id LEFT JOIN organization AS o ON o.org_id=u.org_id")
 	List<User> queryUsers();
-	
-	
-	
-	//所有用户分页
-	
-	@Select("SELECT user_id,duty_name,duty_type,edu_name,org_name,user_name,real_name,hiredate FROM `USER` AS u LEFT JOIN education AS e ON e.eid=u.edu_id LEFT JOIN duty AS d ON d.duty_id=u.duty_id LEFT JOIN organization AS o ON o.org_id=u.org_id  LIMIT #{page},#{limit}")
-	@Results({@Result(column="duty_name",property="duty.dutyName"),
-			  @Result(column="duty_type",property="duty.dutyType"),
-			  @Result(column="edu_name",property="education.eduName"),
-			  @Result(column="org_name",property="organization.orgName"),
-			  @Result(column="user_name",property="userName"),
-			  @Result(column="real_name",property="realName"),
-			  @Result(column="hiredate",property="hiredate"),
-			  @Result(column="user_id",property="userId")})
-	List<User> userPage(@Param("page")Integer page,@Param("limit") Integer limit);
 
-	
-	
+	// 所有用户分页
+
+	@Select("SELECT user_id,duty_name,duty_type,edu_name,org_name,user_name,real_name,hiredate FROM `USER` AS u LEFT JOIN education AS e ON e.eid=u.edu_id LEFT JOIN duty AS d ON d.duty_id=u.duty_id LEFT JOIN organization AS o ON o.org_id=u.org_id  LIMIT #{page},#{limit}")
+	@Results({ @Result(column = "duty_name", property = "duty.dutyName"),
+			@Result(column = "duty_type", property = "duty.dutyType"),
+			@Result(column = "edu_name", property = "education.eduName"),
+			@Result(column = "org_name", property = "organization.orgName"),
+			@Result(column = "user_name", property = "userName"), @Result(column = "real_name", property = "realName"),
+			@Result(column = "hiredate", property = "hiredate"), @Result(column = "user_id", property = "userId") })
+	List<User> userPage(@Param("page") Integer page, @Param("limit") Integer limit);
+
 	/**
 	 * 查询单个员工
+	 * 
 	 * @param uid
 	 * @return
 	 */
-	@Select("SELECT d.duty_name,d.duty_type,e.edu_name,o.org_name,u.* FROM USER AS u LEFT JOIN education AS e ON e.eid=u.edu_id LEFT JOIN duty AS d ON d.duty_id=u.duty_id LEFT JOIN organization AS o ON o.org_id=u.org_id where u.user_id=#{userId}")
+	@Select("SELECT user_id,duty_name,d.duty_id,duty_type,e.eid, edu_name,o.org_id, org_name,user_name,real_name,hiredate FROM `USER` AS u LEFT JOIN education AS e ON e.eid=u.edu_id LEFT JOIN duty AS d ON d.duty_id=u.duty_id LEFT JOIN organization AS o ON o.org_id=u.org_id  where user_id=#{userId}")
+	@Results({ @Result(column = "duty_name", property = "duty.dutyName"),
+			@Result(column = "duty_type", property = "duty.dutyType"),
+			@Result(column = "edu_name", property = "education.eduName"),
+			@Result(column = "org_name", property = "organization.orgName"),
+			@Result(column = "user_name", property = "userName"), @Result(column = "real_name", property = "realName"),
+			@Result(column = "hiredate", property = "hiredate"), @Result(column = "user_id", property = "userId"),
+			@Result(column = "eid", property = "education.eid"),
+			@Result(column = "org_id", property = "organization.orgId"),
+			@Result(column = "duty_id", property = "duty.dutyId") })
 	User queryUser(Integer uid);
-	
+
 	/**
 	 * 修改用户信息
+	 * 
 	 * @return
 	 */
 	@Update("UPDATE USER SET real_name=#{realName},edu_id=#{education.eid},org_id=#{organization.orgId},duty_id=#{duty.dutyId},opt_time=#{optTime}  WHERE user_id=#{userId}")
 	int updateUser(User user);
-	
+
 	/**
 	 * 删除员工
+	 * 
 	 * @param uid
 	 * @return
 	 */
 	@Delete("DELETE FROM USER WHERE user_id=#{uid}")
 	int deleteUser(Integer uid);
-	
+
 	/**
 	 * 添加用户
+	 * 
 	 * @param user
 	 * @return
 	 */
 	@Insert("INSERT  INTO USER (user_name,PASSWORD,real_name,hiredate,edu_id,org_id,duty_id,opt_time)VALUES(#{userName},#{password},#{realName},#{hiredate},#{education.eid},#{organization.orgId},#{duty.dutyId},#{optTime});")
 	int InsertUser(User user);
-	
+
 	/**
 	 * 查询职务
+	 * 
 	 * @return
 	 */
 	@Select("select * from duty")
 	List<Duty> queryDuty();
-	
+
+	// 根据职务id查询职务类型
 	@Select("SELECT duty_type FROM duty WHERE duty_id=#{dutyId}")
 	Duty findDuty(Integer dutyId);
-	
-	
+
 	/**
 	 * 查询学历
+	 * 
 	 * @return
 	 */
 	@Select("select * from Education")
 	List<Education> queryEducation();
-	
-	
-	
-	
+
+	// 去重
+	@Select("select user_name from user where user_name=#{userName}")
+	User queryUserName(String userName);
+
 }
