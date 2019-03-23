@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
-		<title>督办平台-用户管理</title>
+		<title>NEWER督办平台-最近更新</title>
 		<link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="../../static/h-ui/css/H-ui.min.css">
 		<link rel="stylesheet" href="../../static/h-ui.admin/css/H-ui.admin.css">
@@ -19,12 +19,10 @@
 	</head>
 	<body>
 		<nav class="breadcrumb">
-			<i class="Hui-iconfont">&#xe67f;</i> 首页
-			<span class="c-gray en">&gt;</span>
-			用户管理
-			<span class="c-gray en">&gt;</span>用户管理列表
-			<a id="refresh" class="btn btn-success radius r" style="line-height:1.6em;margin-top:3;position: absolute;left: 90%;" href="javascript:location.replace(location.href);"
-			 title="刷新">
+			<i class="Hui-iconfont">&#xe67f;</i> 最近更新
+
+			<a id="refresh" class="btn btn-success radius r" style="line-height:1.6em;margin-top:3;position: absolute;left: 90%;"
+			 href="javascript:location.replace(location.href);" title="刷新">
 				<i class="Hui-iconfont">&#xe68f;</i>
 			</a>
 		</nav>
@@ -79,56 +77,42 @@
 						cols: [
 							[{
 									field: 'userName',
-									title: '登录账户',
-									width: 140,
+									title: '事项名称',
+									width: 204,
 									sort: true,
-									
+									fixed: 'left',
 									align: 'center'
 								},
 								{
 									field: 'realName',
-									title: '用户姓名',
+									title: '牵头部门',
 									align: 'center',
-									width: 130,
+									width: 220,
 									sort: true
 								},
 								
 								{
 									field: 'hiredate',
-									title: '入职时间',
+									title: '最新操作',
 									align: 'center',
-									width: 222,
+									width: 240,
 									sort: true
 								},
 								{
 									templet: '<div>{{d.education.eduName}}</div>',
-									title: '学历',
+									title: '操作时间',
 									align: 'center',
-									width: 130,
+									width: 290,
 									sort: true
 								},
 								{
 									templet: '<div>{{d.organization.orgName}}</div>',
-									title: '所属部门',
-									align: 'center',
-									width: 180,
-									sort: true
-								},
-								{
-									templet: '<div>{{d.duty.dutyName}}</div>',
-									title: '职务',
+									title: '操作人',
 									align: 'center',
 									width: 150,
 									sort: true
 								},
-								{
-									templet: '<div>{{d.duty.dutyType}}</div>',
-									title: '职务类别',
-									align: 'center',
-									width: 150,
-									sort: true,									
-								},
-
+								
 
 							]
 						],
@@ -151,7 +135,12 @@
 			
 			
 		</script>
-		
+		<script type="text/html" id="barDemo">
+			<span></span>
+			<a href="javascript:;" onclick="recharge_cards('修改','../user/update-user.html?cid={{d.userId}}','500','450')" class="btn btn-primary" ><span class="glyphicon glyphicon-yen"></span>修改</a>
+			
+		  <a href="javascript:;" onclick="emp_del({{d.userId}})" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>删除</a>
+		</script>
 
 		<script type="text/javascript">
 			/*删除*/

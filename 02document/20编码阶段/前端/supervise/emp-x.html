@@ -7,15 +7,16 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
 		<link rel="Bookmark" href="/favicon.ico">
-		<link rel="Shortcut Icon" href="images/googleg_lodp.ico" />
+		<link rel="Shortcut Icon" href="../images/googleg_lodp.ico" />
+
 		<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
 		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
 		<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
 		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/green/skin.css" id="skin" />
 		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
-		<title>牛耳督办管理系统</title>
-		<meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
-		<meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+
+		<title>牛耳督办管理系统-员工</title>
+		<meta name="keywords" content="员工菜单">
 	</head>
 	<body>
 		<header class="navbar-wrapper">
@@ -39,11 +40,10 @@
 											用户</a></li>
 								</ul>
 							<li class="navbar-levelone current"><a href="javascript:;">首页</a></li>
-
+							<li class="navbar-levelone"><a href="javascript:;">待办事项</a></li>
 							<li class="navbar-levelone"><a href="javascript:;">备用库</a></li>
 							<li class="navbar-levelone"><a href="javascript:;">事项列表</a></li>
 							<li class="navbar-levelone"><a href="javascript:;">平台管理</a></li>
-							
 							</li>
 						</ul>
 					</nav>
@@ -82,18 +82,26 @@
 					<dt><i class="Hui-iconfont">&#xe616;</i> 首页<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 					<dd>
 						<ul>
-							<li><a data-href="homepage/supervise/recent-updates-supervise.html" data-title="最近更新" href="javascript:void(0)">最近更新</a></li>
-							<li><a data-href="homepage/supervise/propelling.html" data-title="推进中事项" href="javascript:void(0)">推进中事项</a></li>
-							<li><a data-href="homepage/supervise/subscription.html" data-title="我的订阅" href="javascript:void(0)">我的订阅</a></li>
-							<li><a data-href="homepage/supervise/statistics.html" data-title="我的统计" href="javascript:void(0)">我的统计</a></li>
-							
+							<li><a data-href="article-list.html" data-title="最近更新" href="javascript:void(0)">最近更新</a></li>
+							<li><a data-href="article-list.html" data-title="推进中事项" href="javascript:void(0)">推进中事项</a></li>
+							<li><a data-href="article-list.html" data-title="我的订阅" href="javascript:void(0)">我的订阅</a></li>
+							<li><a data-href="article-list.html" data-title="我的统计" href="javascript:void(0)">我的统计</a></li>
 						</ul>
 					</dd>
 				</dl>
 
 			</div>
 
-
+			<div class="menu_dropdown bk_2" style="display:none">
+				<dl id="menu-aaaaa">
+					<dt><i class="Hui-iconfont">&#xe616;</i> 待办事项<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">三级导航</a></li>
+						</ul>
+					</dd>
+				</dl>
+			</div>
 			<div class="menu_dropdown bk_2" style="display:none">
 				<dl id="menu-bbbbb">
 					<dt><i class="Hui-iconfont">&#xe616;</i> 备用库管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
@@ -195,7 +203,7 @@
 					</dd>
 				</dl>
 			</div>
-			
+
 		</aside>
 		<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
 		<section class="Hui-article-box">
@@ -203,10 +211,8 @@
 				<div class="Hui-tabNav-wp">
 					<ul id="min_title_list" class="acrossTab cl">
 						<li class="active">
-							<span title="我的主页" data-href="#">我的主页</span>
-
+							<span title="我的桌面" data-href="homepage/welcome-emp.html">我的桌面</span>
 							<em></em></li>
-						
 					</ul>
 				</div>
 				<div class="Hui-tabNav-more btn-group"><a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;"><i
@@ -216,10 +222,8 @@
 			<div id="iframe_box" class="Hui-article">
 				<div class="show_iframe">
 					<div style="display:none" class="loading"></div>
-					<iframe scrolling="yes" frameborder="0" src="homepage/welcome-supervise.html"></iframe>
-
+					<iframe scrolling="yes" frameborder="0" src="homepage/welcome-emp.html"></iframe>
 				</div>
-				
 			</div>
 		</section>
 
@@ -242,6 +246,7 @@
 			$(function() {
 
 
+
 				$("body").Huitab({
 					tabBar: ".navbar-wrapper .navbar-levelone",
 					tabCon: ".Hui-aside .menu_dropdown",
@@ -249,11 +254,50 @@
 					index: 0,
 				});
 			});
-			
-			$("#genduo").on('click',function(){
-				function gengduo(){};
-			});
-			
+			/*个人信息*/
+			function myselfinfo() {
+				layer.open({
+					type: 1,
+					area: ['300px', '200px'],
+					fix: false, //不固定
+					maxmin: true,
+					shade: 0.4,
+					title: '查看信息',
+					content: '<div>管理员信息</div>'
+				});
+			}
+
+			/*资讯-添加*/
+			function article_add(title, url) {
+				var index = layer.open({
+					type: 2,
+					title: title,
+					content: url
+				});
+				layer.full(index);
+			}
+			/*图片-添加*/
+			function picture_add(title, url) {
+				var index = layer.open({
+					type: 2,
+					title: title,
+					content: url
+				});
+				layer.full(index);
+			}
+			/*产品-添加*/
+			function product_add(title, url) {
+				var index = layer.open({
+					type: 2,
+					title: title,
+					content: url
+				});
+				layer.full(index);
+			}
+			/*用户-添加*/
+			function member_add(title, url, w, h) {
+				layer_show(title, url, w, h);
+			}
 		</script>
 
 
