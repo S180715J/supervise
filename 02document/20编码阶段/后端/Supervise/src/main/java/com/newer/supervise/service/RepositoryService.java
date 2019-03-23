@@ -1,6 +1,9 @@
 package com.newer.supervise.service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -164,36 +167,79 @@ public class RepositoryService {
 		User user = new User();
 		user.setUserId(userId);
 		item.setUserId(user);
-		
+
 		return itemMapper.insert(item);
 	}
-	
+
 	/**
 	 * 模糊查询
+	 * 
 	 * @param rep
 	 * @return
 	 */
-	public List<Repository> queryDim(Repository rep){
-		  return repositoryMapper.queryDim(rep);
+	public List<Repository> queryDim(Repository rep) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		Integer sourceId = rep.getSourceId().getSourceId();
+		String itemName = rep.getItemName();
+		String serialNum = rep.getSerialNum();
+		Date sourceTime = rep.getSourceTime();
+		Date optTime = rep.getItemCode().getOptTime();
+		Integer itemStatu = rep.getItemStatu();
+		Integer itemType = rep.getItemType();
+		Integer typeId = rep.getFileType().getTypeId();
+		Integer orgId = rep.getOrgId().getOrgId();
+
+		if (sourceId != null && !sourceId.equals(-1)) {
+			map.put("sourceId", sourceId);
+		}
+		if (itemName != null && !itemName.equals("")) {
+			map.put("itemName", itemName);
+		}
+		if (serialNum != null && !serialNum.equals("")) {
+			map.put("serialNum", serialNum);
+		}
+		if (sourceTime != null) {
+			map.put("sourceTime", sourceTime);
+		}
+		if (optTime != null) {
+			map.put("optTime", optTime);
+		}
+		if (itemStatu != null && !itemStatu.equals(-1)) {
+			map.put("itemStatu", itemStatu);
+		}
+		if (itemType != null && !itemType.equals(-1)) {
+			map.put("itemType", itemType);
+		}
+		if (typeId != null && !typeId.equals(-1)) {
+			map.put("typeId", typeId);
+		}
+		if (orgId != null && !orgId.equals(-1)) {
+			map.put("orgId", orgId);
+		}
+
+		return repositoryMapper.queryDim(map);
 	}
-	
+
 	/**
 	 * 修改备用库表的状态
+	 * 
 	 * @param statu
 	 * @param id
 	 * @return
 	 */
-	public Integer updateStatu(Integer statu,Integer id) {
-		  return repositoryMapper.updateStatu(statu, id);
+	public Integer updateStatu(Integer statu, Integer id) {
+		return repositoryMapper.updateStatu(statu, id);
 	}
-	
+
 	/**
 	 * 批量修改
+	 * 
 	 * @param id
 	 * @param statu
 	 * @return
 	 */
-	public Integer updateArray(Integer[] arr,Integer statu) {
+	public Integer updateArray(Integer[] arr, Integer statu) {
 		return repositoryMapper.updateArray(arr, statu);
 	}
 }

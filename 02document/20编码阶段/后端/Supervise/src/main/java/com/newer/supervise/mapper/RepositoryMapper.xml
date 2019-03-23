@@ -6,54 +6,53 @@
 	<!-- 模糊查询 -->
 	<select id="queryDim"
 		resultType="com.newer.supervise.pojo.Repository">
-		SELECT
-		a.id,s.source_id AS `sourceId.sourceId` ,a.item_name,a.serial_num,a.source_time,a.item_code AS `itemCode.optTime`,a.item_statu,a.item_type,a.file_type AS `fileType.typeId`,a.org_id AS `orgId.orgId`  
+		SELECT id,item_name,
+		b.source_type AS `sourceId.sourceType`,a.item_content,a.source_time,o.org_name AS `orgId.orgName`,c.type_name AS `fileType.typeName`,a.item_type,a.item_statu,a.item_code AS `itemCode.itemCode`,i.opt_time 
 		FROM repository a
-		LEFT JOIN source s ON a.source_id=s.source_id
-		LEFT JOIN item_process i ON a.item_code=i.item_code
-		LEFT JOIN file_type f ON a.file_type=f.type_id
+		LEFT JOIN source b ON a.source_id=b.source_id
+		LEFT JOIN file_type c ON a.file_type=c.type_id
 		LEFT JOIN organization o ON a.org_id=o.org_id
-		ORDER BY id ASC
-
+		LEFT  JOIN  item_process i  ON a.item_code=i.item_code
 		<where>
 			<if test="sourceId !=null">
-				source_id=#{sourceId.sourceId}
+				a.source_id=#{sourceId}
 			</if>
 			<if test="itemName !=null">
-				AND item_name=#{itemName}
+				AND a.item_name=#{itemName}
 			</if>
 			<if test="serialNum !=null">
-				AND serial_num=#{serialNum}
+				AND a.serial_num=#{serialNum}
 			</if>
 			<if test="sourceTime !=null">
-				AND source_time=#{sourceTime}
+				AND a.source_time=#{sourceTime}
 			</if>
-			<if test="itemCode !=null">
-				AND opt_time=#{itemCode.optTime}
+			<if test="optTime !=null">
+				AND a.opt_time=#{optTime}
 			</if>
 			<if test="itemStatu !=null">
-				AND item_statu=#{itemStatu}
+				AND a.item_statu=#{itemStatu}
 			</if>
 			<if test="itemType !=null">
-				AND item_type=#{itemType}
+				AND a.item_type=#{itemType}
 			</if>
-			<if test="fileType !=null">
-				AND type_id=#{fileType.typeId}
+			<if test="typeId !=null">
+				AND a.file_type=#{typeId}
 			</if>
 			<if test="orgId !=null">
-				AND org_id=#{orgId.orgId}
+				AND a.org_id=#{orgId}
 			</if>
 		</where>
-
+		ORDER BY id ASC
 	</select>
-	
+
 	<update id="updateArray">
-	     <if test="arr != null and arr.length > 0">
-	      UPDATE repository  SET  item_statu=#{statu}  WHERE id in 
-	      <foreach collection="arr" open="(" separator="," close=")" item="id">
-	              #{id}
-	      </foreach>
-	     </if>
+		<if test="arr != null and arr.length > 0">
+			UPDATE repository SET item_statu=#{statu} WHERE id in
+			<foreach collection="arr" open="(" separator="," close=")"
+				item="id">
+				#{id}
+			</foreach>
+		</if>
 
 	</update>
 </mapper>

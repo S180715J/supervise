@@ -1,6 +1,7 @@
 package com.newer.supervise.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -118,7 +119,7 @@ public interface RepositoryMapper {
 	 * 
 	 * @return
 	 */
-	public List<Repository> queryDim(Repository rep);
+	public List<Repository> queryDim(Map<String, Object> map);
 
 	/**
 	 * 批量修改

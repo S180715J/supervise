@@ -191,7 +191,7 @@ public class RepositoryController {
 		List<Repository> list = repositoryService.queryDim(rep);
 		if (list.isEmpty()) {
 			// 如果没查到数据则返回0
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<Integer>(0, HttpStatus.OK);
 		}
 		return new ResponseEntity<List<Repository>>(list, HttpStatus.OK);
 	}
@@ -204,7 +204,7 @@ public class RepositoryController {
 	 * @return
 	 */
 	@PutMapping("/item/statu")
-	public ResponseEntity<?> updateStatu(@RequestParam("statu")Integer statu,@RequestParam("id") Integer id) {
+	public ResponseEntity<?> updateStatu(@RequestParam("statu") Integer statu, @RequestParam("id") Integer id) {
 		Integer i = repositoryService.updateStatu(statu, id);
 		return new ResponseEntity<Integer>(i, HttpStatus.OK);
 	}
