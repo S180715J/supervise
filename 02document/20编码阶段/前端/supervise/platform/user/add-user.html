@@ -128,13 +128,7 @@
 		/** 显示下拉列表 */
 		function initDept() {
 			//部门
-<<<<<<< HEAD
-			$.get('http://localhost:8080/Supervise/org', function(data) {
-	
-=======
 			$.get('http://localhost:8888/Supervise/org', function(data) {
-
->>>>>>> 078b71e7015ef0646155b88d357f99cb5627ee65
 				$.each(data, (i, item) => {
 					var text = '<option value="' + item.orgId + '">' + item.orgName + '</option>';
 					$('#organization').append(text);
@@ -144,13 +138,7 @@
 
 
 			//职务
-<<<<<<< HEAD
-			$.get('http://localhost:8080/Supervise/user/duty', function(data) {
-	
-=======
 			$.get('http://localhost:8888/Supervise/user/duty', function(data) {
-
->>>>>>> 078b71e7015ef0646155b88d357f99cb5627ee65
 				$.each(data, (i, item) => {
 					var text = '<option value="' + item.dutyId + '">' + item.dutyName + '</option>';
 					$('#duty').append(text);
@@ -160,18 +148,11 @@
 
 
 			//学历
-<<<<<<< HEAD
-			$.get('http://localhost:8080/Supervise/user/education', function(data) {
-	
-=======
 			$.get('http://localhost:8888/Supervise/user/education', function(data) {
-
->>>>>>> 078b71e7015ef0646155b88d357f99cb5627ee65
 				$.each(data, (i, item) => {
 					var text = '<option value="' + item.eid + '">' + item.eduName + '</option>';
 					$('#education').append(text);
 				});
-
 			}, 'json');
 
 		}
@@ -199,7 +180,6 @@
 			var realName = $("#realName").val();
 			validatecode = null,
 				flag = false;
-
 			if (userName == "") {
 				$.pt({
 					target: $("#userName"),
@@ -235,7 +215,6 @@
 				});
 				flag = true;
 			}
-
 
 			var regExrealName = new RegExp("[\u4e00-\u9fa5]{2,6}$");
 			if (!regExrealName.test(realName)) {
