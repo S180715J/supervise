@@ -19,6 +19,7 @@ import com.newer.supervise.pojo.ItemProcess;
 import com.newer.supervise.pojo.Repository;
 import com.newer.supervise.pojo.SecrecyLevel;
 import com.newer.supervise.pojo.Source;
+import com.newer.supervise.pojo.User;
 import com.newer.supervise.service.RepositoryService;
 
 /**
@@ -218,5 +219,20 @@ public class RepositoryController {
 	public ResponseEntity<?> updateArray(@RequestBody Integer[] arr) {
 		Integer i = repositoryService.updateArray(arr, 0);
 		return new ResponseEntity<Integer>(i, HttpStatus.OK);
+	}
+
+	/**
+	 * 初始化领导信息
+	 * 
+	 * @return
+	 */
+	@GetMapping("/showLeader")
+	public ResponseEntity<?> showLeader() {
+		List<User> list = repositoryService.showLeader();
+
+		if (!list.isEmpty()) {
+			return new ResponseEntity<List<User>>(list, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>("no_leader", HttpStatus.NO_CONTENT);
 	}
 }
