@@ -16,6 +16,13 @@
 		<link rel="stylesheet" href="../../css/bootstrap.min.css" />
 		<link rel="stylesheet" href="../../css/layui.css" media="all" />
 		<link rel="srstylesheet" href="../../css/layui.mobile.css" />
+		<style>
+			.clearfix:after{content:"\20";display:block;height:0;clear:both;visibility:hidden}.clearfix{zoom:1}
+			.tabBar {border-bottom: 2px solid #222}
+			.tabBar span {background-color: #e8e8e8;cursor: pointer;display: inline-block;float: left;font-weight: bold;height: 30px;line-height: 30px;padding: 0 15px}
+			.tabBar span.current{background-color: #222;color: #fff}
+			.tabCon {display: none}
+		</style>
 	</head>
 	<body>
 		<nav class="breadcrumb">
@@ -26,12 +33,29 @@
 				<i class="Hui-iconfont">&#xe68f;</i>
 			</a>
 		</nav>
-		<div class="page-container">
-			
-			<div class="mt-20">
-				<table id="table" class="table table-border table-bordered table-hover table-bg table-sort">
-
-				</table>
+			<div id="tab_demo" class="HuiTab">
+			<div class="tabBar clearfix"><span>推进中事项</span><span>&nbsp;&nbsp;更&nbsp;&nbsp;&nbsp;&nbsp;多</span></div>
+			<div class="tabCon">
+				<div class="page-container">
+		
+					<div class="mt-20">
+						<table id="table1" class="table table-border table-bordered table-hover table-bg table-sort">
+		
+						</table>
+		
+					</div>
+				</div>
+			</div>
+			<div class="tabCon">
+				<div class="page-container">
+					<div class="mt-20">
+						<table id="table2" class="table table-border table-bordered table-hover table-bg table-sort">
+								<tr style="background-color: #f2f2f2;">
+									<th style="text-align: center;">更多待办事项</th>
+								</tr>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 		<footer class="footer mt-20">
@@ -52,24 +76,15 @@
 		<script>
 			$(function() {
 				loadData();
+				moreloadData();
 			});
-			/*添加*/
-			function admin_add(title, url, w, h) {
-				layer_show(title, url, w, h);
-			}
-
-			 function recharge_cards(title, url, w, h) {
-				layer_show(title, url, w, h);
-			} 
-
-			
-			
+				
 			function loadData() {
 
 				layui.use('table', function() {
 					var table = layui.table;
 					table.render({
-						elem: "#table",
+						elem: "#table1",
 						height: 473,
 						limit: 10,
 						url: 'http://localhost:8888/Supervise/user/page', //数据接口
@@ -138,54 +153,85 @@
 				}
 			}
 			
+			function moreloadData() {
 			
+				layui.use('table', function() {
+					var table = layui.table;
+					table.render({
+						elem: "#table2",
+						height: 473,
+						limit: 10,
+						url: 'http://localhost:8888/Supervise/user/page', //数据接口
+						page: true, //开启分页
+						cols: [
+							[{
+									field: 'userName',
+									title: '事项名称',
+									width: 203,
+									sort: true,
+									fixed: 'left',
+									align: 'center'
+								},
+								{
+									field: 'realName',
+									title: '公司领导',
+									align: 'center',
+									width: 140,
+									sort: true
+								},
+								
+								{
+									field: 'hiredate',
+									title: '牵头部门',
+									align: 'center',
+									width: 200,
+									sort: true
+								},
+							
+								
+			
+							]
+						],
+						parseData: function(res) { //将原始数据解析成 table 组件所规定的数据
+							return {
+								"code": res.code, //解析接口状态
+								"count": res.count, //解析数据长度
+								"data": res.data //解析数据列表
+							};
+						}
+			
+					});
+			
+				});
+				xhrFields: {
+					withCredentials: true
+				}
+			}
 			
 		</script>
-		<script type="text/html" id="barDemo">
-			<span></span>
-			<a href="javascript:;" onclick="recharge_cards('修改','../user/update-user.html?cid={{d.userId}}','500','450')" class="btn btn-primary" ><span class="glyphicon glyphicon-yen"></span>修改</a>
-			
-		  <a href="javascript:;" onclick="emp_del({{d.userId}})" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>删除</a>
-		</script>
+		
 
 		<script type="text/javascript">
-			/*删除*/
-			function emp_del(uid) {
-				layer.confirm("确认要删除员工编号为：" + uid + " 的这条数据吗?", function(index) {
-					$.ajax({
-						url: 'http://localhost:8888/Supervise/user/deleteuser/' + uid,
-						method: 'delete',
-						success: function(data) {
-
-							if (data == 'ok') {
-								layer.msg(
-									'删除成功', {
-										icon: 1,
-										time: 1000 //2秒关闭（如果不配置，默认是3秒）
-									}
-								);
-								// 刷新窗口
-								setTimeout('window.location.reload()', 1000); //指定1秒刷新一次
-
-							} else {
-								layer.msg(
-									'没有删除数据', {
-										icon: 1,
-										time: 2000 //2秒关闭（如果不配置，默认是3秒）
-									}
-								);
-							}
-
-
-						},
-						error: function(qXHR, textStatus, errorThrown) {
-							layer.alert("系统出现错误，请联系管理员");
-						}
-					}, 'text');
-
-					layer.close(index);
-				});
+			jQuery.Huitab = function(tabBar, tabCon, class_name, tabEvent, i) {
+				var $tab_menu = $(tabBar);
+				// 初始化操作
+				$tab_menu.removeClass(class_name);
+				$(tabBar).eq(i).addClass(class_name);
+				$(tabCon).hide();
+				$(tabCon).eq(i).show();
+			
+				$tab_menu.bind(tabEvent, function() {
+					$tab_menu.removeClass(class_name);
+					$(this).addClass(class_name);
+					var index = $tab_menu.index(this);
+					$(tabCon).hide();
+					$(tabCon).eq(index).show()
+				})
 			}
+			
+			$(function() {
+				$.Huitab("#tab_demo .tabBar span", "#tab_demo .tabCon", "current", "click", "0");
+			});
 		</script>
 	</body>
 </html>
