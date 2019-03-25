@@ -242,4 +242,13 @@ public class RepositoryService {
 	public Integer updateArray(Integer[] arr, Integer statu) {
 		return repositoryMapper.updateArray(arr, statu);
 	}
+
+	/**
+	 * 初始化领导信息
+	 * 
+	 * @return
+	 */
+	public List<User> showLeader() {
+		return repositoryMapper.showLeader();
+	}
 }

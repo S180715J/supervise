@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.newer.supervise.pojo.Repository;
+import com.newer.supervise.pojo.User;
 
 /**
  * 备用库DAO层
@@ -103,7 +104,7 @@ public interface RepositoryMapper {
 	 * @return
 	 */
 	@Update("UPDATE repository  SET  item_statu=#{statu}  WHERE id=#{id}")
-	public Integer updateStatu(@Param("statu")Integer statu,@Param("id") Integer id);
+	public Integer updateStatu(@Param("statu") Integer statu, @Param("id") Integer id);
 
 	/**
 	 * 修改事项类型
@@ -123,9 +124,18 @@ public interface RepositoryMapper {
 
 	/**
 	 * 批量修改
+	 * 
 	 * @param id
 	 * @param statu
 	 * @return
 	 */
-	public Integer updateArray(@Param("arr")Integer[] arr,@Param("statu")Integer statu);
+	public Integer updateArray(@Param("arr") Integer[] arr, @Param("statu") Integer statu);
+
+	/**
+	 * 初始化领导信息
+	 * 
+	 * @return
+	 */
+	@Select("SELECT u.user_id,u.real_name  FROM  `user`  u  LEFT JOIN duty  d ON  u.duty_id=d.duty_id  WHERE d.duty_type='公司领导'")
+	public List<User> showLeader();
 }

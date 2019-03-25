@@ -50,6 +50,15 @@ public interface OrgMapper {
 	public Integer delorg(@Param("orgId") Integer orgId);
 
 	/**
+	 * 根据机构父id删除机构
+	 * 
+	 * @param parentId 机构父id
+	 * @return
+	 */
+	@Delete("DELETE FROM organization WHERE parent_id = #{parentOrgid}")
+	Integer deleteByParentId(@Param("parentOrgid") Integer parentOrgid);
+
+	/**
 	 * 修改部门信息
 	 * 
 	 * @param org
@@ -73,4 +82,13 @@ public interface OrgMapper {
 	 */
 	@Select("SELECT org_id,org_name,parent_orgid,id_path,name_path FROM organization")
 	List<Organization> queryParentPath();
+	
+	/**
+	 * 根据父机构id查询下属机构
+	 * 
+	 * @param orgid
+	 * @return
+	 */
+	@Select("SELECT * FROM organization WHERE parent_orgid = #{orgid}")
+	List<Organization> queryOrgByParentId(@Param("orgid")Integer orgid);
 }

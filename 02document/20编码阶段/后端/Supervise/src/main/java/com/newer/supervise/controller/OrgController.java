@@ -35,16 +35,14 @@ public class OrgController {
 	public ResponseEntity<?> getorg(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
 			@RequestParam(value = "limit", required = false, defaultValue = "10") Integer limit) {
 		List<Organization> list = orgservice.getorg(page, limit);
-		/*if (!(list.size() == 0 || list.isEmpty())) {*/
-			
+		if (!(list.size() == 0 || list.isEmpty())) {
 			Page<Organization> orgPage = new Page<Organization>();
 			orgPage.setCode(0);
 			orgPage.setCount(orgservice.getCount());
 			orgPage.setData(list);
 			return new ResponseEntity<Page<Organization>>(orgPage, HttpStatus.OK);
-			
-		/*}*/
-	/*	return new ResponseEntity<>("no_org", HttpStatus.OK);*/
+		}
+		return new ResponseEntity<>("no_org", HttpStatus.OK);
 	}
 	
 
@@ -62,7 +60,7 @@ public class OrgController {
 	
 
 	/**
-	 * 新增机构(已完成)
+	 * 新增机构
 	 * 
 	 * @param org
 	 * @return
@@ -81,7 +79,7 @@ public class OrgController {
 	
 
 	/**
-	 * 删除部门信息(已完成)
+	 * 删除部门信息
 	 * 
 	 * @param orgid
 	 * @return

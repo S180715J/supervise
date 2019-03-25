@@ -30,7 +30,7 @@ import com.newer.supervise.utils.JwtTokenUtil;
  */
 @RestController
 @RequestMapping("/user")
-public class Usercontroller {
+public class UserController {
 
 	Logger log = LoggerFactory.getLogger(getClass());
 	@Autowired

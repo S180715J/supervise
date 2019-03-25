@@ -200,12 +200,12 @@
 		$(function() {
 			//适用与一个参数
 			function parseUrl(url) {
-				if (url.indexOf("?") == -1) {
-					return {};
-				}
-				var value = url.split("=")[1];
-				return value;
-			}
+                if (url.indexOf("?") == -1) {
+                    return {};
+                }
+                var value = url.split("=")[1];
+                return value;
+            }
 			// url传递的信息
 			var $urlMsg = parseUrl(window.location.search);
 			$.ajax({
