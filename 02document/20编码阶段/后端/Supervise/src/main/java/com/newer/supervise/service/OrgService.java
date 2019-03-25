@@ -63,9 +63,6 @@ public class OrgService {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, timeout = 5000, readOnly = false)
 	public Integer delorg(Integer orgid) {
-		Organization organization = orgmapper.getorgID(orgid);
-		Integer id = organization.getOrgId();
-		
 		return orgmapper.delorg(orgid);
 	}
 
