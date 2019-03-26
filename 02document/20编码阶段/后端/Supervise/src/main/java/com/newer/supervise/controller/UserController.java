@@ -3,6 +3,8 @@ package com.newer.supervise.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/logins", method = RequestMethod.POST)
-	public ResponseEntity<?> login(@RequestBody User user) {
+	public ResponseEntity<?> login(@RequestBody User user, HttpSession session) {
 		log.info("用户输入账号：{}，密码：{}................", user.getUserName(), user.getPassword());
 		User user2 = userService.findUsernamAndpwd(user);
 		if (user2 != null) {
@@ -109,7 +111,6 @@ public class UserController {
 			log.info("员工对象创建失败:系统中已存在该编号{}的员工", queryUser.getUserId());
 			return new ResponseEntity<>("Not Found:" + userId, HttpStatus.NOT_FOUND);
 		}
-		/*user.setOptTime(new Date());*/
 		int insertUser = userService.InsertUser(user);
 		if (insertUser > 0) {
 			return new ResponseEntity<User>(user, HttpStatus.CREATED);

@@ -114,7 +114,8 @@ public interface UserMapper {
 	@Select("select * from duty")
 	List<Duty> queryDuty();
 
-	@Select("SELECT  duty_type FROM duty WHERE duty_id=#{dutyId}")
+	// 根据职务id查询职务类型
+	@Select("SELECT duty_type FROM duty WHERE duty_id=#{dutyId}")
 	Duty findDuty(Integer dutyId);
 
 	/**
@@ -124,5 +125,9 @@ public interface UserMapper {
 	 */
 	@Select("select * from Education")
 	List<Education> queryEducation();
+
+	// 去重
+	@Select("select user_name from user where user_name=#{userName}")
+	User queryUserName(String userName);
 
 }
