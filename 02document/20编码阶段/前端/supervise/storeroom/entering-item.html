@@ -424,7 +424,7 @@
           var leader = '';
           if (!(data == 'no_leader')) {
             $.each(data, function(i, user) {
-              leader += '<option value=' + user.userId + '>' + user.duty.dutyName + '</option>';
+              leader += '<option value=' + user.userId + '>' + user.realName + "(" + user.duty.dutyName + ")" + '</option>';
             });
             $('#userId').append(leader);
           }
@@ -555,5 +555,8 @@
 
   <!--/请在上方写此页面业务相关的脚本-->
 </body>
+
+</html>
+dy>
 
 </html>
