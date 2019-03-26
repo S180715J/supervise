@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.newer.supervise.mapper.ItemProcessMapper;
+import com.newer.supervise.mapper.MainMapper;
 import com.newer.supervise.pojo.ItemProcess;
 
 /**
@@ -18,7 +18,7 @@ import com.newer.supervise.pojo.ItemProcess;
 public class MainService {
 
 	@Autowired
-	private ItemProcessMapper itemMapper;
+	private MainMapper mapper;
 
 	/**
 	 * 得到事项进程表中同一事项的具体数据
@@ -27,6 +27,6 @@ public class MainService {
 	 * @return
 	 */
 	public List<ItemProcess> queryUser(String itemCode) {
-		return itemMapper.queryUser(itemCode);
+		return mapper.queryUser(itemCode);
 	}
 }
