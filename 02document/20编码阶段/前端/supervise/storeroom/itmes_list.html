@@ -208,6 +208,97 @@
 			layer_show(title, url, w, h);
 		}
 	</script>
+	<script type="text/javascript">
+		fileTypeInit();
+		orgInit();
+		sourceInit()
+		/**
+		 * 初始化文件类型下拉框
+		 */
+		function fileTypeInit() {
+			$.ajax({
+				url: HOST_URL + 'showFileType',
+				type: 'GET',
+				contentType: '',
+				success: function(data) {
+					var file = '';
+					if (!(data == 'no_type')) {
+						$.each(data, function(i, filetype) {
+							file += '<option value=' + filetype.typeId + '>' + filetype.typeName + '</option>';
+						});
+						$('#fileType').append(file);
+					}
+					else {
+						file = '暂无类型';
+						$('#fileType').append(file);
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					layer.alert('系统出现错误，请联系管理员');
+				},
+				xhrFields: {
+					withCredentials: true
+				}
+			}, 'JSON');
+		}
+
+
+		/**
+		 * 初始化部门
+		 */
+		function orgInit() {
+			$.ajax({
+				url: HOST_URL + 'org',
+				type: 'GET',
+				contentType: '',
+				success: function(data) {
+					var leader = '';
+					if (!(data == '0')) {
+						$.each(data, function(i, user) {
+							leader += '<option value=' + user.orgId + '>' + user.orgName + '</option>';
+						});
+						$('#orgId').append(leader);
+					}
+					else {
+						leader = '暂无部门';
+						$('#orgId').append(leader);
+					}
+				},
+				xhrFields: {
+					withCredentials: true
+				}
+			}, 'JSON');
+		}
+
+		/**
+		 * 初始化事项来源
+		 */
+		function sourceInit() {
+			$.ajax({
+				url: HOST_URL + 'showSource',
+				type: 'GET',
+				success: function(data) {
+					var itemSource = '';
+					if (!(data == 'no_source')) {
+						$.each(data, function(i, source) {
+							itemSource += '<option value=' + source.sourceId + '>' + source.sourceType + '</option>';
+						});
+						$('#sourceId').append(itemSource);
+					}
+					else {
+						itemSource = '暂无来源';
+						$('#sourceId').append(itemSource);
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					layer.alert('系统出现错误，请联系管理员');
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+			}, 'JSON');
+		}
+	</script>
 
 	<script type="text/javascript">
 		$(function() {
@@ -492,97 +583,7 @@
 		});
 	</script>
 
-	<script type="text/javascript">
-		fileTypeInit();
-		orgInit();
-		sourceInit()
-		/**
-		 * 初始化文件类型下拉框
-		 */
-		function fileTypeInit() {
-			$.ajax({
-				url: HOST_URL + 'showFileType',
-				type: 'GET',
-				contentType: '',
-				success: function(data) {
-					var file = '';
-					if (!(data == 'no_type')) {
-						$.each(data, function(i, filetype) {
-							file += '<option value=' + filetype.typeId + '>' + filetype.typeName + '</option>';
-						});
-						$('#fileType').append(file);
-					}
-					else {
-						file = '暂无类型';
-						$('#fileType').append(file);
-					}
-				},
-				error: function(xhr, type, errorThrown) {
-					layer.alert('系统出现错误，请联系管理员');
-				},
-				xhrFields: {
-					withCredentials: true
-				}
-			}, 'JSON');
-		}
 
-
-		/**
-		 * 初始化部门
-		 */
-		function orgInit() {
-			$.ajax({
-				url: HOST_URL + 'org',
-				type: 'GET',
-				contentType: '',
-				success: function(data) {
-					var leader = '';
-					if (!(data == '0')) {
-						$.each(data, function(i, user) {
-							leader += '<option value=' + user.orgId + '>' + user.orgName + '</option>';
-						});
-						$('#orgId').append(leader);
-					}
-					else {
-						leader = '暂无部门';
-						$('#orgId').append(leader);
-					}
-				},
-				xhrFields: {
-					withCredentials: true
-				}
-			}, 'JSON');
-		}
-
-		/**
-		 * 初始化事项来源
-		 */
-		function sourceInit() {
-			$.ajax({
-				url: HOST_URL + 'showSource',
-				type: 'GET',
-				success: function(data) {
-					var itemSource = '';
-					if (!(data == 'no_source')) {
-						$.each(data, function(i, source) {
-							itemSource += '<option value=' + source.sourceId + '>' + source.sourceType + '</option>';
-						});
-						$('#sourceId').append(itemSource);
-					}
-					else {
-						itemSource = '暂无来源';
-						$('#sourceId').append(itemSource);
-					}
-				},
-				error: function(xhr, type, errorThrown) {
-					layer.alert('系统出现错误，请联系管理员');
-				},
-				xhrFields: {
-					withCredentials: true
-				},
-			}, 'JSON');
-		}
-	</script>
 </body>
 
 </html>

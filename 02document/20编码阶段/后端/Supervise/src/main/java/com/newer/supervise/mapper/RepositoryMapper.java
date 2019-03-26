@@ -30,7 +30,7 @@ public interface RepositoryMapper {
 	 * 
 	 * @return
 	 */
-	@Select("SELECT  id,item_name, b.source_type,a.item_content,a.source_time,o.org_name,c.type_name,a.item_type,a.item_statu,a.item_code  FROM  repository   a\r\n"
+	@Select("SELECT  id,item_name, b.source_type,a.item_content,a.source_time,o.org_name,c.type_name,a.item_type,a.item_statu,a.item_code,over_time  FROM  repository   a\r\n"
 			+ "LEFT  JOIN  source  b  ON  a.source_id=b.source_id  \r\n"
 			+ "LEFT  JOIN  file_type c  ON  a.file_type=c.type_id \r\n"
 			+ "LEFT  JOIN  organization o  ON  a.org_id=o.org_id  ORDER  BY id ASC")
@@ -45,16 +45,18 @@ public interface RepositoryMapper {
 	 * 
 	 * @return
 	 */
-	@Select("SELECT a.id,s.source_type,a.source_time,a.serial_num,f.type_name,a.drafter,a.drafter_phone,a.item_name,a.item_code,u.real_name,u.duty_id,u.user_id,o.org_name,sl.level_name,a.item_content,a.item_statu  FROM  repository  a \r\n"
+	@Select("SELECT a.id,s.source_type,a.source_time,a.serial_num,f.type_name,a.drafter,a.drafter_phone,a.item_name,a.item_code,u.real_name,d.duty_name,u.duty_id,u.user_id,o.org_name,sl.level_name,a.item_content,a.item_statu  FROM  repository  a \r\n"
 			+ "LEFT JOIN source  s  ON  a.source_id=s.source_id \r\n"
-			+ "LEFT JOIN file_type f ON a.file_type=f.type_id \r\n"
-			+ "LEFT JOIN item_process i  ON a.item_code=i.item_code \r\n"
-			+ "LEFT JOIN user  u   ON  a.user_id=u.duty_id \r\n" + "LEFT JOIN organization o  ON a.org_id=o.org_id \r\n"
+			+ "LEFT JOIN file_type f ON a.file_type=f.type_id \r\n" 
+			+ "LEFT JOIN user  u   ON  a.user_id=u.user_id \r\n"
+			+ "LEFT JOIN  duty  d    ON  u.duty_id=d.duty_id \r\n" 
+			+ "LEFT JOIN organization o  ON a.org_id=o.org_id \r\n"
 			+ "LEFT JOIN secrecy_level sl ON a.secrecy_level=sl.level_id  WHERE id=#{id}")
 	@Results({ @Result(column = "source_type", property = "sourceId.sourceType"),
 			@Result(column = "type_name", property = "fileType.typeName"),
 			@Result(column = "item_code", property = "itemCode.itemCode"),
 			@Result(column = "real_name", property = "user.realName"),
+			@Result(column = "duty_name", property = "user.duty.dutyName"),
 			@Result(column = "duty_id", property = "user.duty.dutyId"),
 			@Result(column = "user_id", property = "user.userId"),
 			@Result(column = "org_name", property = "orgId.orgName"),
@@ -136,6 +138,8 @@ public interface RepositoryMapper {
 	 * 
 	 * @return
 	 */
-	@Select("SELECT u.user_id,u.real_name  FROM  `user`  u  LEFT JOIN duty  d ON  u.duty_id=d.duty_id  WHERE d.duty_type='公司领导'")
+	@Select("SELECT u.user_id,u.real_name,d.duty_name  FROM  `user`  u  LEFT JOIN duty  d ON  u.duty_id=d.duty_id  WHERE d.duty_type='公司领导'")
+	@Results({@Result(column="duty_name",property="duty.dutyName")})
 	public List<User> showLeader();
+
 }

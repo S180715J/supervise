@@ -229,7 +229,6 @@ public class RepositoryController {
 	@GetMapping("/showLeader")
 	public ResponseEntity<?> showLeader() {
 		List<User> list = repositoryService.showLeader();
-
 		if (!list.isEmpty()) {
 			return new ResponseEntity<List<User>>(list, HttpStatus.OK);
 		}

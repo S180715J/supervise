@@ -200,12 +200,12 @@
 		$(function() {
 			//适用与一个参数
 			function parseUrl(url) {
-                if (url.indexOf("?") == -1) {
-                    return {};
-                }
-                var value = url.split("=")[1];
-                return value;
-            }
+				if (url.indexOf("?") == -1) {
+					return {};
+				}
+				var value = url.split("=")[1];
+				return value;
+			}
 			// url传递的信息
 			var $urlMsg = parseUrl(window.location.search);
 			$.ajax({
@@ -291,7 +291,7 @@
 					var leader = '';
 					if (!(data == 'no_leader')) {
 						$.each(data, function(i, user) {
-							leader += '<option value=' + user.userId + '>' + user.duty.dutyName + '</option>';
+							leader += '<option value=' + user.userId + '>' + user.realName + "(" + user.duty.dutyName + ")" + '</option>';
 						});
 						$('#userId').append(leader);
 					}
