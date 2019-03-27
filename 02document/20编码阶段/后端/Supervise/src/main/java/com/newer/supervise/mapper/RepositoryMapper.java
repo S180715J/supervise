@@ -47,7 +47,7 @@ public interface RepositoryMapper {
 	 * 
 	 * @return
 	 */
-	@Select("SELECT a.id,s.source_type,a.source_time,a.serial_num,f.type_name,a.drafter,a.drafter_phone,a.item_name,a.item_code,u.real_name,d.duty_name,u.duty_id,u.user_id,o.org_name,sl.level_name,a.item_content,a.item_statu  FROM  repository  a \r\n"
+	@Select("SELECT a.id,s.source_type,a.source_time,a.serial_num,f.type_name,a.drafter,a.drafter_phone,a.item_name,a.item_code,u.real_name,d.duty_name,u.duty_id,u.user_id,o.org_name,sl.level_name,a.item_content,a.item_statu,a.item_type  FROM  repository  a \r\n"
 			+ "LEFT JOIN source  s  ON  a.source_id=s.source_id \r\n"
 			+ "LEFT JOIN file_type f ON a.file_type=f.type_id \r\n" 
 			+ "LEFT JOIN user  u   ON  a.user_id=u.user_id \r\n"
@@ -116,8 +116,8 @@ public interface RepositoryMapper {
 	 * @param statu
 	 * @return
 	 */
-	@Update("")
-	public Integer updateType(Integer type);
+	@Update("UPDATE repository  SET  item_type=#{itemType}  WHERE id=#{id}")
+	public Integer updateType(@Param("itemType") Integer itemType, @Param("id") Integer id);
 
 	/**
 	 * 模糊查询
