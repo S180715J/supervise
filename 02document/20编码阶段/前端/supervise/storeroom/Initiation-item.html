@@ -408,6 +408,8 @@
 				var $userId = $("#userId").val();
 				var $itemStatu = $("#itemStatu").val();
 				if ($itemStatu == "1") {
+					alert($itemCode)
+					alert($userId)
 					$.ajax({
 						url: HOST_URL + "item/addItem",
 						type: "POST",
@@ -420,7 +422,10 @@
 							if (data == 1) {
 								layer.alert("立项完成")
 							}
-							else {
+							if (data == -1) {
+								layer.alert("已经立项不能重复立项")
+							}
+							if (data == 0) {
 								layer.alert("立项失败")
 							}
 						},
@@ -439,4 +444,6 @@
 </body>
 
 </html>
+</body>
 
+</html>
