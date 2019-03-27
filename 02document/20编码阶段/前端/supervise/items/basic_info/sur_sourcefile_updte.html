@@ -1,0 +1,192 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="Bookmark" href="/favicon.ico">
+		<link rel="Shortcut Icon" href="/favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/Hui-iconfont/1.0.8/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/style.css" />
+		<title>督办员添加批示</title>
+	</head>
+
+	<body>
+		<article class="page-container" style="margin-top: 10%;">
+			<form action="" method="post" class="form form-horizontal" id="form-member-add">
+				<table class="table   table-bg">
+					<thead>
+						<tr>
+							<th>
+								<div class="row cl">
+									<div class="col-xs-9 col-sm-9 col-xs-offset-4 col-sm-offset-10">
+										<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交原文件更新&nbsp;&nbsp;">
+									</div>
+								</div>
+							</th>
+							<th>
+								
+							</th>
+						</tr>
+						<tr class="text-c">
+							<th>
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-6">督办来源：</label>
+									<div class="formControls col-xs-8 col-sm-4">
+										<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+									</div>
+								</div>
+							</th>
+							<th>
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-3">来源时间：</label>
+									<div class="formControls col-xs-8 col-sm-4">
+										<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+									</div>
+								</div>
+							</th>
+						</tr>
+
+						<tr class="text-c">
+							<th>
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-6">（公文）原流水号：</label>
+									<div class="formControls col-xs-8 col-sm-4">
+										<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+									</div>
+								</div>
+							</th>
+							<th>
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-3">文件类型：</label>
+									<div class="formControls col-xs-8 col-sm-4">
+										<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+									</div>
+								</div>
+							</th>
+						</tr>
+
+						<tr class="text-c">
+							<th>
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-6">原件拟稿人：</label>
+									<div class="formControls col-xs-8 col-sm-4">
+										<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+									</div>
+								</div>
+							</th>
+							<th>
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-3">原件联系电话：</label>
+									<div class="formControls col-xs-8 col-sm-4">
+										<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+									</div>
+								</div>
+							</th>
+						</tr>
+						<tr class="text-c">
+							<th>
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-6">密级：</label>
+									<div class="formControls col-xs-8 col-sm-4">
+										<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+									</div>
+								</div>
+							</th>
+							<th>
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-3">对方单位：</label>
+									<div class="formControls col-xs-8 col-sm-4">
+										<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+									</div>
+								</div>
+							</th>
+						</tr>
+
+						<tr>
+							<th scope="col" colspan="2">
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-3">部门意见：</label>
+									<div class="formControls col-xs-8 col-sm-7">
+										<textarea name="remark" cols="" rows="" id="remark" class="textarea" placeholder="督办员录入" datatype="*10-100"
+										 dragonfly="true" nullmsg="备注" readonly="readonly"></textarea>
+										<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+									</div>
+								</div>
+							</th>
+						</tr>
+						<tr>
+							<th scope="col" colspan="2">
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-3">领导批示：</label>
+									<div class="formControls col-xs-8 col-sm-7">
+										<textarea name="remark" cols="" rows="" id="remark" class="textarea" placeholder="督办员录入" datatype="*10-100"
+										 dragonfly="true" nullmsg="备注" readonly="readonly"></textarea>
+										<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+									</div>
+								</div>
+							</th>
+						</tr>
+						<tr>
+							<th scope="col" colspan="2">
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-3">督办事项内容：</label>
+									<div class="formControls col-xs-8 col-sm-7">
+										<textarea name="remark" cols="" rows="" id="remark" class="textarea" placeholder="督办员录入" datatype="*10-100"
+										 dragonfly="true" nullmsg="备注" readonly="readonly"></textarea>
+										<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+									</div>
+								</div>
+							</th>
+						</tr>
+						<tr>
+							<th scope="col" colspan="2">
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-3">备注：</label>
+									<div class="formControls col-xs-8 col-sm-7">
+										<textarea name="remark" cols="" rows="" id="remark" class="textarea" placeholder="督办员录入" datatype="*10-100"
+										 dragonfly="true" nullmsg="备注" readonly="readonly"></textarea>
+										<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+									</div>
+								</div>
+							</th>
+						</tr>
+
+
+
+					</thead>
+				</table>
+
+
+			</form>
+		</article>
+
+		<!--_footer 作为公共模版分离出去-->
+		<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="../../lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript" src="../../static/h-ui/js/H-ui.min.js"></script>
+		<script type="text/javascript" src="../../static/h-ui.admin/js/H-ui.admin.js"></script>
+		<!--/_footer 作为公共模版分离出去-->
+
+		<!--请在下方写此页面业务相关的脚本-->
+		<script type="text/javascript" src="../../lib/My97DatePicker/4.8/WdatePicker.js"></script>
+		<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+		<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+		<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/messages_zh.js"></script>
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<script type="text/javascript">
+
+		</script>
+
+
+		<!--/请在上方写此页面业务相关的脚本-->
+	</body>
+
+</html>

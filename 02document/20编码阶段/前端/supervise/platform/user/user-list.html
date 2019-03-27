@@ -76,22 +76,24 @@
 						elem: "#table",
 						height: 475,
 						limit: 10,
+						cellMinWidth: 80,
 						url: 'http://localhost:8888/Supervise/user/page', //数据接口
 						page: true, //开启分页
 						cols: [
 							[{
 									field: 'userName',
 									title: '登录账户',
-									width: 130,
+									
 									sort: true,
 									fixed: 'left',
-									align: 'center'
+									align: 'center',
+									toolbar: '#barDemod'
 								},
 								{
 									field: 'realName',
 									title: '用户姓名',
 									align: 'center',
-									width: 110,
+									
 									sort: true
 								},
 								
@@ -99,35 +101,35 @@
 									field: 'hiredate',
 									title: '入职时间',
 									align: 'center',
-									width: 200,
+									
 									sort: true
 								},
 								{
 									templet: '<div>{{d.education.eduName}}</div>',
 									title: '学历',
 									align: 'center',
-									width: 100,
+									
 									sort: true
 								},
 								{
 									templet: '<div>{{d.organization.orgName}}</div>',
 									title: '所属部门',
 									align: 'center',
-									width: 140,
+									
 									sort: true
 								},
 								{
 									templet: '<div>{{d.duty.dutyName}}</div>',
 									title: '职务',
 									align: 'center',
-									width: 120,
+									
 									sort: true
 								},
 								{
 									templet: '<div>{{d.duty.dutyType}}</div>',
 									title: '职务类别',
 									align: 'center',
-									width: 120,
+									
 									sort: true,									
 								},
 								{
@@ -160,11 +162,18 @@
 			
 			
 		</script>
+		<script type="text/html" id="barDemod">
+			
+			
+			<a href="javascript:;" onclick="recharge_cards('修改','../user/update-user.html?cid={{d.userId}}','500','450')"  ><span class="glyphicon glyphicon-yen"></span>{{d.userName}}</a>
+			
+		 
+		</script>
 		<script type="text/html" id="barDemo">
 			<span></span>
-			<a href="javascript:;" onclick="recharge_cards('修改','../user/update-user.html?cid={{d.userId}}','500','450')" class="layui-btn layui-btn-sm" ><span class="glyphicon glyphicon-yen"></span>修改</a>
+			<a href="javascript:;" onclick="recharge_cards('修改','../user/update-user.html?cid={{d.userId}}','500','450')" class="btn btn-primary" ><span class="glyphicon glyphicon-yen"></span>修改</a>
 			
-		  <a href="javascript:;" onclick="emp_del({{d.userId}})" class="layui-btn layui-btn-sm layui-btn-danger"><span class="glyphicon glyphicon-trash"></span>删除</a>
+		  <a href="javascript:;" onclick="emp_del({{d.userId}})" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>删除</a>
 		</script>
 
 		<script type="text/javascript">
