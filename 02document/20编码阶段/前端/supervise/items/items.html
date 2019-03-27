@@ -16,8 +16,7 @@
 		<link rel="stylesheet" href="../css/bootstrap.min.css" />
 		<link rel="stylesheet" href="../css/layui.css" media="all" />
 		<link rel="srstylesheet" href="../css/layui.mobile.css" />
-		
-
+		<link rel="stylesheet" href="../js/laydate/theme/default/laydate.css" />
 		<title>事项信息</title>
 	</head>
 	<body>
@@ -25,22 +24,18 @@
 			事项信息列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px;position: absolute;left: 90%;" href="javascript:location.replace(location.href);"
 			 title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 		<div class="page-container">
-
 			<div class="text-c">
 				<form>
 					<table class="table  table-bg">
 						<thead>
-
 							<tr class="text-c">
-
 								<th>
 									<div class="row cl">
 										<label class="form-label col-xs-4 col-sm-5">事项<br />来源</label>
 										<div class="formControls col-xs-8 col-sm-7">
-											<span class="select-box" style="width: 80px;">
-												<select name="" class="select">
-													<option value="1">未删除</option>
-													<option value="2">已删除</option>
+											<span class="select-box">
+												<select name="sourceId" class="select" id="sourceId">
+													<option value="-1">---请选择---</option>
 												</select>
 											</span>
 										</div>
@@ -105,7 +100,11 @@
 									<div class="row cl">
 										<label class="form-label col-xs-4 col-sm-5">公司<br />领导</label>
 										<div class="formControls col-xs-8 col-sm-7">
-											<input type="text" class="input-text" value="" placeholder="" id="username" name="username" />
+											<span class="select-box">
+												<select name="user" class="select" id="userId">
+													<option value="-1">---请选择---</option>
+												</select>
+											</span>
 										</div>
 									</div>
 								</th>
@@ -113,7 +112,11 @@
 									<div class="row cl">
 										<label class="form-label col-xs-4 col-sm-5">牵头<br />部门</label>
 										<div class="formControls col-xs-8 col-sm-7">
-											<input type="text" class="input-text" value="" placeholder="" id="username" name="username" />
+											<span class="select-box">
+												<select name="orgId" class="select" id="orgId">
+													<option value="-1">---请选择---</option>
+												</select>
+                                			</span>
 										</div>
 									</div>
 								</th>
@@ -148,27 +151,22 @@
 							<tr>
 								<th scope="col" colspan="2">
 									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-4">最后修改时间</label>
+										<label class="form-label col-xs-4 col-sm-3">修改时间:</label>
 										<div class="formControls col-xs-8 col-sm-9">
-											<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin"
-											 class="input-text Wdate" style="width:120px;">
-											-
-											<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax"
-											 class="input-text Wdate" style="width:120px;">
+											<input type="text" class="layui-input" id="optTime" placeholder=" - ">
+
 										</div>
 									</div>
 								</th>
 								<th scope="col" colspan="2">
 									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-4">最后修改时间</label>
+										<label class="form-label col-xs-4 col-sm-3">修改时间:</label>
 										<div class="formControls col-xs-8 col-sm-9">
-											<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin"
-											 class="input-text Wdate" style="width:120px;">
-											-
-											<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax"
-											 class="input-text Wdate" style="width:120px;">
+											<input type="text" class="layui-input" id="test10" placeholder=" - ">
+
 										</div>
 									</div>
+
 								</th>
 								<th>
 									<div class="row cl">
@@ -195,22 +193,7 @@
 				</span>
 			</div>
 			<table id="table1" class="table table-border table-bordered table-bg">
-				
-				
-					<!-- <tr class="text-c">
-						<td><input type="checkbox" value="2" name=""></td>
 
-						<td>zhangsan</td>
-						<td>13000000000</td>
-						<td>技术部</td>
-						<td>李四</td>
-						<td>2014-6-11 11:11:42</td>
-						<td>2014-6-11 11:11:42</td>
-
-						<td class="td-manage">-->
-							
-				
-				
 			</table>
 		</div>
 		<!--_footer 作为公共模版分离出去-->
@@ -221,14 +204,32 @@
 		<!--/_footer 作为公共模版分离出去-->
 
 		<!--请在下方写此页面业务相关的脚本-->
+		<script src="../js/laydate/laydate.js"></script>
 		<script src="../js/layui.js"></script>
 		<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 		<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
-		
+		<script type="text/javascript" src="../js/common.js"></script>
 		<script>
 			$(function() {
 				loadData();
+				orgInit();
+                sourceInit();
+                leaderInit();
+                lay('#version').html('-v'+ laydate.v);
+                //日期时间范围
+                laydate.render({
+                    elem: '#optTime'
+                    ,type: 'datetime'
+                    ,range: true
+                });
+                lay('#version').html('-v'+ laydate.v);
+                //日期时间范围
+                laydate.render({
+                    elem: '#test10'
+                    ,type: 'datetime'
+                    ,range: true
+                });
 			});
 			/*添加*/
 			function admin_add(title, url, w, h) {
@@ -342,8 +343,85 @@
 			<a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5" style="text-decoration:none"><i
 				 class="Hui-iconfont">&#xe6e2;</i></a>
 		</script>
-		
+
 		<script type="text/javascript">
+			/*初始化部门下拉列表*/
+            function orgInit() {
+                $.ajax({
+                    url: HOST_URL + 'org',
+                    type: 'GET',
+                    contentType: '',
+                    success: function (data) {
+                        var leader = '';
+                        if (!(data == '0')) {
+                            $.each(data, function (i, user) {
+                                leader += '<option value=' + user.orgId + '>' + user.orgName + '</option>';
+                            });
+                            $('#orgId').append(leader);
+                        } else {
+                            leader = '暂无部门';
+                            $('#orgId').append(leader);
+                        }
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    }
+                }, 'JSON');
+            }
+            /**
+             * 初始化事项来源
+             */
+            function sourceInit() {
+                $.ajax({
+                    url: HOST_URL + 'showSource',
+                    type: 'GET',
+                    success: function (data) {
+                        var itemSource = '';
+                        if (!(data == 'no_source')) {
+                            $.each(data, function (i, source) {
+                                itemSource += '<option value=' + source.sourceId + '>' + source.sourceType + '</option>';
+                            });
+                            $('#sourceId').append(itemSource);
+                        } else {
+                            itemSource = '暂无来源';
+                            $('#sourceId').append(itemSource);
+                        }
+                    },
+                    error: function (xhr, type, errorThrown) {
+                        layer.alert('系统出现错误，请联系管理员');
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                }, 'JSON');
+            }
+
+            /*初始化批示领导*/
+            function leaderInit() {
+                $.ajax({
+                    url: HOST_URL + 'showLeader',
+                    type: 'GET',
+                    contentType: '',
+                    success: function (data) {
+                        var leader = '';
+                        if (!(data == 'no_leader')) {
+                            $.each(data, function (i, user) {
+                                leader += '<option value=' + user.userId + '>' + user.realName + "(" + user.duty.dutyName + ")" + '</option>';
+                            });
+                            $('#userId').append(leader);
+                        } else {
+                            leader = '暂无领导';
+                            $('#userId').append(leader);
+                        }
+                    },
+                    error: function (xhr, type, errorThrown) {
+                        layer.alert('系统出现错误，请联系管理员');
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    }
+                }, 'JSON');
+            }
 			/*删除*/
 			function emp_del(uid) {
 				layer.confirm("确认要删除员工编号为：" + uid + " 的这条数据吗?", function(index) {
