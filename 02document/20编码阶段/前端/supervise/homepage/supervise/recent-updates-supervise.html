@@ -110,11 +110,11 @@
 						elem: "#table1",
 						height: 473,
 						limit: 10,
-						url: 'http://localhost:8888/Supervise/user/page', //数据接口
+						url: 'http://localhost:8888/Supervise/queryRecentUpdatepage', //数据接口
 						page: true, //开启分页
 						cols: [
 							[{
-									field: 'userName',
+									field: 'itemName',
 									title: '事项名称',
 									width: 204,
 									sort: true,
@@ -122,7 +122,8 @@
 									align: 'center'
 								},
 								{
-									field: 'realName',
+									templet: '<div>{{d.orgId.orgName}}</div>',
+									
 									title: '牵头部门',
 									align: 'center',
 									width: 220,
@@ -130,7 +131,7 @@
 								},
 
 								{
-									field: 'hiredate',
+									field: 'supStatu',
 									title: '最新操作',
 									align: 'center',
 									width: 240,
@@ -144,11 +145,12 @@
 									sort: true
 								},
 								{
-									templet: '<div>{{d.organization.orgName}}</div>',
+									templet: '<div>{{d.userId.userName}}</div>',
 									title: '操作人',
 									align: 'center',
 									width: 150,
-									sort: true
+									sort: true,
+									
 								},
 
 
@@ -170,7 +172,7 @@
 				}
 			}
 		</script>
-
+		
 
 		<script type="text/javascript">
 			function moreloadData() {
