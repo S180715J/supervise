@@ -1,322 +1,232 @@
 <!DOCTYPE HTML>
 <html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="Bookmark" href="/favicon.ico">
+		<link rel="Shortcut Icon" href="../images/googleg_lodp.ico" />
 
-<head>
-	<meta charset="utf-8">
-	<meta name="renderer" content="webkit|ie-comp|ie-stand">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-	<meta http-equiv="Cache-Control" content="no-siteapp" />
-	<link rel="Bookmark" href="/favicon.ico">
-	<link rel="Shortcut Icon" href="../images/googleg_lodp.ico" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/green/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
 
-	<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
-	<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
-	<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
-	<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/green/skin.css" id="skin" />
-	<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
-
-	<title>牛耳督办管理系统-员工</title>
-	<meta name="keywords" content="员工菜单">
-</head>
-
-<body>
-	<header class="navbar-wrapper">
-		<div class="navbar navbar-fixed-top">
-			<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">牛耳督办管理系统</a>
-				<a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a>
-				<span class="logo navbar-slogan f-l mr-10 hidden-xs">v3.1</span>
-				<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
-				<nav class="nav navbar-nav">
-					<ul class="cl">
-						<li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i class="Hui-iconfont">&#xe600;</i>
-									新增 <i class="Hui-iconfont">&#xe6d5;</i></a>
-							<ul class="dropDown-menu menu radius box-shadow">
-								<li><a href="javascript:;" onclick="article_add('添加资讯','article-add.html')"><i class="Hui-iconfont">&#xe616;</i>
-											资讯</a></li>
-								<li><a href="javascript:;" onclick="picture_add('添加资讯','picture-add.html')"><i class="Hui-iconfont">&#xe613;</i>
-											图片</a></li>
-								<li><a href="javascript:;" onclick="product_add('添加资讯','product-add.html')"><i class="Hui-iconfont">&#xe620;</i>
-											产品</a></li>
-								<li><a href="javascript:;" onclick="member_add('添加用户','member-add.html','','510')"><i class="Hui-iconfont">&#xe60d;</i>
-											用户</a></li>
-							</ul>
-						<li class="navbar-levelone current"><a href="javascript:;">首页</a></li>
-						<li class="navbar-levelone"><a href="javascript:;">待办事项</a></li>
-						<li class="navbar-levelone"><a href="javascript:;">备用库</a></li>
-						<li class="navbar-levelone"><a href="javascript:;">事项列表</a></li>
-						<li class="navbar-levelone"><a href="javascript:;">平台管理</a></li>
-						</li>
-					</ul>
-				</nav>
-				<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
-					<ul class="cl">
-						<li>超级管理员</li>
-						<li class="dropDown dropDown_hover">
-							<a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
-							<ul class="dropDown-menu menu radius box-shadow">
-								<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
-								<li><a href="#">切换账户</a></li>
-								<li><a href="#">退出</a></li>
-							</ul>
-						</li>
-						<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a>
-						</li>
-						<li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i
+		<title>牛耳督办管理系统-员工</title>
+		<meta name="keywords" content="员工菜单">
+	</head>
+	<body>
+		<header class="navbar-wrapper">
+			<div class="navbar navbar-fixed-top">
+				<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">牛耳督办管理系统</a>
+					<a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a>
+					<span class="logo navbar-slogan f-l mr-10 hidden-xs">v3.1</span>
+					<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
+					<nav class="nav navbar-nav">
+						<ul class="cl">
+							
+							
+							<li class="navbar-levelone current"><a href="javascript:;">首页</a></li>
+							
+							
+							<li class="navbar-levelone"><a href="javascript:;">事项列表</a></li>
+							
+							
+						</ul>
+					</nav>
+					<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+						<ul class="cl">
+							<li>超级管理员</li>
+							<li class="dropDown dropDown_hover">
+								<a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+								<ul class="dropDown-menu menu radius box-shadow">
+									<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
+									<li><a href="#">切换账户</a></li>
+									<li><a href="#">退出</a></li>
+								</ul>
+							</li>
+							<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a>
+							</li>
+							<li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i
 									 class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
-							<ul class="dropDown-menu menu radius box-shadow">
-								<li><a href="javascript:;" data-val="default" title="默认（黑色）">默认（黑色）</a></li>
-								<li><a href="javascript:;" data-val="blue" title="蓝色">蓝色</a></li>
-								<li><a href="javascript:;" data-val="green" title="绿色">绿色</a></li>
-								<li><a href="javascript:;" data-val="red" title="红色">红色</a></li>
-								<li><a href="javascript:;" data-val="yellow" title="黄色">黄色</a></li>
-								<li><a href="javascript:;" data-val="orange" title="橙色">橙色</a></li>
-							</ul>
-						</li>
-					</ul>
-				</nav>
+								<ul class="dropDown-menu menu radius box-shadow">
+									<li><a href="javascript:;" data-val="default" title="默认（黑色）">默认（黑色）</a></li>
+									<li><a href="javascript:;" data-val="blue" title="蓝色">蓝色</a></li>
+									<li><a href="javascript:;" data-val="green" title="绿色">绿色</a></li>
+									<li><a href="javascript:;" data-val="red" title="红色">红色</a></li>
+									<li><a href="javascript:;" data-val="yellow" title="黄色">黄色</a></li>
+									<li><a href="javascript:;" data-val="orange" title="橙色">橙色</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</div>
 			</div>
-		</div>
-	</header>
-	<aside class="Hui-aside">
-		<div class="menu_dropdown bk_2">
-			<dl id="menu-article">
-				<dt><i class="Hui-iconfont">&#xe616;</i> 首页<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<dd>
-					<ul>
-						<li><a data-href="article-list.html" data-title="最近更新" href="javascript:void(0)">最近更新</a></li>
-						<li><a data-href="article-list.html" data-title="推进中事项" href="javascript:void(0)">推进中事项</a></li>
-						<li><a data-href="article-list.html" data-title="我的订阅" href="javascript:void(0)">我的订阅</a></li>
-						<li><a data-href="article-list.html" data-title="我的统计" href="javascript:void(0)">我的统计</a></li>
-					</ul>
-				</dd>
-			</dl>
+		</header>
+		<aside class="Hui-aside">
+			<div class="menu_dropdown bk_2">
+				<dl id="menu-article">
+					<dt><i class="Hui-iconfont">&#xe616;</i> 首页<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="article-list.html" data-title="最近更新" href="javascript:void(0)">最近更新</a></li>
+							<li><a data-href="article-list.html" data-title="推进中事项" href="javascript:void(0)">推进中事项</a></li>
+							<li><a data-href="article-list.html" data-title="我的订阅" href="javascript:void(0)">我的订阅</a></li>
+							<li><a data-href="article-list.html" data-title="我的统计" href="javascript:void(0)">我的统计</a></li>
+						</ul>
+					</dd>
+				</dl>
 
-		</div>
-
-		<div class="menu_dropdown bk_2" style="display:none">
-			<dl id="menu-aaaaa">
-				<dt><i class="Hui-iconfont">&#xe616;</i> 待办事项<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<dd>
-					<ul>
-						<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">三级导航</a></li>
-					</ul>
-				</dd>
-			</dl>
-		</div>
-		<div class="menu_dropdown bk_2" style="display:none">
-			<dl id="menu-bbbbb">
-				<dt><i class="Hui-iconfont">&#xe616;</i> 备用库管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<dd>
-					<ul>
-						<li><a data-href="storeroom/itmes_list.html" data-title="查看备用库" href="javascript:void(0)">查看备用库</a></li>
-						<li><a data-href="storeroom/entering-item.html" data-title="新建事项" href="javascript:void(0)">新建事项</a></li>
-						<li><a data-href="storeroom/update-item.html" data-title="修改事项" href="javascript:void(0)">修改事项</a></li>
-						<li><a data-href="storeroom/Initiation-item.html" data-title="立项提交" href="javascript:void(0)">立项提交</a></li>
-					</ul>
-				</dd>
-			</dl>
-		</div>
-
-		<div class="menu_dropdown bk_2" style="display:none">
-			<dl id="menu-ccccc">
-				<dt><i class="Hui-iconfont">&#xe616;</i> 事项列表<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<dd>
-					<ul>
-						<li><a data-href="items/items.html" data-title="事项信息" href="javascript:void(0)">事项信息</a></li>
-						<li><a data-href="items/items.html" data-title="事项信息" href="javascript:void(0)">待办任务</a></li>
-					</ul>
-				</dd>
-			</dl>
-			<dl id="menu-ccccc">
-				<dt><i class="Hui-iconfont">&#xe616;</i> 基本信息<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<dd>
-					<ul>
-						<li><a data-href="article-list.html" data-title="批示查看" href="javascript:void(0)">批示查看</a></li>
-						<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">基本信息变更退回意见</a></li>
-					</ul>
-				</dd>
-			</dl>
-			<dl id="menu-ccccc">
-				<dt><i class="Hui-iconfont">&#xe616;</i> 历史进展记录<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<dd>
-					<ul>
-						<li><a data-href="article-list.html" data-title="批示查看" href="javascript:void(0)">批示查看</a></li>
-						<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">基本信息变更退回意见</a></li>
-					</ul>
-				</dd>
-			</dl>
-			<dl id="menu-ccccc">
-				<dt><i class="Hui-iconfont">&#xe616;</i> 事项变更记录<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<dd>
-					<ul>
-						<li><a data-href="article-list.html" data-title="批示查看" href="javascript:void(0)">批示查看</a></li>
-						<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">基本信息变更退回意见</a></li>
-					</ul>
-				</dd>
-			</dl>
-			<dl id="menu-ccccc">
-				<dt><i class="Hui-iconfont">&#xe616;</i> 原文件信息<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<dd>
-					<ul>
-						<li><a data-href="article-list.html" data-title="批示查看" href="javascript:void(0)">批示查看</a></li>
-						<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">基本信息变更退回意见</a></li>
-					</ul>
-				</dd>
-			</dl>
-			<dl id="menu-ccccc">
-				<dt><i class="Hui-iconfont">&#xe616;</i> 事项从属关系<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<dd>
-					<ul>
-						<li><a data-href="article-list.html" data-title="批示查看" href="javascript:void(0)">批示查看</a></li>
-						<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">基本信息变更退回意见</a></li>
-					</ul>
-				</dd>
-			</dl>
-		</div>
-
-		<div class="menu_dropdown bk_2" style="display:none">
-			<dl id="menu-dddd">
-				<dt><i class="Hui-iconfont">&#xe616;</i> 部门管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<dd>
-					<ul>
-						<li><a data-href="platform/dept/dept-list.html" data-title="查看部门" href="javascript:void(0)">部门信息</a></li>
-						<li><a data-href="platform/dept/add-dept.html" data-title="添加部门" href="javascript:void(0)">添加部门</a></li>
-						<li><a data-href="platform/dept/update-dept.html" data-title="修改部门" href="javascript:void(0)">修改部门</a></li>
-					</ul>
-				</dd>
-			</dl>
-			<dl id="menu-dddd">
-				<dt><i class="Hui-iconfont">&#xe616;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<dd>
-					<ul>
-						<li><a data-href="platform/user/user-list.html" data-title="用户信息" href="javascript:void(0)">用户信息</a></li>
-						<li><a data-href="platform/user/add-user.html" data-title="添加用户" href="javascript:void(0)">添加用户</a></li>
-						<li><a data-href="platform/user/update-user.html" data-title="修改用户" href="javascript:void(0)">修改用户</a></li>
-					</ul>
-				</dd>
-			</dl>
-			<dl id="menu-dddd">
-				<dt><i class="Hui-iconfont">&#xe616;</i> 公司领导<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<dd>
-					<ul>
-						<li><a data-href="platform/leader/show.html" data-title="查看账户信息" href="javascript:void(0)">查看账户信息</a></li>
-					</ul>
-				</dd>
-			</dl>
-		</div>
-
-	</aside>
-	<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
-	<section class="Hui-article-box">
-		<div id="Hui-tabNav" class="Hui-tabNav hidden-xs">
-			<div class="Hui-tabNav-wp">
-				<ul id="min_title_list" class="acrossTab cl">
-					<li class="active">
-						<span title="我的桌面" data-href="homepage/welcome-emp.html">我的桌面</span>
-						<em></em></li>
-				</ul>
 			</div>
-			<div class="Hui-tabNav-more btn-group"><a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;"><i
+
+			
+			
+
+			<div class="menu_dropdown bk_2" style="display:none">
+				<dl id="menu-ccccc">
+					<dt><i class="Hui-iconfont">&#xe616;</i> 事项列表<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="items/emp-items.html" data-title="事项信息" href="javascript:void(0)">事项信息</a></li>
+							
+						</ul>
+					</dd>
+				</dl>
+				
+				
+				
+			</div>
+
+			<div class="menu_dropdown bk_2" style="display:none">
+				<dl id="menu-dddd">
+					<dt><i class="Hui-iconfont">&#xe616;</i> 部门管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="platform/dept/dept-list.html" data-title="查看部门" href="javascript:void(0)">部门信息</a></li>
+							<li><a data-href="platform/dept/add-dept.html" data-title="添加部门" href="javascript:void(0)">添加部门</a></li>
+							<li><a data-href="platform/dept/update-dept.html" data-title="修改部门" href="javascript:void(0)">修改部门</a></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl id="menu-dddd">
+					<dt><i class="Hui-iconfont">&#xe616;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="platform/user/user-list.html" data-title="用户信息" href="javascript:void(0)">用户信息</a></li>
+							<li><a data-href="platform/user/add-user.html" data-title="添加用户" href="javascript:void(0)">添加用户</a></li>
+							<li><a data-href="platform/user/update-user.html" data-title="修改用户" href="javascript:void(0)">修改用户</a></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl id="menu-dddd">
+					<dt><i class="Hui-iconfont">&#xe616;</i> 公司领导<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="platform/leader/show.html" data-title="查看账户信息" href="javascript:void(0)">查看账户信息</a></li>
+						</ul>
+					</dd>
+				</dl>
+			</div>
+
+		</aside>
+		<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
+		<section class="Hui-article-box">
+			<div id="Hui-tabNav" class="Hui-tabNav hidden-xs">
+				<div class="Hui-tabNav-wp">
+					<ul id="min_title_list" class="acrossTab cl">
+						<li class="active">
+							<span title="我的桌面" data-href="homepage/welcome-emp.html">我的桌面</span>
+							<em></em></li>
+					</ul>
+				</div>
+				<div class="Hui-tabNav-more btn-group"><a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;"><i
 						 class="Hui-iconfont">&#xe6d4;</i></a><a id="js-tabNav-next" class="btn radius btn-default size-S" href="javascript:;"><i
 						 class="Hui-iconfont">&#xe6d7;</i></a></div>
-		</div>
-		<div id="iframe_box" class="Hui-article">
-			<div class="show_iframe">
-				<div style="display:none" class="loading"></div>
-				<iframe scrolling="yes" frameborder="0" src="homepage/welcome-emp.html"></iframe>
 			</div>
+			<div id="iframe_box" class="Hui-article">
+				<div class="show_iframe">
+					<div style="display:none" class="loading"></div>
+					<iframe scrolling="yes" frameborder="0" src="homepage/welcome-emp.html"></iframe>
+				</div>
+			</div>
+		</section>
+
+		<div class="contextMenu" id="Huiadminmenu">
+			<ul>
+				<li id="closethis">关闭当前 </li>
+				<li id="closeall">关闭全部 </li>
+			</ul>
 		</div>
-	</section>
+		<!--_footer 作为公共模版分离出去-->
+		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+		<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+		<!--/_footer 作为公共模版分离出去-->
 
-	<div class="contextMenu" id="Huiadminmenu">
-		<ul>
-			<li id="closethis">关闭当前 </li>
-			<li id="closeall">关闭全部 </li>
-		</ul>
-	</div>
-	<!--_footer 作为公共模版分离出去-->
-	<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
-	<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
-	<script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
-	<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
-	<!--/_footer 作为公共模版分离出去-->
-
-	<!--请在下方写此页面业务相关的脚本-->
-	<script type="text/javascript" src="lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
-	<script type="text/javascript">
-		$(function() {
+		<!--请在下方写此页面业务相关的脚本-->
+		<script type="text/javascript" src="lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
+		<script type="text/javascript">
+			$(function() {
 
 
 
-			$("body").Huitab({
-				tabBar: ".navbar-wrapper .navbar-levelone",
-				tabCon: ".Hui-aside .menu_dropdown",
-				className: "current",
-				index: 0,
+				$("body").Huitab({
+					tabBar: ".navbar-wrapper .navbar-levelone",
+					tabCon: ".Hui-aside .menu_dropdown",
+					className: "current",
+					index: 0,
+				});
 			});
-		});
-		/*个人信息*/
-		function myselfinfo() {
-			layer.open({
-				type: 1,
-				area: ['300px', '200px'],
-				fix: false, //不固定
-				maxmin: true,
-				shade: 0.4,
-				title: '查看信息',
-				content: '<div>管理员信息</div>'
-			});
-		}
+			/*个人信息*/
+			function myselfinfo() {
+				layer.open({
+					type: 1,
+					area: ['300px', '200px'],
+					fix: false, //不固定
+					maxmin: true,
+					shade: 0.4,
+					title: '查看信息',
+					content: '<div>管理员信息</div>'
+				});
+			}
 
-		/*资讯-添加*/
-		function article_add(title, url) {
-			var index = layer.open({
-				type: 2,
-				title: title,
-				content: url
-			});
-			layer.full(index);
-		}
-		/*图片-添加*/
-		function picture_add(title, url) {
-			var index = layer.open({
-				type: 2,
-				title: title,
-				content: url
-			});
-			layer.full(index);
-		}
-		/*产品-添加*/
-		function product_add(title, url) {
-			var index = layer.open({
-				type: 2,
-				title: title,
-				content: url
-			});
-			layer.full(index);
-		}
-		/*用户-添加*/
-		function member_add(title, url, w, h) {
-			layer_show(title, url, w, h);
-		}
-	</script>
-	<script type="text/javascript">
-		$(function() {
-			//得到user对象
-			var user = JSON.parse(window.localStorage.getItem("user"));
-			$("#Hui-userbar ul li:eq(0)").html(user.duty.dutyName);
-			$("#Hui-userbar ul li:eq(1) a:eq(0)").html(user.realName);
+			/*资讯-添加*/
+			function article_add(title, url) {
+				var index = layer.open({
+					type: 2,
+					title: title,
+					content: url
+				});
+				layer.full(index);
+			}
+			/*图片-添加*/
+			function picture_add(title, url) {
+				var index = layer.open({
+					type: 2,
+					title: title,
+					content: url
+				});
+				layer.full(index);
+			}
+			/*产品-添加*/
+			function product_add(title, url) {
+				var index = layer.open({
+					type: 2,
+					title: title,
+					content: url
+				});
+				layer.full(index);
+			}
+			/*用户-添加*/
+			function member_add(title, url, w, h) {
+				layer_show(title, url, w, h);
+			}
+		</script>
 
-			$("#Hui-userbar ul ul a:not(:first)").click(function() {
-				var name = $(this).html();
-				if (confirm("是否要执行" + name + "操作")) {
-					window.location.href = "index.html";
-				}
-			});
-		});
-	</script>
 
-</body>
-
+	</body>
 </html>
