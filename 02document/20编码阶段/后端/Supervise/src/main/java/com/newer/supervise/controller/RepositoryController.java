@@ -221,4 +221,39 @@ public class RepositoryController {
 		}
 		return new ResponseEntity<String>("no_leader", HttpStatus.NO_CONTENT);
 	}
+
+	/**
+	 * 根据事项id将领导审批意见添加至数据库中
+	 * 
+	 * @param opinion
+	 * @param id
+	 * @return
+	 */
+	public ResponseEntity<?> leadPass(@RequestParam("opinion") String opinion, @RequestParam("id") Integer id) {
+		Integer leadPass = repositoryService.leadPass(opinion, id);
+		return new ResponseEntity<Integer>(leadPass, HttpStatus.OK);
+	}
+
+	/**
+	 * 从前端接收领导拒绝意见，同时根据事项id修改事项状态，并且将领导意见添加至对应的事项中
+	 * 
+	 * @param opinion
+	 * @param id
+	 * @return
+	 */
+	public ResponseEntity<?> leadRefuse(@RequestParam("opinion") String opinion, @RequestParam("id") Integer id) {
+		Integer leadRefuse = repositoryService.leadRefuse(opinion, id);
+		return new ResponseEntity<Integer>(leadRefuse, HttpStatus.OK);
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public ResponseEntity<?> sendLeadOpinionToPage(@RequestParam("id") Integer id) {
+		String opinion = repositoryService.queryOpinion(id);
+		return new ResponseEntity<String>(opinion, HttpStatus.OK);
+	}
 }

@@ -256,4 +256,36 @@ public class RepositoryService {
 	public List<User> showLeader() {
 		return repositoryMapper.showLeader();
 	}
+
+	/**
+	 * 领导审批通过，在审批意见中指定牵头部门，根据id所对应的事项将领导审批意见添加入数据库
+	 * 
+	 * @param opinion
+	 * @param id
+	 * @return
+	 */
+	public Integer leadPass(String opinion, Integer id) {
+		return repositoryMapper.leadPass(opinion, id);
+	}
+
+	/**
+	 * 领导退回id所对应的事项，将退回意见加入至数据库中，同时修改该事项的状态为退回
+	 * 
+	 * @param opinion
+	 * @param id
+	 * @return
+	 */
+	public Integer leadRefuse(String opinion, Integer id) {
+		return repositoryMapper.leadRefuse(opinion, id);
+	}
+
+	/**
+	 * 督办员查看事项id所对应事项的领导意见
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public String queryOpinion(Integer id) {
+		return repositoryMapper.queryLeadOpinion(id);
+	}
 }

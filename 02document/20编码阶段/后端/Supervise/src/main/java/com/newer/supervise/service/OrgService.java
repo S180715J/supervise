@@ -1,6 +1,5 @@
 package com.newer.supervise.service;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.newer.supervise.mapper.OrgMapper;
 import com.newer.supervise.pojo.Organization;
+import com.newer.supervise.pojo.User;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, timeout = 5000)
 public class OrgService {
 
-	private List<Integer> list = new LinkedList<>();
-	
 	@Autowired
 	private OrgMapper orgmapper;
 
@@ -95,5 +93,24 @@ public class OrgService {
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, timeout = 5000, readOnly = true)
 	public List<Organization> queryParentPath() {
 		return orgmapper.queryParentPath();
+	}
+
+	/**
+	 * 查询所有的部门名称用于初始化在页面，供督办员选择牵头部门
+	 * 
+	 * @return
+	 */
+	public List<Organization> queryAllOrgName() {
+		return orgmapper.queryAllOrgName();
+	}
+
+	/**
+	 * 根据部门编号查出从属于该部门的员工,用于部门指定负责人
+	 * 
+	 * @param orgId		部门编号
+	 * @return
+	 */
+	public List<User> queryUserByOrgid(Integer orgId) {
+		return orgmapper.queryUserBelongToSelf(orgId);
 	}
 }

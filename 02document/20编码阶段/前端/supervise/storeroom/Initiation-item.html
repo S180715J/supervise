@@ -415,7 +415,6 @@
 				var $itemStatu = $("#itemStatu").val();
 				var $itemType = $("#itemType").val();
 				if ($itemStatu == "1") {
-<<<<<<< HEAD
 					$.ajax({
 						url: HOST_URL + "item/addItem",
 						type: "POST",
@@ -430,7 +429,6 @@
 							}
 							else {
 								layer.alert("立项失败")
-=======
 					if ($itemType == "0") {
 						$.ajax({
 							url: HOST_URL + "item/addItem",
@@ -453,7 +451,7 @@
 							},
 							xhrFields: {
 								withCredentials: true
->>>>>>> 133fc828680d10811c6a0b6d8f047a7d805429e0
+
 							}
 						});
 					}

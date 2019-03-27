@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import com.newer.supervise.pojo.Organization;
+import com.newer.supervise.pojo.User;
 
 public interface OrgMapper {
 
@@ -82,7 +83,7 @@ public interface OrgMapper {
 	 */
 	@Select("SELECT org_id,org_name,parent_orgid,id_path,name_path FROM organization")
 	List<Organization> queryParentPath();
-	
+
 	/**
 	 * 根据父机构id查询下属机构
 	 * 
@@ -90,5 +91,23 @@ public interface OrgMapper {
 	 * @return
 	 */
 	@Select("SELECT * FROM organization WHERE parent_orgid = #{orgid}")
-	List<Organization> queryOrgByParentId(@Param("orgid")Integer orgid);
+	List<Organization> queryOrgByParentId(@Param("orgid") Integer orgid);
+
+	/**
+	 * 查询所有的部门id及部门名称，并显示在页面中，用于督办员指定牵头部门
+	 * 
+	 * @return
+	 */
+	@Select("SELECT org_id,org_name FROM organization")
+	List<Organization> queryAllOrgName();
+
+	/**
+	 * 根据部门id查询所有从属于部门的员工,用于部门指定事项负责人的下拉框初始化
+	 * 
+	 * @param orgId 部门id
+	 * @return 查询到的员工集合
+	 */
+	@Select("SELECT user_id,real_name FROM `user` WHERE org_id=#{orgId}")
+	List<User> queryUserBelongToSelf(Integer orgId);
+	
 }

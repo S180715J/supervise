@@ -144,4 +144,32 @@ public interface RepositoryMapper {
 	@Results({@Result(column="duty_name",property="duty.dutyName")})
 	public List<User> showLeader();
 
+	/**
+	 * 根据事项id查询领导审批意见
+	 * 
+	 * @param id	事项id
+	 * @return
+	 */
+	@Select("SELECT lead_opinion FROM repository WHERE id=#{id}")
+	String queryLeadOpinion(Integer id);
+
+	/**
+	 * 领导退回意见，将事项id对应的事项类型修改为已退回
+	 * 
+	 * @param opinion 领导拒绝意见
+	 * @param id      事项id
+	 * @return 修改结果
+	 */
+	@Update("UPDATE repository SET item_type=2,lead_opinion=#{opinion} WHERE id=#{id}")
+	Integer leadRefuse(String opinion, Integer id);
+
+	/**
+	 * 领导审批通过，将审批意见添加至事项id对应的事项中
+	 * 
+	 * @param opinion 通过的审批意见
+	 * @param id      事项id
+	 * @return 修改结果
+	 */
+	@Update("UPDATE repository SET lead_opinion=#{iponion} WHERE id=#{id}")
+	Integer leadPass(String opinion, Integer id);
 }

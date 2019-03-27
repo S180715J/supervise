@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.newer.supervise.model.Page;
 import com.newer.supervise.pojo.Repository;
-import com.newer.supervise.pojo.User;
 import com.newer.supervise.service.HomepageService;
 
 @RestController
