@@ -166,19 +166,14 @@ public class RepositoryService {
 	 * @return
 	 */
 	@Transactional
-	public Integer insertItem(String itemCode, Integer userId) {
-		//得到前端的数据,封装对象
-		ItemProcess item = new ItemProcess();
-		item.setItemCode(itemCode);
-		User user = new User();
-		user.setUserId(userId);
-		item.setUserId(user);
-		//先判断是否立过项
-		Integer i = itemMapper.selectItem(item);
-		if (i != null) {
+	public Integer updateType(Integer id, Integer itemType) {
+		
+		//先判断是否立过项,即事项类型item_type是否为0（用回显单个方法）
+		Repository queryOne = repositoryMapper.queryOne(id);
+		if (queryOne.getItemType() != 0) {
 			return -1;
 		}
-		return itemMapper.insert(item);
+		return repositoryMapper.updateType(id,itemType);
 	}
 
 	/**

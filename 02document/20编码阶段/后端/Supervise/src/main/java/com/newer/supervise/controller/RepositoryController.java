@@ -159,9 +159,9 @@ public class RepositoryController {
 	 * @return
 	 */
 	@PostMapping("/item/addItem")
-	public ResponseEntity<?> insertItem(@RequestParam("itemCode") String itemCode,
-			@RequestParam("userId") Integer userId) {
-		Integer i = repositoryService.insertItem(itemCode, userId);
+	public ResponseEntity<?> insertItem(@RequestParam("id") Integer id,
+			@RequestParam("itemType") Integer itemType) {
+		Integer i = repositoryService.updateType(id, itemType);
 		if (i == -1) {
 			return new ResponseEntity<Integer>(-1, HttpStatus.OK);
 		}

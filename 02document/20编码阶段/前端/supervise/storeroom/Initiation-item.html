@@ -25,7 +25,6 @@
 			<form>
 				<table class="table   table-bg">
 					<thead>
-
 						<tr class="text-c">
 							<th>
 								<div class="row cl">
@@ -301,6 +300,8 @@
 				<!--隐藏域-->
 				<input type="hidden" name="userId" value="" id="userId">
 				<input type="hidden" name="itemStatu" value="" id="itemStatu">
+				<input type="hidden" name="itemType" value="" id="itemType">
+				<input type="hidden" name="id" value="" id="id">
 			</form>
 	</article>
 
@@ -393,6 +394,10 @@
 					$("#userId").val(data.user.userId);
 					//给隐藏域赋事项状态
 					$("#itemStatu").val(data.itemStatu);
+					//给隐藏域赋事项类型
+					$("#itemType").val(data.itemType);
+					//事项id
+					$("#id").val(data.id);
 				},
 				xhrFields: {
 					withCredentials: true
@@ -405,11 +410,12 @@
 		$(function() {
 			$("input[type=submit]:eq(1)").click(function() {
 				var $itemCode = $("#itemCode").val();
-				var $userId = $("#userId").val();
+				//得到隐藏域的id，事项状态，事项类型
+				var $id = $("#id").val();
 				var $itemStatu = $("#itemStatu").val();
+				var $itemType = $("#itemType").val();
 				if ($itemStatu == "1") {
-					alert($itemCode)
-					alert($userId)
+<<<<<<< HEAD
 					$.ajax({
 						url: HOST_URL + "item/addItem",
 						type: "POST",
@@ -422,20 +428,41 @@
 							if (data == 1) {
 								layer.alert("立项完成")
 							}
-							if (data == -1) {
-								layer.alert("已经立项不能重复立项")
-							}
-							if (data == 0) {
+							else {
 								layer.alert("立项失败")
+=======
+					if ($itemType == "0") {
+						$.ajax({
+							url: HOST_URL + "item/addItem",
+							type: "POST",
+							data: {
+								"id": $id,
+								"itemType": 1
+							},
+							dataType: "json",
+							success: function(data) {
+								if (data == 1) {
+									layer.alert("立项完成")
+								}
+								if (data == -1) {
+									layer.alert("已经立项不能重复立项")
+								}
+								if (data == 0) {
+									layer.alert("立项失败")
+								}
+							},
+							xhrFields: {
+								withCredentials: true
+>>>>>>> 133fc828680d10811c6a0b6d8f047a7d805429e0
 							}
-						},
-						xhrFields: {
-							withCredentials: true
-						}
-					});
+						});
+					}
+					else {
+						layer.alert("不是新增事项,不能立项");
+					}
 				}
 				else {
-					layer.alert("事项以删除,不能立项")
+					layer.alert("事项以删除,不能立项");
 				}
 			});
 		});
