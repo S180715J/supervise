@@ -195,22 +195,7 @@
 				</span>
 			</div>
 			<table id="table1" class="table table-border table-bordered table-bg">
-				
-				
-					<!-- <tr class="text-c">
-						<td><input type="checkbox" value="2" name=""></td>
-
-						<td>zhangsan</td>
-						<td>13000000000</td>
-						<td>技术部</td>
-						<td>李四</td>
-						<td>2014-6-11 11:11:42</td>
-						<td>2014-6-11 11:11:42</td>
-
-						<td class="td-manage">-->
 							
-				
-				
 			</table>
 		</div>
 		<!--_footer 作为公共模版分离出去-->
@@ -239,6 +224,8 @@
 				layer_show(title, url, w, h);
 			} 
 		
+			var dutytest = JSON.parse(window.localStorage.getItem("user"));
+			var test=dutytest.duty.dutyId;
 			
 			
 			function loadData() {
@@ -250,52 +237,52 @@
 						height: 475,
 						limit: 10,
 						/* cellMinWidth: 80, */
-						url: 'http://localhost:8888/Supervise/user/page', //数据接口
+						url: 'http://localhost:8888/Supervise/queryFirstpage', //数据接口
 						page: true, //开启分页
 						cols: [
 							[{
-									field: 'userName',
+									
 									title: '事项名称',								
-									sort: true,
+									
 									fixed: 'left',
 									align: 'center',
 									toolbar: '#barDemod'
 								},
 								{
-									field: 'realName',
+									templet: '<div>{{d.user.realName}}</div>',
 									title: '公司领导',
 									align: 'center',
 									
-									sort: true
+									
 								},
 								
 								{
-									field: 'hiredate',
+									templet: '<div>{{d.orgId.orgName}}</div>',
 									title: '牵头部门',
 									align: 'center',
 									
-									sort: true
+									
 								},
 								{
-									templet: '<div>{{d.education.eduName}}</div>',
+									templet: '<div>{{d.itemCode.userId.realName}}</div>',
 									title: '负责人',
 									align: 'center',
 									
-									sort: true
+									
 								},
 								{
-									templet: '<div>{{d.organization.orgName}}</div>',
+									templet: '<div>{{d.overTime}}</div>',
 									title: '应办时间',
 									align: 'center',
+									width: 200,
 									
-									sort: true
 								},
 								{
-									templet: '<div>{{d.duty.dutyName}}</div>',
+									templet: '<div>{{d.itemCode.optTime}}</div>',
 									title: '最后修改时间',
 									align: 'center',
+									width: 200,
 									
-									sort: true
 								},
 								
 								{
@@ -303,7 +290,7 @@
 									title: '操作',
 									align: 'center',
 									width: 180,
-									sort: true,
+									
 									toolbar: '#barDemo'
 								},
 		
@@ -330,10 +317,12 @@
 		</script>
 		<script type="text/html" id="barDemod">
 			
+			{{# if(test==6){ }}
+			<a href="basic_info/sur_info.html?cid={{d.userId}}"  ><span class="glyphicon glyphicon-yen"></span>{{d.itemName}}</a> {{# } else if(test==3||test==4){ }}
+			<a href="dept_info/dept_info.html?cid={{d.userId}}"  ><span class="glyphicon glyphicon-yen"></span>{{d.itemName}}</a> {{# } else if(test==5){ }}
+			<a href="emp_info/emp_info.html?cid={{d.userId}}"  ><span class="glyphicon glyphicon-yen"></span>{{d.itemName}}</a>{{# } else if(test==1||test==2){ }}
+			<a href="lead_info/lead_info.html?cid={{d.userId}}"  ><span class="glyphicon glyphicon-yen"></span>{{d.itemName}}</a>{{# } }}
 			
-			<a href="basic_info/sur_info.html?cid={{d.userId}}"  ><span class="glyphicon glyphicon-yen"></span>{{d.userName}}</a>
-			
-		 
 		</script>
 		<script type="text/html" id="barDemo">
 			<a style="text-decoration:none" onClick="admin_start(this,'10001')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> 

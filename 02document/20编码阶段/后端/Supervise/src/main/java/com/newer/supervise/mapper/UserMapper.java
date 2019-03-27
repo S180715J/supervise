@@ -26,12 +26,11 @@ public interface UserMapper {
 	 * @param user
 	 * @return
 	 */
-	@Select("SELECT  user_id,user_name,`password`,real_name,hiredate,edu_id,org_id,u.duty_id,opt_time,d.duty_name  FROM  `user` u\r\n"
-			+ "LEFT  JOIN  duty  d  ON  u.duty_id=d.duty_id  WHERE user_name=#{userName} AND password=#{password}")
-	@Results({ @Result(column = "edu_id", property = "education.eid"),
-			@Result(column = "duty_id", property = "duty.dutyId"),
-			@Result(column = "duty_name", property = "duty.dutyName"),
-			@Result(column = "org_id", property = "organization.orgId") })
+	@Select("SELECT user_id,d.duty_id,password FROM `USER` AS u  LEFT JOIN duty AS d ON d.duty_id=u.duty_id WHERE user_name=#{userName} AND password=#{password}")
+	@Results({ @Result(column = "duty_id", property = "duty.dutyId"),
+			@Result(column = "user_name", property = "userName"),
+			@Result(column = "password", property = "password"),
+			@Result(column = "user_id", property = "userId") })
 	User findUsernamAndpwd(User user);
 
 	/**
@@ -77,7 +76,16 @@ public interface UserMapper {
 	 * @param uid
 	 * @return
 	 */
-	@Select("SELECT d.duty_name,d.duty_type,e.edu_name,o.org_name,u.* FROM USER AS u LEFT JOIN education AS e ON e.eid=u.edu_id LEFT JOIN duty AS d ON d.duty_id=u.duty_id LEFT JOIN organization AS o ON o.org_id=u.org_id where u.user_id=#{userId}")
+	@Select("SELECT user_id,duty_name,d.duty_id,duty_type,e.eid, edu_name,o.org_id, org_name,user_name,real_name,hiredate FROM `USER` AS u LEFT JOIN education AS e ON e.eid=u.edu_id LEFT JOIN duty AS d ON d.duty_id=u.duty_id LEFT JOIN organization AS o ON o.org_id=u.org_id  where user_id=#{userId}")
+	@Results({ @Result(column = "duty_name", property = "duty.dutyName"),
+			@Result(column = "duty_type", property = "duty.dutyType"),
+			@Result(column = "edu_name", property = "education.eduName"),
+			@Result(column = "org_name", property = "organization.orgName"),
+			@Result(column = "user_name", property = "userName"), @Result(column = "real_name", property = "realName"),
+			@Result(column = "hiredate", property = "hiredate"), @Result(column = "user_id", property = "userId"),
+			@Result(column = "eid", property = "education.eid"),
+			@Result(column = "org_id", property = "organization.orgId"),
+			@Result(column = "duty_id", property = "duty.dutyId") })
 	User queryUser(Integer uid);
 
 	/**

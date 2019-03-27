@@ -96,6 +96,12 @@
 			});
 		</script>
 		<script>
+			var dutytest = JSON.parse(window.localStorage.getItem("user"));
+			var test=dutytest.duty.dutyId;
+			
+			
+			
+			
 			$(function() {
 				loadData();
 				moreloadData();
@@ -110,46 +116,50 @@
 						elem: "#table1",
 						height: 473,
 						limit: 10,
+						cellMinWidth: 200,
 						url: 'http://localhost:8888/Supervise/queryRecentUpdatepage', //数据接口
 						page: true, //开启分页
 						cols: [
 							[{
-									field: 'itemName',
+									
 									title: '事项名称',
-									width: 204,
+									
 									sort: true,
 									fixed: 'left',
-									align: 'center'
+									align: 'center',
+									toolbar: '#sells'
 								},
 								{
 									templet: '<div>{{d.orgId.orgName}}</div>',
 									
 									title: '牵头部门',
 									align: 'center',
-									width: 220,
-									sort: true
+									
+									
 								},
 
 								{
-									field: 'supStatu',
+									
 									title: '最新操作',
 									align: 'center',
-									width: 240,
-									sort: true
+									
+									
+									toolbar: '#sell'
 								},
+								
 								{
-									templet: '<div>{{d.education.eduName}}</div>',
+									templet: '<div>{{d.itemCode.optTime}}</div>',
 									title: '操作时间',
 									align: 'center',
-									width: 290,
+									
 									sort: true
 								},
 								{
-									templet: '<div>{{d.userId.userName}}</div>',
+									templet: '<div>{{d.itemCode.userId.realName}}</div>',
 									title: '操作人',
 									align: 'center',
-									width: 150,
-									sort: true,
+									
+									
 									
 								},
 
@@ -172,7 +182,24 @@
 				}
 			}
 		</script>
+		<script type="text/html" id="sells">
+			
+			{{# if(test==6){ }}
+			<a href="../../items/basic_info/sur_info.html?cid={{d.userId}}"  ><span class="glyphicon glyphicon-yen"></span>{{d.itemName}}</a> {{# } else if(test==3||test==4){ }}
+			<a href="../../items/dept_info/dept_info.html?cid={{d.userId}}"  ><span class="glyphicon glyphicon-yen"></span>{{d.itemName}}</a> {{# } else if(test==5){ }}
+			<a href="../../items/emp_info/emp_info.html?cid={{d.userId}}"  ><span class="glyphicon glyphicon-yen"></span>{{d.itemName}}</a>{{# } else if(test==1||test==2){ }}
+			<a href="../../items/lead_info/lead_info.html?cid={{d.userId}}"  ><span class="glyphicon glyphicon-yen"></span>{{d.itemName}}</a>{{# } }}
+			
+			
+		</script>
+		<script type="text/html" id="sell">
 		
+			{{# if(d.itemCode.supStatu==0){ }}
+			<span >基本信息变更</span> {{# } else if(d.itemCode.supStatu == 2){ }}
+			<span >进展反馈</span> {{# } else if(d.itemCode.supStatu == 1){ }}
+			<span >推进中</span>{{# } }}
+
+		</script>
 
 		<script type="text/javascript">
 			function moreloadData() {
@@ -183,23 +210,26 @@
 						elem: "#table2",
 						height: 472,
 						limit: 10,
-						url: 'http://localhost:8888/Supervise/user/page', //数据接口
+						cellMinWidth: 560,
+						url: 'http://localhost:8888/Supervise/queryRecentUpdatepage', //数据接口
 						page: true, //开启分页
 						cols: [
-							[{
-									field: 'userName',
+							[
+								{
+									
 									title: '最近更新',
-									width: 806,
-									sort: true,
+									
+									
 									fixed: 'left',
-									align: 'center'
+									align: 'center',
+									toolbar: '#sells'
 								},
 
 								{
-									templet: '<div>{{d.education.eduName}}</div>',
+									templet: '<div>{{d.itemCode.optTime}}</div>',
 									title: '操作时间',
 									align: 'center',
-									width: 300,
+									
 									sort: true
 								},
 

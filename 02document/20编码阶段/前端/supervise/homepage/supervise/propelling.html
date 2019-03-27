@@ -87,11 +87,11 @@
 						elem: "#table1",
 						height: 473,
 						limit: 10,
-						url: 'http://localhost:8888/Supervise/user/page', //数据接口
+						url: 'http://localhost:8888/Supervise/querypropellingpage', //数据接口
 						page: true, //开启分页
 						cols: [
 							[{
-									field: 'userName',
+									field: 'itemName',
 									title: '事项名称',
 									width: 203,
 									sort: true,
@@ -99,7 +99,7 @@
 									align: 'center'
 								},
 								{
-									field: 'realName',
+									templet: '<div>{{d.user.realName}}</div>',
 									title: '公司领导',
 									align: 'center',
 									width: 140,
@@ -107,27 +107,27 @@
 								},
 								
 								{
-									field: 'hiredate',
+									templet: '<div>{{d.orgId.orgName}}</div>',
 									title: '牵头部门',
 									align: 'center',
 									width: 200,
 									sort: true
 								},
 								{
-									templet: '<div>{{d.education.eduName}}</div>',
+									templet: '<div>{{d.itemCode.userId.realName}}</div>',
 									title: '负责人',
 									align: 'center',
 									width: 140,
 									sort: true
 								},
 								{
-									templet: '<div>{{d.organization.orgName}}</div>',
+									templet: '<div>{{d.overTime}}</div>',
 									title: '应结时间',
 									align: 'center',
 									width: 210,
 									sort: true
 								},{
-									templet: '<div>{{d.duty.dutyType}}</div>',
+									templet: '<div>{{d.nextFeedback}}</div>',
 									title: '下次反馈时间',
 									align: 'center',
 									width: 210,
@@ -161,11 +161,11 @@
 						elem: "#table2",
 						height: 471,
 						limit: 10,
-						url: 'http://localhost:8888/Supervise/user/page', //数据接口
+						url: 'http://localhost:8888/Supervise/querypropellingpage', //数据接口
 						page: true, //开启分页
 						cols: [
 							[{
-									field: 'userName',
+									field: 'itemName',
 									title: '事项名称',
 									width: 430,
 									sort: true,
@@ -173,7 +173,7 @@
 									align: 'center'
 								},
 								{
-									field: 'realName',
+									templet: '<div>{{d.user.realName}}</div>',
 									title: '公司领导',
 									align: 'center',
 									width: 295,
@@ -181,7 +181,7 @@
 								},
 								
 								{
-									field: 'hiredate',
+									templet: '<div>{{d.orgId.orgName}}</div>',
 									title: '牵头部门',
 									align: 'center',
 									width: 380,
