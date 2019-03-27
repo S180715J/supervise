@@ -40,4 +40,56 @@
 		LEFT JOIN file_type f ON r.`file_type`=f.`type_id`
 		LIMIT #{page},#{limit}
 	</select>
+	<!-- 模糊查询 -->
+	<select id="queryDim"
+		resultType="com.newer.supervise.pojo.Repository">
+		SELECT id,item_name,
+		b.source_type AS `sourceId.sourceType`,a.item_content,a.source_time,o.org_name AS `orgId.orgName`,c.type_name AS `fileType.typeName`,a.item_type,a.item_statu,a.item_code AS `itemCode.itemCode`,i.opt_time 
+		FROM repository a
+		LEFT JOIN source b ON a.source_id=b.source_id
+		LEFT JOIN file_type c ON a.file_type=c.type_id
+		LEFT JOIN organization o ON a.org_id=o.org_id
+		LEFT  JOIN  item_process i  ON a.item_code=i.item_code
+		<where>
+			<if test="sourceId !=null">
+				a.source_id=#{sourceId}
+			</if>
+			<if test="itemName !=null">
+				AND a.item_name=#{itemName}
+			</if>
+			<if test="serialNum !=null">
+				AND a.serial_num=#{serialNum}
+			</if>
+			<if test="sourceTime !=null">
+				AND a.source_time=#{sourceTime}
+			</if>
+			<if test="optTime !=null">
+				AND a.opt_time=#{optTime}
+			</if>
+			<if test="itemStatu !=null">
+				AND a.item_statu=#{itemStatu}
+			</if>
+			<if test="itemType !=null">
+				AND a.item_type=#{itemType}
+			</if>
+			<if test="typeId !=null">
+				AND a.file_type=#{typeId}
+			</if>
+			<if test="orgId !=null">
+				AND a.org_id=#{orgId}
+			</if>
+		</where>
+		ORDER BY id ASC
+	</select>
+
+	<update id="updateArray">
+		<if test="arr != null and arr.length > 0">
+			UPDATE repository SET item_statu=#{statu} WHERE id in
+			<foreach collection="arr" open="(" separator="," close=")"
+				item="id">
+				#{id}
+			</foreach>
+		</if>
+
+	</update>
 </mapper>

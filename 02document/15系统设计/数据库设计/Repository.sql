@@ -108,3 +108,10 @@ CREATE TABLE task_type(
 INSERT INTO task_type(type_name) VALUES ('请指定事项负责人'),('请更新事项进展'),('请审批事项变更'),('请确定牵头部门、协办部门');
 
 
+-- 用户表中添加部门账户
+ALTER TABLE `supervise`.`user` CHANGE `edu_id` `edu_id` INT(11) NULL COMMENT '学历', CHANGE `duty_id` `duty_id` INT(11) NULL COMMENT '职务id'; 
+INSERT INTO `user` (user_name,`password`,real_name,hiredate,org_id) VALUES ('mobilenet','mobilenet','移动互联网学院','2003-02-06',2);
+INSERT INTO `user` (user_name,`password`,real_name,hiredate,org_id) VALUES 
+		   ('numart','numart','数字艺术学院','2003-02-06',3),
+		   ('develop','develop','开发部','2003-03-01',4),
+		   ('education','education','教学部','2004-01-01',5);
