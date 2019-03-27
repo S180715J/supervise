@@ -17,7 +17,7 @@ import com.newer.supervise.pojo.ItemProcess;
 public interface ItemProcessMapper {
 
 	/**
-	 * 调用此方法，保存事项编号，操作人，操作时间
+	 * 暂时未用
 	 * 
 	 * @param item
 	 * @return
@@ -25,7 +25,7 @@ public interface ItemProcessMapper {
 	@Insert("INSERT INTO item_process (item_code,statu_describe,opt_time,user_id,sup_statu,org_statu,staff_statu) VALUES(#{itemCode},#{statuDescribe},#{optTime},#{userId.userId},#{supStatu},#{orgStatu},#{staffStatu})")
 	public Integer insert(ItemProcess item);
 	
-	//判断是否已立项
+	//暂时未用
 	@Select("SELECT  item_code,user_id   FROM  item_process WHERE  item_code=#{itemCode} AND user_id=#{userId.userId}")
 	public Integer selectItem(ItemProcess item);
 
@@ -40,7 +40,7 @@ public interface ItemProcessMapper {
 	public Integer update(@Param("itemCode") String itemCode, @Param("oldCode") String oldCode);
 
 	/**
-	 * 查找得到最后的时间
+	 * 暂时未用
 	 * 
 	 * @param item
 	 * @return
@@ -49,7 +49,7 @@ public interface ItemProcessMapper {
 	public ItemProcess selectTime(String itemCode);
 
 	/**
-	 * 更改事项进程表操作数据
+	 * 暂时未用
 	 * 
 	 * @return
 	 */
