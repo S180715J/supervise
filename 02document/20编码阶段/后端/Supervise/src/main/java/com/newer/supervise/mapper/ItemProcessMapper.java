@@ -1,5 +1,6 @@
 package com.newer.supervise.mapper;
 
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -23,6 +24,10 @@ public interface ItemProcessMapper {
 	 */
 	@Insert("INSERT INTO item_process (item_code,statu_describe,opt_time,user_id,sup_statu,org_statu,staff_statu) VALUES(#{itemCode},#{statuDescribe},#{optTime},#{userId.userId},#{supStatu},#{orgStatu},#{staffStatu})")
 	public Integer insert(ItemProcess item);
+	
+	//判断是否已立项
+	@Select("SELECT  item_code,user_id   FROM  item_process WHERE  item_code=#{itemCode} AND user_id=#{userId.userId}")
+	public Integer selectItem(ItemProcess item);
 
 	/**
 	 * 修改事项进程表中所有事项编号

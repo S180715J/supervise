@@ -86,8 +86,12 @@ public class RepositoryService {
 	 * 
 	 * @return
 	 */
+	@Transactional
 	public List<Repository> queryAll() {
-		return repositoryMapper.queryAll();
+		//
+		List<Repository> queryAll = repositoryMapper.queryAll();
+
+		return queryAll;
 	}
 
 	/**
@@ -161,13 +165,19 @@ public class RepositoryService {
 	 * @param userId
 	 * @return
 	 */
+	@Transactional
 	public Integer insertItem(String itemCode, Integer userId) {
+		//得到前端的数据,封装对象
 		ItemProcess item = new ItemProcess();
 		item.setItemCode(itemCode);
 		User user = new User();
 		user.setUserId(userId);
 		item.setUserId(user);
-
+		//先判断是否立过项
+		Integer i = itemMapper.selectItem(item);
+		if (i != null) {
+			return -1;
+		}
 		return itemMapper.insert(item);
 	}
 

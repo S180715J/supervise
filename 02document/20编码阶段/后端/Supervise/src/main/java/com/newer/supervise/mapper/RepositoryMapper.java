@@ -30,13 +30,15 @@ public interface RepositoryMapper {
 	 * 
 	 * @return
 	 */
-	@Select("SELECT  id,item_name, b.source_type,a.item_content,a.source_time,o.org_name,c.type_name,a.item_type,a.item_statu,a.item_code,over_time  FROM  repository   a\r\n"
+	@Select("SELECT  id,item_name, b.source_type,a.item_content,a.source_time,o.org_name,c.type_name,a.item_type,a.item_statu,a.item_code,over_time,i.opt_time  FROM  repository   a\r\n"
 			+ "LEFT  JOIN  source  b  ON  a.source_id=b.source_id  \r\n"
 			+ "LEFT  JOIN  file_type c  ON  a.file_type=c.type_id \r\n"
-			+ "LEFT  JOIN  organization o  ON  a.org_id=o.org_id  ORDER  BY id ASC")
+			+ "LEFT  JOIN  organization o  ON  a.org_id=o.org_id  \r\n"
+			+ "LEFT  JOIN  item_process i   ON  a.item_code=i.item_code  GROUP BY  a.item_code  ASC")
 	@Results({ @Result(column = "source_type", property = "sourceId.sourceType"),
 			@Result(column = "org_name", property = "orgId.orgName"),
 			@Result(column = "type_name", property = "fileType.typeName"),
+			@Result(column = "opt_time", property = "itemCode.optTime"),
 			@Result(column = "item_code", property = "itemCode.itemCode") })
 	public List<Repository> queryAll();
 

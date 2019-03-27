@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.newer.supervise.model.Page;
 import com.newer.supervise.pojo.FileType;
-import com.newer.supervise.pojo.ItemProcess;
 import com.newer.supervise.pojo.Repository;
 import com.newer.supervise.pojo.SecrecyLevel;
 import com.newer.supervise.pojo.Source;
@@ -153,21 +152,6 @@ public class RepositoryController {
 	}
 
 	/**
-	 * 得到最后操作时间
-	 * 
-	 * @param itemCode
-	 * @return
-	 */
-	@GetMapping("/item/Time/{itemCode}")
-	public ResponseEntity<?> selectTime(@PathVariable("itemCode") String itemCode) {
-		ItemProcess item = repositoryService.selectTime(itemCode);
-		if (item != null) {
-			return new ResponseEntity<ItemProcess>(item, HttpStatus.OK);
-		}
-		return new ResponseEntity<Integer>(0, HttpStatus.OK);
-	}
-
-	/**
 	 * 立项时保存事项进程表记录
 	 * 
 	 * @param itemCode
@@ -178,6 +162,9 @@ public class RepositoryController {
 	public ResponseEntity<?> insertItem(@RequestParam("itemCode") String itemCode,
 			@RequestParam("userId") Integer userId) {
 		Integer i = repositoryService.insertItem(itemCode, userId);
+		if (i == -1) {
+			return new ResponseEntity<Integer>(-1, HttpStatus.OK);
+		}
 		return new ResponseEntity<Integer>(i, HttpStatus.OK);
 	}
 
