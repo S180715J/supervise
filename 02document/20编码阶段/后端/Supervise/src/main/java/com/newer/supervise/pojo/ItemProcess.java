@@ -1,9 +1,4 @@
 package com.newer.supervise.pojo;
-/**
- * 事项进程
- * @author W419
- *
- */
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +7,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+/**
+ * 事项进程
+ * @author W419
+ *
+ */
 public class ItemProcess implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -25,13 +25,13 @@ public class ItemProcess implements Serializable {
 	private Integer supStatu;// 0:未完成 1:已完成 2:退回 督办员操作
 	private Integer orgStatu;// 0:未完成 1:已完成 2:退回 督办员操作
 	private Integer staffStatu;// 0:未完成 1:已完成 2:退回 督办员操作
+
 	public ItemProcess() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
+
 	public ItemProcess(Integer statuId, String itemCode, String statuDescribe, Date optTime, User userId,
 			Integer supStatu, Integer orgStatu, Integer staffStatu) {
-		super();
 		this.statuId = statuId;
 		this.itemCode = itemCode;
 		this.statuDescribe = statuDescribe;
@@ -41,12 +41,14 @@ public class ItemProcess implements Serializable {
 		this.orgStatu = orgStatu;
 		this.staffStatu = staffStatu;
 	}
+
 	@Override
 	public String toString() {
 		return "ItemProcess [statuId=" + statuId + ", itemCode=" + itemCode + ", statuDescribe=" + statuDescribe
 				+ ", optTime=" + optTime + ", userId=" + userId + ", supStatu=" + supStatu + ", orgStatu=" + orgStatu
 				+ ", staffStatu=" + staffStatu + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -61,6 +63,7 @@ public class ItemProcess implements Serializable {
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -112,54 +115,69 @@ public class ItemProcess implements Serializable {
 			return false;
 		return true;
 	}
+
 	public Integer getStatuId() {
 		return statuId;
 	}
+
 	public void setStatuId(Integer statuId) {
 		this.statuId = statuId;
 	}
+
 	public String getItemCode() {
 		return itemCode;
 	}
+
 	public void setItemCode(String itemCode) {
 		this.itemCode = itemCode;
 	}
+
 	public String getStatuDescribe() {
 		return statuDescribe;
 	}
+
 	public void setStatuDescribe(String statuDescribe) {
 		this.statuDescribe = statuDescribe;
 	}
+
 	public Date getOptTime() {
 		return optTime;
 	}
+
 	public void setOptTime(Date optTime) {
 		this.optTime = optTime;
 	}
+
 	public User getUserId() {
 		return userId;
 	}
+
 	public void setUserId(User userId) {
 		this.userId = userId;
 	}
+
 	public Integer getSupStatu() {
 		return supStatu;
 	}
+
 	public void setSupStatu(Integer supStatu) {
 		this.supStatu = supStatu;
 	}
+
 	public Integer getOrgStatu() {
 		return orgStatu;
 	}
+
 	public void setOrgStatu(Integer orgStatu) {
 		this.orgStatu = orgStatu;
 	}
+
 	public Integer getStaffStatu() {
 		return staffStatu;
 	}
+
 	public void setStaffStatu(Integer staffStatu) {
 		this.staffStatu = staffStatu;
 	}
 
-	
 }

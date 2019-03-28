@@ -390,8 +390,13 @@
 								}
 							);
 							// 去主页
-							localStorage.setItem('userId', respData.userId);
-							setTimeout('window.location.href="main.html"', 1000);
+							window.localStorage.setItem('user',JSON.stringify(respData))
+							/* 
+							取数据
+							JSON.parse(window.localStorage.getItem("key"))
+							存入单个值
+							localStorage.setItem('userId', respData.userId); */
+							setTimeout('window.location.href="x.html"', 1000);
 						} else {
 							layer.msg(
 								'用户名或密码错误', {
@@ -682,5 +687,13 @@
 
 			}
 		</script>
+		 <script language="javascript">
+        //防止页面后退
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+    </script>
+
 	</body>
 </html>

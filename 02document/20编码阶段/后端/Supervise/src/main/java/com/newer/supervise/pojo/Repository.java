@@ -53,7 +53,6 @@ public class Repository implements Serializable {
 			String drafterPhone, String itemName, ItemProcess itemCode, User user, Organization orgId,
 			SecrecyLevel secrecyLevel, String itemContent, Date overTime, Integer feedback, Date nextFeedback,
 			String deptOpinion, String leadOpinion, Integer itemStatu, Integer itemType, String remark) {
-		super();
 		this.id = id;
 		this.sourceId = sourceId;
 		this.sourceTime = sourceTime;

@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <title>NEWER督办平台-部门管理</title>
     <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
@@ -65,15 +64,14 @@
         table.render({
             elem: '#dept_page',
             height: 435,
-            url: 'http://localhost:8080/Supervise/orgPaging', //数据接口
+            url: 'http://localhost:8888/Supervise/orgPaging', //数据接口
             page: true, //开启分页
             cols: [[ //表头
-                {field: 'orgName', title: '机构名称', width:160, sort: true, fixed: 'left', align: 'center'},
-                {field: 'namePath', title: '机构路径', width:230, align: 'center', sort: true},
-                {field: 'introduction', title: '部门简介', width:300, align: 'center', sort: true},
-                {field: 'responsibility', title: '部门职责', width:190, align: 'center', sort: true},
-
-                {fixed: 'right', title: '操作', width: 220, align: 'center', toolbar: '#barDemo', sort: true}
+                {field: 'orgName', title: '机构名称', width:160, fixed: 'left', align: 'center'},
+                {field: 'namePath', title: '机构路径', width:230, align: 'center'},
+                {field: 'introduction', title: '部门简介', width:300, align: 'center'},
+                {field: 'responsibility', title: '部门职责', width:190, align: 'center'},
+                {fixed: 'right', title: '操作', width: 220, align: 'center', toolbar: '#operate'}
             ]],
             parseData: function(res) { //将原始数据解析成 table 组件所规定的数据
                 return {
@@ -87,7 +85,10 @@
 
 
 </script>
-<script type="text/html" id="operate"></script>
+<script type="text/html" id="operate">
+    <button class="layui-btn layui-btn-sm" onclick="toUpdateDept({{d.orgId}})">修改</button>
+    <button class="layui-btn layui-btn-sm layui-btn-danger" onclick="org_del({{d.orgId}})">删除</button>
+</script>
 <script>
     /*前往添加机构页面*/
     function admin_add(title, url, w, h) {
@@ -110,7 +111,7 @@
 
     /*删除部门*/
     function org_del(orgId) {
-        layer.confirm("确认要删除编号为：【" + orgId + "】的部门吗?", function (index) {
+        layer.confirm("确认要删除编号为：【" + orgId + "】的部门及其下属部门吗?", function (index) {
             $.ajax({
                 url: HOST_URL + 'delete/' + orgId,
                 method: 'DELETE',

@@ -3,6 +3,8 @@ package com.newer.supervise.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,7 @@ import com.newer.supervise.utils.JwtTokenUtil;
  */
 @RestController
 @RequestMapping("/user")
-public class Usercontroller {
+public class UserController {
 
 	Logger log = LoggerFactory.getLogger(getClass());
 	@Autowired
@@ -46,7 +48,7 @@ public class Usercontroller {
 	 * @return
 	 */
 	@RequestMapping(value = "/logins", method = RequestMethod.POST)
-	public ResponseEntity<?> login(@RequestBody User user) {
+	public ResponseEntity<?> login(@RequestBody User user, HttpSession session) {
 		log.info("用户输入账号：{}，密码：{}................", user.getUserName(), user.getPassword());
 		User user2 = userService.findUsernamAndpwd(user);
 		if (user2 != null) {
@@ -109,7 +111,6 @@ public class Usercontroller {
 			log.info("员工对象创建失败:系统中已存在该编号{}的员工", queryUser.getUserId());
 			return new ResponseEntity<>("Not Found:" + userId, HttpStatus.NOT_FOUND);
 		}
-		/*user.setOptTime(new Date());*/
 		int insertUser = userService.InsertUser(user);
 		if (insertUser > 0) {
 			return new ResponseEntity<User>(user, HttpStatus.CREATED);
@@ -127,13 +128,14 @@ public class Usercontroller {
 	 */
 	@RequestMapping(value = "/updateuser", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateEmp(@RequestBody User user) {
-		log.info("开始修改用户对象，编号为{}...............", user.getUserId());
+		log.info("开始修改用户对象，编号为{}....{}...............", user.getDuty().getDutyId(),user.getUserId());
 		Integer userId = user.getUserId();
 		User queryUser = userService.queryUser(userId);
+		
 		if (queryUser == null) {
 			return new ResponseEntity<>("Not Found:" + userId, HttpStatus.NOT_FOUND);
 		}
-		Integer updateUser = userService.updateUser(queryUser);
+		Integer updateUser = userService.updateUser(user);
 		log.info("{}员工修改成功", updateUser);
 		if (updateUser > 0) {
 			return new ResponseEntity<User>(user, HttpStatus.CREATED);
@@ -161,7 +163,7 @@ public class Usercontroller {
 		return new ResponseEntity<String>(deleteUser > 0 ? "ok" : "nodata", HttpStatus.OK);
 	}
 
-
+	//查询职务
 	@RequestMapping(value = "/duty", method = RequestMethod.GET)
 	public ResponseEntity<?> queryDuty() {
 		log.info("开始加载职务信息.............." );		
@@ -170,7 +172,7 @@ public class Usercontroller {
 
 	}
 	
-	
+	//查询学历
 	@RequestMapping(value = "/education", method = RequestMethod.GET)
 	public ResponseEntity<?> queryEducation() {
 		log.info("开始加载学历信息.............." );
@@ -179,13 +181,19 @@ public class Usercontroller {
 
 	}
 	
-	
+	//查询职称
 	@RequestMapping(value = "/duty/{dutyId}", method = RequestMethod.GET)
 	public ResponseEntity<?> findDuty(@PathVariable ("dutyId") Integer dutyId) {
 		log.info("开始加载职称信息.............." );
 		Duty findDuty = userService.findDuty(dutyId);
 		return new ResponseEntity<>(findDuty, HttpStatus.OK);
-
+	}
+	
+	//账号去重
+	@RequestMapping(value="/queryUserName/{username}",method=RequestMethod.GET)
+	public ResponseEntity<?> queryUserName(@PathVariable("username") String userName){
+		User queryUserName = userService.queryUserName(userName);
+		return new ResponseEntity<User>(queryUserName,HttpStatus.OK);
 	}
 	
 }

@@ -1,6 +1,9 @@
 package com.newer.supervise.service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ import com.newer.supervise.pojo.ItemProcess;
 import com.newer.supervise.pojo.Repository;
 import com.newer.supervise.pojo.SecrecyLevel;
 import com.newer.supervise.pojo.Source;
+import com.newer.supervise.pojo.User;
 
 /**
  * 备用库的服务层
@@ -82,8 +86,12 @@ public class RepositoryService {
 	 * 
 	 * @return
 	 */
+	@Transactional
 	public List<Repository> queryAll() {
-		return repositoryMapper.queryAll();
+		//
+		List<Repository> queryAll = repositoryMapper.queryAll();
+
+		return queryAll;
 	}
 
 	/**
@@ -148,5 +156,136 @@ public class RepositoryService {
 	 */
 	public ItemProcess selectTime(String itemCode) {
 		return itemMapper.selectTime(itemCode);
+	}
+
+	/**
+	 * 保存事项进程记录
+	 * 
+	 * @param itemCode
+	 * @param userId
+	 * @return
+	 */
+	@Transactional
+	public Integer updateType(Integer id, Integer itemType) {
+		
+		//先判断是否立过项,即事项类型item_type是否为0（用回显单个方法）
+		Repository queryOne = repositoryMapper.queryOne(id);
+		if (queryOne.getItemType() != 0) {
+			return -1;
+		}
+		return repositoryMapper.updateType(id,itemType);
+	}
+
+	/**
+	 * 模糊查询
+	 * 
+	 * @param rep
+	 * @return
+	 */
+	public List<Repository> queryDim(Repository rep) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		Integer sourceId = rep.getSourceId().getSourceId();
+		String itemName = rep.getItemName();
+		String serialNum = rep.getSerialNum();
+		Date sourceTime = rep.getSourceTime();
+		Date optTime = rep.getItemCode().getOptTime();
+		Integer itemStatu = rep.getItemStatu();
+		Integer itemType = rep.getItemType();
+		Integer typeId = rep.getFileType().getTypeId();
+		Integer orgId = rep.getOrgId().getOrgId();
+
+		if (sourceId != null && !sourceId.equals(-1)) {
+			map.put("sourceId", sourceId);
+		}
+		if (itemName != null && !itemName.equals("")) {
+			map.put("itemName", itemName);
+		}
+		if (serialNum != null && !serialNum.equals("")) {
+			map.put("serialNum", serialNum);
+		}
+		if (sourceTime != null) {
+			map.put("sourceTime", sourceTime);
+		}
+		if (optTime != null) {
+			map.put("optTime", optTime);
+		}
+		if (itemStatu != null && !itemStatu.equals(-1)) {
+			map.put("itemStatu", itemStatu);
+		}
+		if (itemType != null && !itemType.equals(-1)) {
+			map.put("itemType", itemType);
+		}
+		if (typeId != null && !typeId.equals(-1)) {
+			map.put("typeId", typeId);
+		}
+		if (orgId != null && !orgId.equals(-1)) {
+			map.put("orgId", orgId);
+		}
+
+		return repositoryMapper.queryDim(map);
+	}
+
+	/**
+	 * 修改备用库表的状态
+	 * 
+	 * @param statu
+	 * @param id
+	 * @return
+	 */
+	public Integer updateStatu(Integer statu, Integer id) {
+		return repositoryMapper.updateStatu(statu, id);
+	}
+
+	/**
+	 * 批量修改
+	 * 
+	 * @param id
+	 * @param statu
+	 * @return
+	 */
+	public Integer updateArray(Integer[] arr, Integer statu) {
+		return repositoryMapper.updateArray(arr, statu);
+	}
+
+	/**
+	 * 初始化领导信息
+	 * 
+	 * @return
+	 */
+	public List<User> showLeader() {
+		return repositoryMapper.showLeader();
+	}
+
+	/**
+	 * 领导审批通过，在审批意见中指定牵头部门，根据id所对应的事项将领导审批意见添加入数据库
+	 * 
+	 * @param opinion
+	 * @param id
+	 * @return
+	 */
+	public Integer leadPass(String opinion, Integer id) {
+		return repositoryMapper.leadPass(opinion, id);
+	}
+
+	/**
+	 * 领导退回id所对应的事项，将退回意见加入至数据库中，同时修改该事项的状态为退回
+	 * 
+	 * @param opinion
+	 * @param id
+	 * @return
+	 */
+	public Integer leadRefuse(String opinion, Integer id) {
+		return repositoryMapper.leadRefuse(opinion, id);
+	}
+
+	/**
+	 * 督办员查看事项id所对应事项的领导意见
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public String queryOpinion(Integer id) {
+		return repositoryMapper.queryLeadOpinion(id);
 	}
 }

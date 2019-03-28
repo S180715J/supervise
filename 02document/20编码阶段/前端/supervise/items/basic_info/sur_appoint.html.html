@@ -1,0 +1,223 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="Bookmark" href="/favicon.ico">
+		<link rel="Shortcut Icon" href="/favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="../../lib/Hui-iconfont/1.0.8/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/style.css" />
+		<title>基本信息变更通知</title>
+	</head>
+
+	<body>
+		<article class="page-container" style="margin-top: 10%;">
+			<form action="" method="post" class="form form-horizontal" id="form-member-add">
+
+				<form>
+					<table class="table   table-bg">
+						<thead>
+
+							<tr class="text-c">
+								<th scope="col" colspan="2">
+									<div class="row cl">
+										<label class="form-label col-xs-4 col-sm-3">接受人：</label>
+										<div class="formControls col-xs-8 col-sm-2">
+											<span class="select-box">
+												<select name="" class="select">
+													<option value="-1">---请选择---</option>
+
+												</select>
+											</span>
+										</div>
+									</div>
+								</th>
+							</tr>
+
+
+							<tr>
+								<th scope="col" colspan="2">
+									<div class="row cl">
+										<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>通知内容：</label>
+										<div class="formControls col-xs-8 col-sm-7">
+											<textarea name="itemContent" id="itemContent" cols="" rows="" class="textarea" placeholder=""
+											 datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！"></textarea>
+											<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+										</div>
+									</div>
+								</th>
+							</tr>
+
+
+
+
+
+							</tr>
+							<tr>
+								<th>
+									<div class="row cl">
+										<div class="col-xs-9 col-sm-9 col-xs-offset-4 col-sm-offset-7">
+											<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+											
+											
+										</div>
+									</div>
+								</th>
+								<th>
+									<div class="row cl">
+										<div class="col-xs-9 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+
+											<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;关闭&nbsp;&nbsp;">
+										</div>
+									</div>
+								</th>
+							</tr>
+						</thead>
+					</table>
+					<!--隐藏域-->
+					<input type="hidden" name="userId" value="" id="userId">
+					<input type="hidden" name="itemStatu" value="" id="itemStatu">
+				</form>
+		</article>
+
+		<!--_footer 作为公共模版分离出去-->
+		<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="../../lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript" src="../../static/h-ui/js/H-ui.min.js"></script>
+		<script type="text/javascript" src="../../static/h-ui.admin/js/H-ui.admin.js"></script>
+		<!--/_footer 作为公共模版分离出去-->
+
+		<!--请在下方写此页面业务相关的脚本-->
+		<script type="text/javascript" src="../../lib/My97DatePicker/4.8/WdatePicker.js"></script>
+		<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+		<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+		<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/messages_zh.js"></script>
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.skin-minimal input').iCheck({
+					checkboxClass: 'icheckbox-blue',
+					radioClass: 'iradio-blue',
+					increaseArea: '20%'
+				});
+
+				$("#form-member-add").validate({
+					rules: {
+						username: {
+							required: true,
+							minlength: 2,
+							maxlength: 16
+						},
+						sex: {
+							required: true,
+						},
+						mobile: {
+							required: true,
+							isMobile: true,
+						},
+						email: {
+							required: true,
+							email: true,
+						},
+						uploadfile: {
+							required: true,
+						},
+
+					},
+					onkeyup: false,
+					focusCleanup: true,
+					success: "valid",
+					submitHandler: function(form) {
+						//$(form).ajaxSubmit();
+						var index = parent.layer.getFrameIndex(window.name);
+						//parent.$('.btn-refresh').click();
+						parent.layer.close(index);
+					}
+				});
+			});
+		</script>
+		<script type="text/javascript">
+			$(function() {
+				//适用与一个参数
+				function parseUrl(url) {
+					if (url.indexOf("?") == -1) {
+						return {};
+					}
+					var value = url.split("=")[1];
+					return value;
+				}
+				// url传递的信息
+				var $urlMsg = parseUrl(window.location.search);
+				$.ajax({
+					url: HOST_URL + "item/one/" + $urlMsg,
+					type: "GET",
+					dataType: "json",
+					success: function(data) {
+						$("#sourceId").val(data.sourceId.sourceType);
+						$("#sourceTime").val(data.sourceTime);
+						$("#serialNum").val(data.serialNum);
+						$("#fileType").val(data.fileType.typeName);
+						$("#drafter").val(data.drafter);
+						$("#drafterPhone").val(data.drafterPhone);
+						$("#itemName").val(data.itemName);
+						$("#itemCode").val(data.itemCode.itemCode);
+						$("#user").val(data.user.realName);
+						$("#orgId").val(data.orgId.orgName);
+						$("#secrecyLevel").val(data.secrecyLevel.levelName);
+						$("#itemContent").val(data.itemContent);
+						//给隐藏域赋领导id
+						$("#userId").val(data.user.userId);
+						//给隐藏域赋事项状态
+						$("#itemStatu").val(data.itemStatu);
+					},
+					xhrFields: {
+						withCredentials: true
+					}
+				});
+			});
+		</script>
+		<script type="text/javascript">
+			//立项
+			$(function() {
+				$("input[type=submit]:eq(1)").click(function() {
+					var $itemCode = $("#itemCode").val();
+					var $userId = $("#userId").val();
+					var $itemStatu = $("#itemStatu").val();
+					if ($itemStatu == "1") {
+						$.ajax({
+							url: HOST_URL + "item/addItem",
+							type: "POST",
+							data: {
+								"itemCode": $itemCode,
+								"userId": $userId
+							},
+							dataType: "json",
+							success: function(data) {
+								if (data == 1) {
+									layer.alert("立项完成")
+								} else {
+									layer.alert("立项失败")
+								}
+							},
+							xhrFields: {
+								withCredentials: true
+							}
+						});
+					} else {
+						layer.alert("事项以删除,不能立项")
+					}
+				});
+			});
+		</script>
+		<!--/请在上方写此页面业务相关的脚本-->
+	</body>
+
+</html>

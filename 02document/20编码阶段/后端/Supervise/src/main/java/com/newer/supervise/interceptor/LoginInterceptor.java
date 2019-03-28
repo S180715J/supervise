@@ -15,13 +15,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	
 	static {
 		pageSet.add("index.html");
-		pageSet.add("/login");
+		pageSet.add("/logins");
 	}
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
 		if (handler instanceof DefaultServletHttpRequestHandler) {
 			return true;
 		}

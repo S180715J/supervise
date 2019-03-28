@@ -111,4 +111,7 @@ public class UserService {
 		return userMapper.findDuty(dutyId);
 	}
 	
+	public User queryUserName(String userName) {
+		return userMapper.queryUserName(userName);
+	}
 }

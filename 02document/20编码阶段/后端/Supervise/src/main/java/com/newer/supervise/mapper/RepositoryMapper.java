@@ -1,6 +1,7 @@
 package com.newer.supervise.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.newer.supervise.pojo.Repository;
+import com.newer.supervise.pojo.User;
 
 /**
  * 备用库DAO层
@@ -28,13 +30,15 @@ public interface RepositoryMapper {
 	 * 
 	 * @return
 	 */
-	@Select("SELECT  id,item_name, b.source_type,a.item_content,a.source_time,o.org_name,c.type_name,a.item_type,a.item_statu,a.item_code  FROM  repository   a\r\n"
+	@Select("SELECT  id,item_name, b.source_type,a.item_content,a.source_time,o.org_name,c.type_name,a.item_type,a.item_statu,a.item_code,over_time,i.opt_time  FROM  repository   a\r\n"
 			+ "LEFT  JOIN  source  b  ON  a.source_id=b.source_id  \r\n"
 			+ "LEFT  JOIN  file_type c  ON  a.file_type=c.type_id \r\n"
-			+ "LEFT  JOIN  organization o  ON  a.org_id=o.org_id  ORDER  BY id ASC")
+			+ "LEFT  JOIN  organization o  ON  a.org_id=o.org_id  \r\n"
+			+ "LEFT  JOIN  item_process i   ON  a.item_code=i.item_code  GROUP BY  a.item_code  ASC")
 	@Results({ @Result(column = "source_type", property = "sourceId.sourceType"),
 			@Result(column = "org_name", property = "orgId.orgName"),
 			@Result(column = "type_name", property = "fileType.typeName"),
+			@Result(column = "opt_time", property = "itemCode.optTime"),
 			@Result(column = "item_code", property = "itemCode.itemCode") })
 	public List<Repository> queryAll();
 
@@ -43,18 +47,20 @@ public interface RepositoryMapper {
 	 * 
 	 * @return
 	 */
-	@Select("SELECT a.id,s.source_type,a.source_time,a.serial_num,f.type_name,a.drafter,a.drafter_phone,a.item_name,a.item_code,u.real_name,u.duty_id,o.org_name,sl.level_name,a.item_content  FROM  repository  a \r\n"
+	@Select("SELECT a.id,s.source_type,a.source_time,a.serial_num,f.type_name,a.drafter,a.drafter_phone,a.item_name,a.item_code,u.real_name,d.duty_name,u.duty_id,u.user_id,o.org_name,sl.level_name,a.item_content,a.item_statu,a.item_type  FROM  repository  a \r\n"
 			+ "LEFT JOIN source  s  ON  a.source_id=s.source_id \r\n"
-			+ "LEFT JOIN file_type f ON a.file_type=f.type_id \r\n"
-			+ "LEFT JOIN item_process i  ON a.item_code=i.item_code \r\n"
-			+ "LEFT JOIN `user`  u   ON  a.user_id=u.duty_id \r\n"
-			+ "LEFT JOIN  organization o  ON a.org_id=o.org_id \r\n"
-			+ "LEFT JOIN  secrecy_level sl ON a.secrecy_level=sl.level_id  WHERE id=1")
+			+ "LEFT JOIN file_type f ON a.file_type=f.type_id \r\n" 
+			+ "LEFT JOIN user  u   ON  a.user_id=u.user_id \r\n"
+			+ "LEFT JOIN  duty  d    ON  u.duty_id=d.duty_id \r\n" 
+			+ "LEFT JOIN organization o  ON a.org_id=o.org_id \r\n"
+			+ "LEFT JOIN secrecy_level sl ON a.secrecy_level=sl.level_id  WHERE id=#{id}")
 	@Results({ @Result(column = "source_type", property = "sourceId.sourceType"),
 			@Result(column = "type_name", property = "fileType.typeName"),
 			@Result(column = "item_code", property = "itemCode.itemCode"),
 			@Result(column = "real_name", property = "user.realName"),
+			@Result(column = "duty_name", property = "user.duty.dutyName"),
 			@Result(column = "duty_id", property = "user.duty.dutyId"),
+			@Result(column = "user_id", property = "user.userId"),
 			@Result(column = "org_name", property = "orgId.orgName"),
 			@Result(column = "level_name", property = "secrecyLevel.levelName"), })
 	public Repository queryOne(@Param("id") Integer id);
@@ -95,4 +101,75 @@ public interface RepositoryMapper {
 	@Update("UPDATE repository SET item_name=#{itemName}, item_code=#{itemCode.itemCode}, user_id=#{user.userId}, remark=#{remark}  WHERE  id=#{id} ")
 	public Integer update(Repository rep);
 
+	/**
+	 * 修改备用库状态
+	 * 
+	 * @param statu
+	 * @return
+	 */
+	@Update("UPDATE repository  SET  item_statu=#{statu}  WHERE id=#{id}")
+	public Integer updateStatu(@Param("statu") Integer statu, @Param("id") Integer id);
+
+	/**
+	 * 修改事项类型
+	 * 
+	 * @param statu
+	 * @return
+	 */
+	@Update("UPDATE repository  SET  item_type=#{itemType}  WHERE id=#{id}")
+	public Integer updateType(@Param("itemType") Integer itemType, @Param("id") Integer id);
+
+	/**
+	 * 模糊查询
+	 * 
+	 * @return
+	 */
+	public List<Repository> queryDim(Map<String, Object> map);
+
+	/**
+	 * 批量修改
+	 * 
+	 * @param id
+	 * @param statu
+	 * @return
+	 */
+	public Integer updateArray(@Param("arr") Integer[] arr, @Param("statu") Integer statu);
+
+	/**
+	 * 初始化领导信息
+	 * 
+	 * @return
+	 */
+	@Select("SELECT u.user_id,u.real_name,d.duty_name  FROM  `user`  u  LEFT JOIN duty  d ON  u.duty_id=d.duty_id  WHERE d.duty_type='公司领导'")
+	@Results({@Result(column="duty_name",property="duty.dutyName")})
+	public List<User> showLeader();
+
+	/**
+	 * 根据事项id查询领导审批意见
+	 * 
+	 * @param id	事项id
+	 * @return
+	 */
+	@Select("SELECT lead_opinion FROM repository WHERE id=#{id}")
+	String queryLeadOpinion(Integer id);
+
+	/**
+	 * 领导退回意见，将事项id对应的事项类型修改为已退回
+	 * 
+	 * @param opinion 领导拒绝意见
+	 * @param id      事项id
+	 * @return 修改结果
+	 */
+	@Update("UPDATE repository SET item_type=2,lead_opinion=#{opinion} WHERE id=#{id}")
+	Integer leadRefuse(String opinion, Integer id);
+
+	/**
+	 * 领导审批通过，将审批意见添加至事项id对应的事项中
+	 * 
+	 * @param opinion 通过的审批意见
+	 * @param id      事项id
+	 * @return 修改结果
+	 */
+	@Update("UPDATE repository SET lead_opinion=#{iponion} WHERE id=#{id}")
+	Integer leadPass(String opinion, Integer id);
 }

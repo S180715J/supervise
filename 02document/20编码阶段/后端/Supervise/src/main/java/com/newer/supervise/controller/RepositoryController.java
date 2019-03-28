@@ -8,16 +8,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.newer.supervise.model.Page;
 import com.newer.supervise.pojo.FileType;
-import com.newer.supervise.pojo.ItemProcess;
 import com.newer.supervise.pojo.Repository;
 import com.newer.supervise.pojo.SecrecyLevel;
 import com.newer.supervise.pojo.Source;
+import com.newer.supervise.pojo.User;
 import com.newer.supervise.service.RepositoryService;
 
 /**
@@ -134,7 +135,7 @@ public class RepositoryController {
 	 * @param rep
 	 * @return
 	 */
-	@PostMapping("/item/update/{oldCode}")
+	@PutMapping("/item/update/{oldCode}")
 	public ResponseEntity<?> update(@RequestBody Repository rep, @PathVariable("oldCode") String oldCode) {
 		// 查事项名称，事项编号的重复
 		Integer e = repositoryService.updateEquals(rep);
@@ -151,17 +152,108 @@ public class RepositoryController {
 	}
 
 	/**
-	 * 得到最后操作时间
+	 * 立项时保存事项进程表记录
 	 * 
 	 * @param itemCode
+	 * @param userId
 	 * @return
 	 */
-	@GetMapping("/item/Time/{itemCode}")
-	public ResponseEntity<?> selectTime(@PathVariable("itemCode") String itemCode) {
-		ItemProcess item = repositoryService.selectTime(itemCode);
-		if (item != null) {
-			return new ResponseEntity<ItemProcess>(item, HttpStatus.OK);
+	@PostMapping("/item/addItem")
+	public ResponseEntity<?> insertItem(@RequestParam("id") Integer id,
+			@RequestParam("itemType") Integer itemType) {
+		Integer i = repositoryService.updateType(id, itemType);
+		if (i == -1) {
+			return new ResponseEntity<Integer>(-1, HttpStatus.OK);
 		}
-		return new ResponseEntity<Integer>(0, HttpStatus.OK);
+		return new ResponseEntity<Integer>(i, HttpStatus.OK);
+	}
+
+	/**
+	 * 模糊查询
+	 * 
+	 * @param rep
+	 * @return
+	 */
+	@PostMapping("/item/dim")
+	public ResponseEntity<?> queryDim(@RequestBody Repository rep) {
+		List<Repository> list = repositoryService.queryDim(rep);
+		if (list.isEmpty()) {
+			// 如果没查到数据则返回0
+			return new ResponseEntity<Integer>(0, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Repository>>(list, HttpStatus.OK);
+	}
+
+	/**
+	 * 修改备用库状态
+	 * 
+	 * @param statu
+	 * @param id
+	 * @return
+	 */
+	@PutMapping("/item/statu")
+	public ResponseEntity<?> updateStatu(@RequestParam("statu") Integer statu, @RequestParam("id") Integer id) {
+		Integer i = repositoryService.updateStatu(statu, id);
+		return new ResponseEntity<Integer>(i, HttpStatus.OK);
+	}
+
+	/**
+	 * 批量修改
+	 * 
+	 * @return
+	 */
+	@PutMapping("/item/updateArray")
+	public ResponseEntity<?> updateArray(@RequestBody Integer[] arr) {
+		Integer i = repositoryService.updateArray(arr, 0);
+		return new ResponseEntity<Integer>(i, HttpStatus.OK);
+	}
+
+	/**
+	 * 初始化领导信息
+	 * 
+	 * @return
+	 */
+	@GetMapping("/showLeader")
+	public ResponseEntity<?> showLeader() {
+		List<User> list = repositoryService.showLeader();
+		if (!list.isEmpty()) {
+			return new ResponseEntity<List<User>>(list, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>("no_leader", HttpStatus.NO_CONTENT);
+	}
+
+	/**
+	 * 根据事项id将领导审批意见添加至数据库中
+	 * 
+	 * @param opinion
+	 * @param id
+	 * @return
+	 */
+	public ResponseEntity<?> leadPass(@RequestParam("opinion") String opinion, @RequestParam("id") Integer id) {
+		Integer leadPass = repositoryService.leadPass(opinion, id);
+		return new ResponseEntity<Integer>(leadPass, HttpStatus.OK);
+	}
+
+	/**
+	 * 从前端接收领导拒绝意见，同时根据事项id修改事项状态，并且将领导意见添加至对应的事项中
+	 * 
+	 * @param opinion
+	 * @param id
+	 * @return
+	 */
+	public ResponseEntity<?> leadRefuse(@RequestParam("opinion") String opinion, @RequestParam("id") Integer id) {
+		Integer leadRefuse = repositoryService.leadRefuse(opinion, id);
+		return new ResponseEntity<Integer>(leadRefuse, HttpStatus.OK);
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public ResponseEntity<?> sendLeadOpinionToPage(@RequestParam("id") Integer id) {
+		String opinion = repositoryService.queryOpinion(id);
+		return new ResponseEntity<String>(opinion, HttpStatus.OK);
 	}
 }

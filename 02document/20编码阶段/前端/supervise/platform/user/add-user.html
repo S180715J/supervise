@@ -4,7 +4,6 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="renderer" content="webkit|ie-comp|ie-stand">
-
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
 		<link rel="stylesheet" type="text/css" href="../../static/h-ui/css/H-ui.min.css" />
@@ -12,8 +11,6 @@
 		<link rel="stylesheet" type="text/css" href="../../lib/Hui-iconfont/1.0.8/iconfont.css" />
 		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/skin/default/skin.css" id="skin" />
 		<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/style.css" />
-
-
 		<link rel="stylesheet" href="../../css/normalize.css">
 		<link rel="stylesheet" href="../../css/login.css">
 		<link rel="stylesheet" href="../../css/sign-up-login.css">
@@ -27,7 +24,7 @@
 	</head>
 	<body>
 		<article class="page-container">
-			<form  class="form form-horizontal" id="form-member-add">
+			<form class="form form-horizontal" id="form-member-add">
 				<div class="row cl">
 					<label class="form-label col-xs-4 col-sm-4"><span class="c-red">*</span>用户登录名：</label>
 					<div class="formControls col-xs-8 col-sm-3">
@@ -89,20 +86,20 @@
 				</div>
 				<div class="row cl">
 					<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-5">
-						<input class="btn btn-primary" type="button" tabindex="3" onClick="saveuser()" value="登录" style="color:white;" />
+						<input class="btn btn-primary" type="button" tabindex="3" onClick="saveuser()" value="提交保存" style="color:white;" />
 					</div>
 				</div>
 			</form>
 		</article>
 
-		
+
 
 	</body>
 	<!--_footer 作为公共模版分离出去-->
 	<script type="text/javascript" src="../../js/jquery-3.3.1.min.js"></script>
-	
+
 	<script type="text/javascript" src="../../static/layer/2.4/layer.js"></script>
-	
+
 	<script type="text/javascript" src="../../static/h-ui/js/H-ui.min.js"></script>
 	<script type="text/javascript" src="../../static/h-ui.admin/js/H-ui.admin.js"></script>
 	<!--/_footer 作为公共模版分离出去-->
@@ -111,7 +108,7 @@
 	<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 	<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/validate-methods.js"></script>
 	<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/messages_zh.js"></script>
-	
+
 	<script src="../../js/jquery.pure.tooltips.js"></script>
 	<script src="../../js/spop.min.js"></script>
 	<script src="../../js/jwt-decode.min.js"></script>
@@ -119,52 +116,52 @@
 	<script src="../../js/jquery.serializejson.min.js"></script>
 	<script type="text/javascript" src="../../js/jwt.js"></script>
 	<script type="text/javascript" src="../../js/classie.js"></script>
-	
-	
-	
+
+
+
 	<script type="text/javascript">
 		$(function() {
 			initDept();
-			
+
 		});
-	
+
 		/** 显示下拉列表 */
 		function initDept() {
 			//部门
 			$.get('http://localhost:8888/Supervise/org', function(data) {
-	
+
 				$.each(data, (i, item) => {
 					var text = '<option value="' + item.orgId + '">' + item.orgName + '</option>';
 					$('#organization').append(text);
 				});
-	
+
 			}, 'json');
-	
-	
+
+
 			//职务
 			$.get('http://localhost:8888/Supervise/user/duty', function(data) {
-	
+
 				$.each(data, (i, item) => {
 					var text = '<option value="' + item.dutyId + '">' + item.dutyName + '</option>';
 					$('#duty').append(text);
 				});
-	
+
 			}, 'json');
-	
-	
+
+
 			//学历
 			$.get('http://localhost:8888/Supervise/user/education', function(data) {
-	
+
 				$.each(data, (i, item) => {
 					var text = '<option value="' + item.eid + '">' + item.eduName + '</option>';
 					$('#education').append(text);
 				});
-	
+
 			}, 'json');
-	
+
 		}
-	
-	
+
+
 		/* 回显职称*/
 		function initduty() {
 			var dutyId = $("#duty").val();
@@ -180,14 +177,14 @@
 				});
 			}, 'json');
 		}
-	
+
 		//添加用户
 		function saveuser() {
 			var userName = $("#userName").val();
-			var	realName = $("#realName").val();
-				validatecode = null,
+			var realName = $("#realName").val();
+			validatecode = null,
 				flag = false;
-	
+
 			if (userName == "") {
 				$.pt({
 					target: $("#userName"),
@@ -210,7 +207,7 @@
 				});
 				flag = true;
 			}
-	
+
 			var regExp = new RegExp("^[a-zA-Z0-9_]{4,16}$");
 			if (!regExp.test(userName)) {
 				$.pt({
@@ -223,8 +220,8 @@
 				});
 				flag = true;
 			}
-	
-	
+
+
 			var regExrealName = new RegExp("[\u4e00-\u9fa5]{2,6}$");
 			if (!regExrealName.test(realName)) {
 				$.pt({
@@ -237,7 +234,23 @@
 				});
 				flag = true;
 			}
-	
+
+			$.get('http://localhost:8888/Supervise/user/queryUserName/' + userName, function(data) {
+
+				if (data != null) {
+					layer.msg(
+						'用户账号已存在', {
+							icon: 2,
+							time: 1000 //2秒关闭（如果不配置，默认是3秒）
+						}
+					);
+					return false;
+				} 
+				
+			}, 'json');
+
+
+
 			if (flag) {
 				return false;
 			} else { //登录
@@ -246,77 +259,105 @@
 				return false;
 			}
 		}
-		
-		/**
-			 * 保存员工
-			 */
-			function save_user() {
-				var formData = $('#form-member-add').serializeJSON(); // JSON Object
-				//学历作为单独对象添加至formData中
-				var eid = $('#education option:selected').val();
-				var eduName = $('#education option:selected').text();
-				var jsonEducation = {
-					'eid': eid,
-					'eduName': eduName
-				};
-				formData.education = jsonEducation;
-				//部门作为单独对象添加至formData中
-				var orgId = $('#organization option:selected').val();
-				var orgName = $('#organization option:selected').text();
-				var jsonOrgName = {
-					'orgId': orgId,
-					'orgName': orgName
-				};
-				formData.organization = jsonOrgName;
-				//部门作为单独对象添加至formData中
-				var dutyId = $('#duty option:selected').val();
-				var dutyName = $('#duty option:selected').text();
-				var jsonDuty = {
-					'dutyId': dutyId,
-					'dutyName': dutyName
-				};
-				formData.duty = jsonDuty;
-				
-				
-				var newdate = new Date().getTime();
-				console.info(newdate);
-				formData.optTime = newdate;
-				
-				
-				var p = JSON.stringify(formData); // JSON String
-				console.info("发送数据：" + p);
-				var x = $.ajax({
-					url: 'http://localhost:8888/Supervise/user/saveuser',
-					method: 'PUT',
-					data: p,
-					dataType: "json", 
-					contentType: "application/json;charset=utf-8",
-					success: function(data) {
-						console.info(data);
-						if (data.empno != null) {
-							layer.msg(
-								'保存成功', {
-									icon: 1,
-									time: 1000 //2秒关闭（如果不配置，默认是3秒）
-								}
-							);
-							// 关闭窗口
-							var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
-							setTimeout('parent.layer.close(index)',1000);
-							// 刷新父窗口
-							setTimeout('window.parent.location.reload()',1000);
-						}
-					},
-					error: function(jqXHR, textStatus, errorThrown) {
-						layer.alert("系统出现错误,请联系管理员!");
-					},
-					xhrFields: {
-						withCredentials: true
-					}
-				});
 
+		/**
+		 * 保存员工
+		 */
+		function save_user() {
+			var formData = $('#form-member-add').serializeJSON(); // JSON Object
+			//学历作为单独对象添加至formData中
+			var eid = $('#education option:selected').val();
+			var eduName = $('#education option:selected').text();
+			var jsonEducation = {
+				'eid': eid,
+				'eduName': eduName
+			};
+			formData.education = jsonEducation;
+			//部门作为单独对象添加至formData中
+			var orgId = $('#organization option:selected').val();
+			var orgName = $('#organization option:selected').text();
+			var jsonOrgName = {
+				'orgId': orgId,
+				'orgName': orgName
+			};
+			formData.organization = jsonOrgName;
+			//部门作为单独对象添加至formData中
+			var dutyId = $('#duty option:selected').val();
+			var dutyName = $('#duty option:selected').text();
+			var jsonDuty = {
+				'dutyId': dutyId,
+				'dutyName': dutyName
+			};
+			formData.duty = jsonDuty;
+
+
+			var newdate = new Date().getTime();
+			console.info(newdate);
+			formData.optTime = newdate;
+
+			if (eid == '-1') {
+				layer.msg(
+					'请选择学历', {
+						icon: 2,
+						time: 1000 //2秒关闭（如果不配置，默认是3秒）
+					}
+				);
+				return false;
 			}
-		
+
+			if (orgId == '-1') {
+				layer.msg(
+					'请选择部门', {
+						icon: 2,
+						time: 1000 //2秒关闭（如果不配置，默认是3秒）
+					}
+				);
+				return false;
+			}
+
+			if (dutyId == '-1') {
+				layer.msg(
+					'请选择职务', {
+						icon: 2,
+						time: 1000 //2秒关闭（如果不配置，默认是3秒）
+					}
+				);
+				return false;
+			}
+
+			var p = JSON.stringify(formData); // JSON String
+			console.info("发送数据：" + p);
+			var x = $.ajax({
+				url: 'http://localhost:8888/Supervise/user/saveuser',
+				method: 'PUT',
+				data: p,
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				success: function(data) {
+					console.info(data);
+					if (data.userName != null) {
+						layer.msg(
+							'保存成功', {
+								icon: 1,
+								time: 2000 //2秒关闭（如果不配置，默认是3秒）
+							}
+						);
+						// 关闭窗口
+						var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+						setTimeout('parent.layer.close(index)', 2000);
+						// 刷新父窗口
+						setTimeout('window.parent.location.reload()', 2000);
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					layer.alert("系统出现错误,请联系管理员!");
+				},
+				xhrFields: {
+					withCredentials: true
+				}
+			});
+
+		}
 	</script>
-	
+
 </html>
