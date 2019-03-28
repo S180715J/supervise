@@ -33,12 +33,12 @@
 					<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 						<ul class="cl">							
 							<li class="dropDown dropDown_hover">
-								<a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+								<a href="#" class="dropDown_A" id="namez"> <i class="Hui-iconfont">&#xe6d5;</i></a>
 								<ul class="dropDown-menu menu radius box-shadow">																		
 									<li><a href="javascript:;" onclick="logout()">退出</a></li>
 								</ul>
 							</li>
-							<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a>
+							<li id="Hui-msg"> 
 							</li>
 							<li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i
 									 class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
@@ -189,21 +189,27 @@
 		$("#genduo").on('click', function() {
 			function gengduo() {};
 		});
+		function logout() {
+			layer.confirm("真的要注销吗?", () => {
+				/* 获得当前的时间 */
+				$.post();
+				window.location.href = "index.html"
+			});
+		}
 	</script>
 	<script type="text/javascript">
-		/* $(function() {
+		 $(function() {
 			//得到user对象
 			var user = JSON.parse(window.localStorage.getItem("user"));
-			$("#Hui-userbar ul li:eq(0)").html(user.duty.dutyName);
-			$("#Hui-userbar ul li:eq(1) a:eq(0)").html(user.realName);
-
-			$("#Hui-userbar ul ul a:not(:first)").click(function() {
-				var name = $(this).html();
-				if (confirm("是否要执行" + name + "操作")) {
-					window.location.href = "index.html";
-				}
-			});
-		}); */
+				var uid=user.userId;
+						console.info(uid);
+						
+				$.get('http://localhost:8888/Supervise/user/queryuser/' + uid, function(data) {
+					console.info(data.realName);
+					$('#namez').text(data.realName);												
+				}, 'json');						
+			
+		}); 
 	</script>
 
 

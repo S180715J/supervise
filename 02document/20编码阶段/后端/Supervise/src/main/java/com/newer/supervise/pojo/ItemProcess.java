@@ -32,6 +32,14 @@ public class ItemProcess implements Serializable {
 
 	}
 
+	public TaskType getTaskType() {
+		return taskType;
+	}
+
+	public void setTaskType(TaskType taskType) {
+		this.taskType = taskType;
+	}
+
 	public ItemProcess(Integer statuId, String itemCode, String statuDescribe, Date optTime, User userId,
 			Integer supStatu, Integer orgStatu, Integer staffStatu, TaskType taskType) {
 		this.statuId = statuId;

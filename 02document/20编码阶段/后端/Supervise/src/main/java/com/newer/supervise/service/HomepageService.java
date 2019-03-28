@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.newer.supervise.mapper.HomepageMapper;
+import com.newer.supervise.pojo.ItemProcess;
 import com.newer.supervise.pojo.Repository;
+import com.newer.supervise.pojo.TaskType;
 
 @Service(value = "homepageservice")
 public class HomepageService {
@@ -57,7 +59,6 @@ public class HomepageService {
 	public Repository queryRespositoryById(Integer id) {
 		return homepageMapper.queryRespositoryById(id);
 	}
-
 	/**
 	 * 根据事项id回显员工所查看的事项
 	 * 
@@ -67,7 +68,15 @@ public class HomepageService {
 	public Repository queryEmpRepository(Integer id) {
 		return homepageMapper.queryEmpRepository(id);
 	}
+	// 查询事项进展
+	public List<TaskType> queryTaskType() {
+		return homepageMapper.queryTaskType();
+	}
 
+	// 部门更新进展
+	public Integer Updatedept(Repository Repository) {
+		return homepageMapper.Updatedept(Repository);
+	}
 	/**
 	 * 根据事项id回显督办员所查看的数据
 	 * 
@@ -78,6 +87,8 @@ public class HomepageService {
 		return homepageMapper.querySupRepository(id);
 	}
 
+
+
 	/**
 	 * 查询原件信息用于页面回显(督办员查看)
 	 * 
@@ -87,8 +98,11 @@ public class HomepageService {
 	public Repository querySourceFileInfo(Integer id) {
 		return homepageMapper.querySourceFileInfo(id);
 	}
-
-	/**
+	// 查询
+	public List<ItemProcess> queryItemProcess() {
+		return homepageMapper.queryItemProcess();
+	}
+/**
 	 * 根据事项id查询对应事项的原件信息，用于回显给领导页面查看
 	 * 
 	 * @param id
@@ -97,7 +111,7 @@ public class HomepageService {
 	public Repository queryLeadSourceFileInfo(Integer id) {
 		return homepageMapper.queryLeadSourceFileInfo(id);
 	}
-
+	
 	/**
 	 * 根据事项id回显督办员待办任务
 	 * 

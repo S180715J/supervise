@@ -27,25 +27,25 @@
 					<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
 					<nav class="nav navbar-nav">
 						<ul class="cl">
-							
-								
+
+
 							<li class="navbar-levelone current"><a href="javascript:;">首页</a></li>
-							
-							
+
+
 							<li class="navbar-levelone"><a href="javascript:;">事项列表</a></li>
-							
-							
+
+
 						</ul>
 					</nav>
 					<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 						<ul class="cl">
 							<li>超级管理员</li>
 							<li class="dropDown dropDown_hover">
-								<a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+								<a href="#" class="dropDown_A" id="namez"> <i class="Hui-iconfont">&#xe6d5;</i></a>
 								<ul class="dropDown-menu menu radius box-shadow">
 									<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
 									<li><a href="#">切换账户</a></li>
-									<li><a href="#">退出</a></li>
+									<li><a href="javascript:;" onclick="logout()">退出</a></li>
 								</ul>
 							</li>
 							<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a>
@@ -82,7 +82,7 @@
 
 			</div>
 
-			
+
 
 			<div class="menu_dropdown bk_2" style="display:none">
 				<dl id="menu-ccccc">
@@ -90,14 +90,14 @@
 					<dd>
 						<ul>
 							<li><a data-href="items/items.html" data-title="事项信息" href="javascript:void(0)">事项信息</a></li>
-							
+
 						</ul>
 					</dd>
 				</dl>
-				
+
 			</div>
 
-			
+
 
 		</aside>
 		<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
@@ -194,7 +194,33 @@
 				layer_show(title, url, w, h);
 			}
 		</script>
+		<script type="text/javascript">
+			$("#genduo").on('click', function() {
+				function gengduo() {};
+			});
 
+			function logout() {
+				layer.confirm("真的要注销吗?", () => {
+					/* 获得当前的时间 */
+					$.post();
+					window.location.href = "index.html"
+				});
+			}
+
+
+			$(function() {
+				//得到user对象
+				var user = JSON.parse(window.localStorage.getItem("user"));
+				var uid = user.userId;
+				console.info(uid);
+
+				$.get('http://localhost:8888/Supervise/user/queryuser/' + uid, function(data) {
+					console.info(data.realName);
+					$('#namez').text(data.realName);
+				}, 'json');
+
+			});
+		</script>
 
 	</body>
 </html>

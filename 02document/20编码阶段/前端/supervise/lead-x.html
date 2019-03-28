@@ -36,11 +36,11 @@
 						<ul class="cl">
 							
 							<li class="dropDown dropDown_hover">
-								<a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+								<a href="#" class="dropDown_A" id="namez"> <i class="Hui-iconfont">&#xe6d5;</i></a>
 								<ul class="dropDown-menu menu radius box-shadow">
 									
 									
-									<li><a href="#">退出</a></li>
+									<li><a href="javascript:;" onclick="logout()">退出</a></li>
 								</ul>
 							</li>
 							
@@ -192,7 +192,32 @@
 				layer_show(title, url, w, h);
 			}
 		</script>
+<script type="text/javascript">
+			$("#genduo").on('click', function() {
+				function gengduo() {};
+			});
+			function logout() {
+				layer.confirm("真的要注销吗?", () => {
+					/* 获得当前的时间 */
+					$.post();
+					window.location.href = "index.html"
+				});
+			}
+			
+			
+			$(function() {
+				//得到user对象
+				var user = JSON.parse(window.localStorage.getItem("user"));
+				var uid = user.userId;
+				console.info(uid);
 
+				$.get('http://localhost:8888/Supervise/user/queryuser/' + uid, function(data) {
+					console.info(data.realName);
+					$('#namez').text(data.realName);
+				}, 'json');
+
+			});
+		</script>
 
 	</body>
 </html>

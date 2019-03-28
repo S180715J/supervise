@@ -1,4 +1,3 @@
-<!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>
 
@@ -22,70 +21,61 @@
 		<article class="page-container" style="margin-top: 10%;">
 			<form action="" method="post" class="form form-horizontal" id="form-member-add">
 
-				<form>
-					<table class="table   table-bg">
-						<thead>
 
-							<tr class="text-c">
-								<th scope="col" colspan="2">
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-3">状态修改为：</label>
-										<div class="formControls col-xs-8 col-sm-2">
-											<span class="select-box">
-												<select name="" class="select">
-													<option value="-1">---请选择---</option>
+				<table class="table   table-bg">
+					<thead>
 
-												</select>
-											</span>
-										</div>
+						<tr class="text-c">
+							<th scope="col" colspan="2">
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-3">状态修改为：</label>
+									<div class="formControls col-xs-8 col-sm-3">
+										<span class="select-box">
+											<select name="" class="select" id="TaskType">
+												<option value="-1">---请选择---</option>
+
+											</select>
+										</span>
 									</div>
-								</th>
-							</tr>
+								</div>
+							</th>
+						</tr>
 
 
-							<tr>
-								<th scope="col" colspan="2">
-									<div class="row cl">
-										<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态修改为：</label>
-										<div class="formControls col-xs-8 col-sm-7">
-											<textarea name="itemContent" id="itemContent" cols="" rows="" class="textarea" placeholder=""
-											 datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！"></textarea>
-											<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
-										</div>
+						<tr>
+							<th scope="col" colspan="2">
+								<div class="row cl">
+									<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>更新进展：</label>
+									<div class="formControls col-xs-8 col-sm-7">
+										<textarea name="itemContent" id="remark" cols="" rows="" class="textarea" placeholder="" datatype="*10-100"
+										 dragonfly="true" nullmsg="备注不能为空！"></textarea>
+										<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 									</div>
-								</th>
-							</tr>
-
-
-
-
-
-							</tr>
-							<tr>
-								<th>
-									<div class="row cl">
-										<div class="col-xs-9 col-sm-9 col-xs-offset-4 col-sm-offset-7">
-											<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-											
-											
-										</div>
+								</div>
+							</th>
+						</tr>
+						</tr>
+						<tr>
+							<th>
+								<div class="row cl">
+									<div class="col-xs-9 col-sm-9 col-xs-offset-4 col-sm-offset-7">
+										<input class="btn btn-primary" type="button" tabindex="3" onClick="save_deptinfo()" value="提交保存" style="color:white;" />
+										
 									</div>
-								</th>
-								<th>
-									<div class="row cl">
-										<div class="col-xs-9 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-
-											<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;关闭&nbsp;&nbsp;">
-										</div>
+								</div>
+							</th>
+							<th>
+								<div class="row cl">
+									<div class="col-xs-9 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+										<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;关闭&nbsp;&nbsp;">
 									</div>
-								</th>
-							</tr>
-						</thead>
-					</table>
-					<!--隐藏域-->
-					<input type="hidden" name="userId" value="" id="userId">
-					<input type="hidden" name="itemStatu" value="" id="itemStatu">
-				</form>
+								</div>
+							</th>
+						</tr>
+					</thead>
+				</table>
+
+			</form>
 		</article>
 
 		<!--_footer 作为公共模版分离出去-->
@@ -93,131 +83,112 @@
 		<script type="text/javascript" src="../../lib/layer/2.4/layer.js"></script>
 		<script type="text/javascript" src="../../static/h-ui/js/H-ui.min.js"></script>
 		<script type="text/javascript" src="../../static/h-ui.admin/js/H-ui.admin.js"></script>
-		<!--/_footer 作为公共模版分离出去-->
-
-		<!--请在下方写此页面业务相关的脚本-->
 		<script type="text/javascript" src="../../lib/My97DatePicker/4.8/WdatePicker.js"></script>
 		<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 		<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/validate-methods.js"></script>
 		<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/messages_zh.js"></script>
-		<script type="text/javascript" src="../../js/common.js"></script>
+		
+		<script src="../../js/jquery.pure.tooltips.js"></script>
+		<script src="../../js/spop.min.js"></script>
+		<script src="../../js/jwt-decode.min.js"></script>
+		<script src="../../js/hospital.js"></script>
+		<script src="../../js/jquery.serializejson.min.js"></script>
+		<script type="text/javascript" src="../../js/jwt.js"></script>
+		<script type="text/javascript" src="../../js/classie.js"></script>
+
 		<script type="text/javascript">
 			$(function() {
-				$('.skin-minimal input').iCheck({
-					checkboxClass: 'icheckbox-blue',
-					radioClass: 'iradio-blue',
-					increaseArea: '20%'
-				});
-
-				$("#form-member-add").validate({
-					rules: {
-						username: {
-							required: true,
-							minlength: 2,
-							maxlength: 16
-						},
-						sex: {
-							required: true,
-						},
-						mobile: {
-							required: true,
-							isMobile: true,
-						},
-						email: {
-							required: true,
-							email: true,
-						},
-						uploadfile: {
-							required: true,
-						},
-
-					},
-					onkeyup: false,
-					focusCleanup: true,
-					success: "valid",
-					submitHandler: function(form) {
-						//$(form).ajaxSubmit();
-						var index = parent.layer.getFrameIndex(window.name);
-						//parent.$('.btn-refresh').click();
-						parent.layer.close(index);
-					}
-				});
+				initDept();
+				 initrecharge(); 
 			});
-		</script>
-		<script type="text/javascript">
-			$(function() {
-				//适用与一个参数
-				function parseUrl(url) {
-					if (url.indexOf("?") == -1) {
-						return {};
-					}
-					var value = url.split("=")[1];
-					return value;
-				}
-				// url传递的信息
-				var $urlMsg = parseUrl(window.location.search);
-				$.ajax({
-					url: HOST_URL + "item/one/" + $urlMsg,
-					type: "GET",
+
+			/** 显示下拉列表 */
+			function initDept() {
+				//部门
+				$.get('http://localhost:8888/Supervise/queryTaskType', function(data) {
+					$.each(data, (i, item) => {
+						var text = '<option value="' + item.taskId + '">' + item.typeName + '</option>';
+						$('#TaskType').append(text);
+					});
+				}, 'json');
+			}
+			
+			
+			var url = window.location.search;
+			if (url.indexOf("?") != -1) { //判断是否有参数val();
+				var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+				strs = str.split("=");
+				did = strs[1];
+				console.info('did' + did);
+			}
+			
+			/* 回显用户数据*/
+			function initrecharge() {		
+				$.get('http://localhost:8888/Supervise/querydeptInfo/' + did, function(data) {								
+					console.info('职务:' + data.itemCode.taskType.taskId);
+					$("option[value='-1']").remove();
+					$("#TaskType option").each(function() {					
+						if ($(this).val() == data.itemCode.taskType.taskId) {							
+							$(this).attr({selected: "selected"});						
+							return false;
+						}
+					});									
+				}, 'json');						
+			}
+			
+			
+			/**
+			 * 保存员工
+			 */
+			function save_deptinfo() {
+				var formData = $('#form-member-add').serializeJSON(); // JSON Object
+				//学历作为单独对象添加至formData中
+
+				var newdate = new Date().getTime();
+				console.info(newdate);
+				formData.optTime = newdate;
+			
+			
+				formData.id = did;
+			
+				var p = JSON.stringify(formData); // JSON String
+				console.info("发送数据：" + p);
+			
+			
+				var x = $.ajax({
+					url: 'http://localhost:8888/Supervise/Updatedept',
+					method: 'PUT',
+					data: p,
 					dataType: "json",
+					contentType: "application/json;charset=utf-8",
 					success: function(data) {
-						$("#sourceId").val(data.sourceId.sourceType);
-						$("#sourceTime").val(data.sourceTime);
-						$("#serialNum").val(data.serialNum);
-						$("#fileType").val(data.fileType.typeName);
-						$("#drafter").val(data.drafter);
-						$("#drafterPhone").val(data.drafterPhone);
-						$("#itemName").val(data.itemName);
-						$("#itemCode").val(data.itemCode.itemCode);
-						$("#user").val(data.user.realName);
-						$("#orgId").val(data.orgId.orgName);
-						$("#secrecyLevel").val(data.secrecyLevel.levelName);
-						$("#itemContent").val(data.itemContent);
-						//给隐藏域赋领导id
-						$("#userId").val(data.user.userId);
-						//给隐藏域赋事项状态
-						$("#itemStatu").val(data.itemStatu);
+						console.info(data);
+						if (data.id != null) {
+							layer.msg(
+								'保存成功', {
+									icon: 1,
+									time: 2000 //2秒关闭（如果不配置，默认是3秒）
+								}
+							);
+							// 关闭窗口
+							var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+							setTimeout('parent.layer.close(index)', 2000);
+							// 刷新父窗口
+							setTimeout('window.parent.location.reload()', 2000);
+						}
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						layer.alert("系统出现错误,请联系管理员!");
 					},
 					xhrFields: {
 						withCredentials: true
 					}
 				});
-			});
+			
+			}
+			
+			
 		</script>
-		<script type="text/javascript">
-			//立项
-			$(function() {
-				$("input[type=submit]:eq(1)").click(function() {
-					var $itemCode = $("#itemCode").val();
-					var $userId = $("#userId").val();
-					var $itemStatu = $("#itemStatu").val();
-					if ($itemStatu == "1") {
-						$.ajax({
-							url: HOST_URL + "item/addItem",
-							type: "POST",
-							data: {
-								"itemCode": $itemCode,
-								"userId": $userId
-							},
-							dataType: "json",
-							success: function(data) {
-								if (data == 1) {
-									layer.alert("立项完成")
-								} else {
-									layer.alert("立项失败")
-								}
-							},
-							xhrFields: {
-								withCredentials: true
-							}
-						});
-					} else {
-						layer.alert("事项以删除,不能立项")
-					}
-				});
-			});
-		</script>
-		<!--/请在上方写此页面业务相关的脚本-->
 	</body>
 
 </html>

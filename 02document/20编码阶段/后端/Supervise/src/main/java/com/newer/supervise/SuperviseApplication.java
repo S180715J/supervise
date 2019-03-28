@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(exclude = MongoAutoConfiguration.class)
 @EnableTransactionManagement
 @MapperScan("com.newer.supervise.mapper")
+
 public class SuperviseApplication {
 
 	public static void main(String[] args) {

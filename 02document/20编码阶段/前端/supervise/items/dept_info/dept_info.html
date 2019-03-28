@@ -25,27 +25,21 @@
 		</style>
 	</head>
 	<body>
-
 		<div id="tab_demo" class="HuiTab">
-
-			<div class="tabBar clearfix"><span>基本信息</span><span>事项变更记录</span><span>事项进展更新记录</span><span>待办任务</span><span>原件信息</span><span>事项合并</span></div>
+			<div class="tabBar clearfix"><span>基本信息</span><span>事项变更记录</span><span>事项进展更新记录</span><span>待办任务</span></div>
 			<div class="tabCon">
 				<nav class="breadcrumb">
 					<i class="Hui-iconfont">&#xe67f;</i> 基本信息
-
 					<a id="refresh" class="btn btn-success radius r" style="line-height:1.6em;margin-top:3;position: absolute;left: 90%;"
 					 href="javascript:location.replace(location.href);" title="刷新">
 						<i class="Hui-iconfont">&#xe68f;</i>
 					</a>
 				</nav>
 				<div class="page-container">
-
 					<div class="cl pd-5 bg-1 bk-gray mt-20">
 						<span class="l" style="margin-left: 60px;">
 
-							<a href="javascript:;" onclick="admin_add('更新进展','dept_appoint.html','1000','500')" class="btn btn-primary radius"><i
-								 class="Hui-iconfont"></i>更新进展</a>
-
+							<a href="javascript:app_dept()" class="btn btn-primary radius"><i class="Hui-iconfont"></i>更新进展</a>
 						</span>
 						<span class="l" style=" position: absolute;right: 10%;">
 							<a href="javascript:;" onclick="admin_add('导出PDF','entering-item.html','1000','500')" class="btn btn-primary radius"><i
@@ -54,25 +48,25 @@
 								 class="Hui-iconfont">&#xe600;</i>订阅/取消订阅</a>
 						</span>
 						<article class="page-container">
-							<form action="" method="post" class="form form-horizontal" id="form-member-add">
+							<form action="" class="form form-horizontal" id="form-member-add">
 								<table class="table   table-bg">
 									<thead>
-
-
 										<tr class="text-c">
 											<th>
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">事项名称：</label>
-													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+
+													<div class="formControls col-xs-8 col-sm-5">
+
+														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName" readonly="readonly">
 													</div>
 												</div>
 											</th>
 											<th>
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">事项编号：</label>
-													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+													<div class="formControls col-xs-8 col-sm-5">
+														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode" readonly="readonly">
 													</div>
 												</div>
 											</th>
@@ -81,16 +75,16 @@
 											<th>
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">公司领导：</label>
-													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+													<div class="formControls col-xs-8 col-sm-5">
+														<input type="text" class="input-text" value="" placeholder="" id="puser" name="itemName" readonly="readonly">
 													</div>
 												</div>
 											</th>
 											<th>
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">牵头部门：</label>
-													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+													<div class="formControls col-xs-8 col-sm-5">
+														<input type="text" class="input-text" value="" placeholder="" id="orgId" name="itemCode" readonly="readonly">
 													</div>
 												</div>
 											</th>
@@ -99,33 +93,28 @@
 											<th>
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">协办部门：</label>
-													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+													<div class="formControls col-xs-8 col-sm-5">
+														<input type="text" class="input-text" value="" placeholder="" id="orId" name="itemName" readonly="readonly">
 													</div>
 												</div>
 											</th>
 											<th>
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">负责人：</label>
-													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+													<div class="formControls col-xs-8 col-sm-5">
+														<input type="text" class="input-text" value="" placeholder="user" id="itemuser" name="itemCode" readonly="readonly">
 													</div>
 												</div>
 											</th>
 										</tr>
-
-
-
-
-
 										<tr>
 											<th scope="col" colspan="2">
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">督办事项内容：</label>
 													<div class="formControls col-xs-8 col-sm-7">
-														<textarea name="remark" cols="" rows="" id="remark" class="textarea" placeholder="回显 不可修改" datatype="*10-100"
-														 dragonfly="true" nullmsg="备注"></textarea>
-														<!--onKeyUp="$.Huitextarealength(this,200)"文本域方法-->
+														<textarea name="itemContent" cols="" rows="" id="itemContent" class="textarea" placeholder="回显 不可修改"
+														 datatype="*10-100" dragonfly="true" nullmsg="备注" readonly="readonly"></textarea>
+
 														<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 													</div>
 												</div>
@@ -137,8 +126,8 @@
 													<label class="form-label col-xs-4 col-sm-3">当前进展：</label>
 													<div class="formControls col-xs-8 col-sm-7">
 														<textarea name="remark" cols="" rows="" id="remark" class="textarea" placeholder="回显 不可修改" datatype="*10-100"
-														 dragonfly="true" nullmsg="备注"></textarea>
-														<!--onKeyUp="$.Huitextarealength(this,200)"文本域方法-->
+														 dragonfly="true" nullmsg="备注" readonly="readonly"></textarea>
+
 														<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 													</div>
 												</div>
@@ -149,17 +138,17 @@
 											<th>
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">应办结时间：</label>
-													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+													<div class="formControls col-xs-8 col-sm-5">
+														<input type="text" class="input-text" value="" placeholder="" id="overTime" name="itemName" readonly="readonly">
 													</div>
 												</div>
 											</th>
 											<th>
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">反馈频率：</label>
-													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
-													</div>
+													<div class="formControls col-xs-8 col-sm-2">
+														<input type="text" class="input-text" value="" placeholder="" id="feedback" name="itemCode" readonly="readonly">
+													</div><label class="form-label">天</label>
 												</div>
 											</th>
 										</tr>
@@ -167,16 +156,16 @@
 											<th>
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">上次反馈时间：</label>
-													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+													<div class="formControls col-xs-8 col-sm-5">
+														<input type="text" class="input-text" value="" placeholder="" id="optTime" name="itemName" readonly="readonly">
 													</div>
 												</div>
 											</th>
 											<th>
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">下次反馈时间：</label>
-													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+													<div class="formControls col-xs-8 col-sm-5">
+														<input type="text" class="input-text" value="" placeholder="" id="nextFeedback" name="itemCode" readonly="readonly">
 													</div>
 												</div>
 											</th>
@@ -185,16 +174,16 @@
 											<th>
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">当前待办任务类别：</label>
-													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+													<div class="formControls col-xs-8 col-sm-5">
+														<input type="text" class="input-text" value="部门更新进展" placeholder="" id="typed" name="itemName" readonly="readonly">
 													</div>
 												</div>
 											</th>
 											<th>
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">处理人：</label>
-													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+													<div class="formControls col-xs-8 col-sm-5">
+														<input type="text" class="input-text" value="" placeholder="" id="userz" name="itemCode" readonly="readonly">
 													</div>
 												</div>
 											</th>
@@ -229,7 +218,7 @@
 			</div>
 			<div class="tabCon">
 				<nav class="breadcrumb">
-					<i class="Hui-iconfont">&#xe67f;</i> 督办员-任务交办
+					<i class="Hui-iconfont">&#xe67f;</i> 部门-任务交办
 
 					<a id="refresh" class="btn btn-success radius r" style="line-height:1.6em;margin-top:3;position: absolute;left: 90%;"
 					 href="javascript:location.replace(location.href);" title="刷新">
@@ -239,14 +228,16 @@
 				<div class="page-container">
 					<div class="mt-20">
 						<article class="page-container">
-							<form action="" method="post" class="form form-horizontal" id="form-member-add">
+							<form action="" method="post" class="form form-horizontal" id="form-member-zl">
 								<table class="table   table-bg">
 									<thead>
 										<tr class="text-c">
-											<th scope="col" colspan="2" >
+											<th scope="col" colspan="2">
 												<div class="row cl">
-													<label class="form-label col-xs-4 col-sm-7"><h3>请指令事项负责人</h3></label>
-													
+													<label class="form-label col-xs-4 col-sm-7">
+														<h3>请指令事项负责人</h3>
+													</label>
+
 												</div>
 											</th>
 										</tr>
@@ -267,16 +258,14 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>应办结时间：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<span class="select-box">
-															<select name="user" class="select" id="userId">
-																<option value="-1">---请选择---</option>
-															</select>
-														</span>
+
+														<input type="text" class="input-text" id="test4" placeholder="HH:mm:ss">
+
 													</div>
 												</div>
 											</th>
 										</tr>
-										
+
 										<tr>
 											<th>
 												<div class="row cl">
@@ -286,7 +275,7 @@
 												</div>
 											</th>
 											<th>
-												
+
 											</th>
 										</tr>
 										<tr class="text-c">
@@ -310,11 +299,11 @@
 											<th>
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">督办来源：</label>
-													
+
 												</div>
 											</th>
 											<th>
-												
+
 											</th>
 										</tr>
 										<tr class="text-c">
@@ -369,6 +358,8 @@
 		<script src="../../static/h-ui/js/H-ui.min.js"></script>
 		<script src="../../static/h-ui.admin/js/H-ui.admin.js"></script>
 		<script src="../../static/WdatePicker/WdatePicker.js"></script>
+		
+		<script src="../../js/laydate/laydate.js"></script>
 		<script src="../../js/layui.js"></script>
 		<script src="../../static/layer/2.4/layer.js"></script>
 		<script src="../../static/layer/laypage.js"></script>
@@ -398,9 +389,99 @@
 
 
 		<script type="text/javascript">
+			$(function() {
+
+				initrecharge();
+			});
+
+
+
+
+			var url = window.location.search;
+			if (url.indexOf("?") != -1) { //判断是否有参数val();
+				var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+				strs = str.split("=");
+				cid = strs[1];
+			}
+			console.info('cid' + cid);
+
+
+			function app_dept() {
+				var url = 'dept_appoint.html';
+				if (cid != null) {
+					url = url + '?cid=' + cid;
+				}
+
+				//弹出窗口
+				layer.open({
+					type: 2,
+					title: '更新进展',
+					content: url,
+					area: ['800px', '500px'],
+					maxmin: true
+
+				});
+			}
+
+			function initrecharge() {
+
+				$.get('http://localhost:8888/Supervise/querydeptInfo/' + cid, function(data) {
+
+					$('#itemName').attr({
+						value: data.itemName
+
+					});
+					$('#itemCode').attr({
+						value: data.serialNum
+					});
+					$('#puser').attr({
+						value: data.user.realName
+					});
+					$('#orgId').attr({
+						value: data.orgId.orgName
+					});
+
+					$('#itemuser').attr({
+						value: data.itemCode.userId.realName
+					});
+
+					$('#itemContent').val(data.itemContent);
+					$('#remark').val(data.itemCode.taskType.typeName);
+
+					$('#overTime').attr({
+						value: data.overTime
+					});
+					$('#feedback').attr({
+						value: data.feedback
+					});
+					$('#optTime').attr({
+						value: data.itemCode.optTime
+					});
+					$('#userz').attr({
+						value: data.itemCode.userId.realName
+					});
+
+					$('#nextFeedback').attr({
+						value: data.nextFeedback
+					});
+
+				}, 'json');
+
+
+			}
+
 			function admin_add(title, url, w, h) {
 				layer_show(title, url, w, h);
 			}
+		</script>
+		
+		<script>
+			
+			//日期时间选择器
+			laydate.render({
+				elem: '#test4',
+				type: 'datetime'
+			});
 		</script>
 	</body>
 </html>
