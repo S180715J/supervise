@@ -358,7 +358,7 @@
         $.ajax({
             url: HOST_URL + 'showFileType',
             type: 'GET',
-            contentType: '',
+            contentType: 'application/json;charset=utf-8',
             success: function (data) {
                 var file = '';
                 if (!(data == 'no_type')) {
@@ -387,7 +387,7 @@
         $.ajax({
             url: HOST_URL + 'showLevel',
             type: 'GET',
-            contentType: '',
+            contentType: 'application/json;charset=utf-8',
             success: function (data) {
                 var level = '';
                 if (!(data == 'no_level')) {
@@ -416,7 +416,7 @@
         $.ajax({
             url: HOST_URL + 'showLeader',
             type: 'GET',
-            contentType: '',
+            contentType: 'application/json;charset=utf-8',
             success: function (data) {
                 var leader = '';
                 if (!(data == 'no_leader')) {
@@ -445,7 +445,7 @@
         $.ajax({
             url: HOST_URL + 'org',
             type: 'GET',
-            contentType: '',
+            contentType: 'application/json;charset=utf-8',
             success: function (data) {
                 var leader = '';
                 if (!(data == '0')) {

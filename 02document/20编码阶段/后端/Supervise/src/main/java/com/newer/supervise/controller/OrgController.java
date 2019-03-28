@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.newer.supervise.model.Page;
 import com.newer.supervise.pojo.Organization;
+import com.newer.supervise.pojo.User;
 import com.newer.supervise.service.OrgService;
 
 @RestController
@@ -124,5 +125,20 @@ public class OrgController {
 			return new ResponseEntity<String>("no_path", HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<Organization>>(parentPath, HttpStatus.OK);
+	}
+	
+	/**
+	 * 将根据部门id查询到的员工发送至页面
+	 * 
+	 * @param orgId
+	 * @return
+	 */
+	@GetMapping("queryEmp/{orgId}")
+	public ResponseEntity<?> sendEmpToPage(@PathVariable("orgId")Integer orgId){
+		List<User> users = orgservice.queryUserByOrgid(orgId);
+		if (!users.isEmpty()) {
+			return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>("no_emp", HttpStatus.NO_CONTENT);
 	}
 }

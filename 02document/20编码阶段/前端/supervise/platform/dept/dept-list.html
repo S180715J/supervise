@@ -111,7 +111,7 @@
 
     /*删除部门*/
     function org_del(orgId) {
-        layer.confirm("确认要删除编号为：【" + orgId + "】的部门及其下属部门吗?", function (index) {
+        layer.confirm("确认要删除编号为：【" + orgId + "】的部门吗?", function (index) {
             $.ajax({
                 url: HOST_URL + 'delete/' + orgId,
                 method: 'DELETE',

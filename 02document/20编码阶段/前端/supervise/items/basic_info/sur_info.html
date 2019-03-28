@@ -65,7 +65,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">当前状态：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+														<input type="text" class="input-text" value="" placeholder="" id="itemStatu" name="itemStatu">
 													</div>
 												</div>
 											</th>
@@ -85,9 +85,9 @@
 											</th>
 											<th>
 												<div class="row cl">
-													<label class="form-label col-xs-4 col-sm-3">事项编号：</label>
+													<label class="form-label col-xs-4 col-sm-3">事项流水号：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+														<input type="text" class="input-text" value="" placeholder="" id="serialNum" name="serialNum">
 													</div>
 												</div>
 											</th>
@@ -97,7 +97,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">公司领导：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+														<input type="text" class="input-text" value="" placeholder="" id="user" name="user">
 													</div>
 												</div>
 											</th>
@@ -105,7 +105,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">牵头部门：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+														<input type="text" class="input-text" value="" placeholder="" id="orgId" name="orgId">
 													</div>
 												</div>
 											</th>
@@ -123,7 +123,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">负责人：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+														<input type="text" class="input-text" value="" placeholder="" id="userId" name="userId">
 													</div>
 												</div>
 											</th>
@@ -133,7 +133,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">督办事项内容：</label>
 													<div class="formControls col-xs-8 col-sm-7">
-														<textarea name="remark" cols="" rows="" id="remark" class="textarea" placeholder="说点什么...最少输入10个字符"
+														<textarea name="itemContent" cols="" rows="" id="itemContent" class="textarea" placeholder="说点什么...最少输入10个字符"
 														 datatype="*10-100" dragonfly="true" nullmsg="备注"></textarea>
 														<!--onKeyUp="$.Huitextarealength(this,200)"文本域方法-->
 														<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
@@ -146,7 +146,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">当前进展：</label>
 													<div class="formControls col-xs-8 col-sm-7">
-														<textarea name="remark" cols="" rows="" id="remark" class="textarea" placeholder="说点什么...最少输入10个字符"
+														<textarea name="taskType" cols="" rows="" id="taskType" class="textarea" placeholder="说点什么...最少输入10个字符"
 														 datatype="*10-100" dragonfly="true" nullmsg="备注"></textarea>
 														<!--onKeyUp="$.Huitextarealength(this,200)"文本域方法-->
 														<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
@@ -159,19 +159,15 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">应办结时间：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+														<input type="text" class="input-text" value="" placeholder="" id="overTime" name="overTime">
 													</div>
 												</div>
 											</th>
 											<th>
 												<div class="row cl">
-													<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>反馈频率：</label>
+													<label class="form-label col-xs-4 col-sm-3">反馈频率：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<span class="select-box">
-															<select name="user" class="select" id="userId">
-																<option value="-1">---请选择---</option>
-															</select>
-														</span>
+														<input type="text" class="input-text" value="" placeholder="" readonly id="feedback" name="feedback">
 													</div>
 												</div>
 											</th>
@@ -183,7 +179,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">上次反馈时间：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+														<input type="text" class="input-text" value="" placeholder="" id="optTime" name="optTime">
 													</div>
 												</div>
 											</th>
@@ -191,7 +187,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">下次反馈时间：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+														<input type="text" class="input-text" value="" placeholder="" id="nextFeedback" name="nextFeedback">
 													</div>
 												</div>
 											</th>
@@ -276,7 +272,7 @@
 				<div class="page-container">
 					<div class="mt-20">
 						<article class="page-container">
-							<form action="" method="post" class="form form-horizontal" id="form-member-add">
+							<form action="" method="post" class="form form-horizontal" id="assignDept">
 								<table class="table   table-bg">
 									<thead>
 										<tr>
@@ -284,7 +280,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">公司领导意见：</label>
 													<div class="formControls col-xs-8 col-sm-7">
-														<textarea name="remark" cols="" rows="" id="remark" class="textarea" placeholder="回显" datatype="*10-100"
+														<textarea name="remark" cols="" rows="" id="lead_opinion" class="textarea" placeholder="回显" datatype="*10-100"
 														 dragonfly="true" nullmsg="备注" readonly="readonly"></textarea>
 														<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 													</div>
@@ -294,10 +290,10 @@
 										<tr class="text-c">
 											<th>
 												<div class="row cl">
-													<label class="form-label col-xs-4 col-sm-6"><span class="c-red">*</span>前统部门：</label>
+													<label class="form-label col-xs-4 col-sm-6"><span class="c-red">*</span>牵头部门：</label>
 													<div class="formControls col-xs-8 col-sm-4">
 														<span class="select-box">
-															<select name="user" class="select" id="userId">
+															<select name="org" class="select" id="org" onchange="showEmp(this.value)">
 																<option value="-1">---请选择---</option>
 															</select>
 														</span>
@@ -323,7 +319,7 @@
 													<label class="form-label col-xs-4 col-sm-6"><span class="c-red">*</span>负责人：</label>
 													<div class="formControls col-xs-8 col-sm-4">
 														<span class="select-box">
-															<select name="user" class="select" id="userId">
+															<select name="emp" class="select" id="emp">
 																<option value="-1">---请选择---</option>
 															</select>
 														</span>
@@ -421,7 +417,7 @@
 				<div class="page-container">
 					<div class="mt-20">
 						<article class="page-container">
-							<form action="" method="post" class="form form-horizontal" id="form-member-add">
+							<form action="" method="post" class="form form-horizontal" id="file_info">
 								<table class="table   table-bg">
 									<thead>
 										<tr class="text-c">
@@ -429,7 +425,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">督办来源：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+														<input type="text" readonly class="input-text" value="" placeholder="" id="source" name="source">
 													</div>
 												</div>
 											</th>
@@ -437,7 +433,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">来源时间：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+														<input type="text" readonly class="input-text" value="" placeholder="" id="sourceTime" name="sourceTime">
 													</div>
 												</div>
 											</th>
@@ -448,7 +444,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">（公文）原流水号：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+														<input type="text" readonly class="input-text" value="" placeholder="" id="serialNum" name="serialNum">
 													</div>
 												</div>
 											</th>
@@ -456,7 +452,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">文件类型：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+														<input type="text" readonly class="input-text" value="" placeholder="" id="fileType" name="fileType">
 													</div>
 												</div>
 											</th>
@@ -467,7 +463,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">原件拟稿人：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+														<input type="text" readonly class="input-text" value="" placeholder="" id="drafter" name="drafter">
 													</div>
 												</div>
 											</th>
@@ -475,7 +471,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">原件联系电话：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+														<input type="text" readonly class="input-text" value="" placeholder="" id="drafterPhone" name="drafterPhone">
 													</div>
 												</div>
 											</th>
@@ -485,15 +481,15 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-6">密级：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemName" name="itemName">
+														<input type="text" readonly class="input-text" value="" placeholder="" id="secrecyLevel" name="secrecyLevel">
 													</div>
 												</div>
 											</th>
 											<th>
 												<div class="row cl">
-													<label class="form-label col-xs-4 col-sm-3">对方单位：</label>
+													<label class="form-label col-xs-4 col-sm-3">负责部门：</label>
 													<div class="formControls col-xs-8 col-sm-4">
-														<input type="text" class="input-text" value="" placeholder="" id="itemCode" name="itemCode">
+														<input type="text" readonly class="input-text" value="" placeholder="" id="organization" name="organization">
 													</div>
 												</div>
 											</th>
@@ -504,7 +500,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">部门意见：</label>
 													<div class="formControls col-xs-8 col-sm-7">
-														<textarea name="remark" cols="" rows="" id="remark" class="textarea" placeholder="督办员录入" datatype="*10-100"
+														<textarea name="deptOpinion" cols="" rows="" id="deptOpinion" class="textarea" placeholder="督办员录入" datatype="*10-100"
 														 dragonfly="true" nullmsg="备注" readonly="readonly"></textarea>
 														<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 													</div>
@@ -516,7 +512,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">领导批示：</label>
 													<div class="formControls col-xs-8 col-sm-7">
-														<textarea name="remark" cols="" rows="" id="remark" class="textarea" placeholder="督办员录入" datatype="*10-100"
+														<textarea name="leadOpinion" cols="" rows="" id="leadOpinion" class="textarea" placeholder="督办员录入" datatype="*10-100"
 														 dragonfly="true" nullmsg="备注" readonly="readonly"></textarea>
 														<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 													</div>
@@ -528,7 +524,7 @@
 												<div class="row cl">
 													<label class="form-label col-xs-4 col-sm-3">督办事项内容：</label>
 													<div class="formControls col-xs-8 col-sm-7">
-														<textarea name="remark" cols="" rows="" id="remark" class="textarea" placeholder="督办员录入" datatype="*10-100"
+														<textarea name="itemContent" cols="" rows="" id="itemContent" class="textarea" placeholder="督办员录入" datatype="*10-100"
 														 dragonfly="true" nullmsg="备注" readonly="readonly"></textarea>
 														<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
 													</div>
@@ -759,6 +755,7 @@
 		<script src="../../static/layer/2.4/layer.js"></script>
 		<script src="../../static/layer/laypage.js"></script>
 		<script src="../../js/hospital.js"></script>
+		<script src="../../js/common.js"></script>
 		<script type="text/javascript">
 			jQuery.Huitab = function(tabBar, tabCon, class_name, tabEvent, i) {
 				var $tab_menu = $(tabBar);
@@ -777,9 +774,132 @@
 				})
 			}
 
+            var url = window.location.search;
+            var id = '';
+            if (url.indexOf("?") != -1) { //判断是否有参数val();
+                var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+                strs = str.split("=");
+                id = strs[1];
+            }
+
 			$(function() {
 				$.Huitab("#tab_demo .tabBar span", "#tab_demo .tabCon", "current", "click", "0");
+				pageInit();
+				fileInfo();
+				initLeadOpinion();
+                orgInit();
+                waitTask();
 			});
+			
+            function initLeadOpinion() {
+                $.get(
+                    HOST_URL + 'getOpinion/' + id,
+                    function (opinion) {
+                        console.info(opinion);
+                        $('#lead_opinion').val(opinion);
+                    },
+                    'text'
+                );
+            }
+
+            function waitTask() {
+                $.get(
+                    HOST_URL + 'waitTask/' + id,
+                    function (task) {
+                        $('#assignDept input[type="text"]:eq(0)').val(task.item_name);
+                        $('#assignDept input[type="text"]:eq(1)').val(task.sourceId.sourceType);
+                        $('#assignDept input[type="text"]:eq(2)').val(task.source_time);
+                        $('#assignDept textarea:eq(2)').val(task.item_content);
+                    },
+                    'json'
+                );
+            }
+            
+            function orgInit() {
+                $.ajax({
+                    url: HOST_URL + 'org',
+                    type: 'GET',
+                    contentType: 'application/json;charset=utf-8',
+                    success: function (data) {
+                        var leader = '';
+                        if (!(data == '0')) {
+                            $.each(data, function (i, org) {
+                                leader += '<option value=' + org.orgId + '>' + org.orgName + '</option>';
+                            });
+                            $('#org').append(leader);
+                        } else {
+                            leader = '暂无部门';
+                            $('#org').append(leader);
+                        }
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    }
+                }, 'JSON');
+            }
+
+            function showEmp(orgId) {
+                var emp = '';
+                $('#emp').empty();
+                $.get(
+                    HOST_URL + "queryEmp/" + orgId,
+					function (data) {
+						if (data != 'no_emp'){
+							$.each(data, function (i, user) {
+                                emp += "<option value='" + user.userId + "'>" + user.realName + "</option>";
+                            });
+							$('#emp').append(emp);
+						}
+                    }
+				);
+            }
+
+            function pageInit() {
+                $.get(
+                    HOST_URL + 'supRepository/' + id,
+                    function (repository) {
+                        if (repository.itemStatu == 1){
+                            $('#itemStatu').val('未删除');
+                        } else {
+                            $('#itemStatu').val('已删除');
+						}
+                        $('#itemName').val(repository.itemName);
+                        $('#serialNum').val(repository.serialNum);
+                        $('#user').val(repository.user.realName);
+                        $('#orgId').val(repository.orgId.orgName);
+                        $('#userId').val(repository.itemCode.userId.realName);
+                        $('#itemContent').val(repository.itemContent);
+                        $('#taskType').val(repository.itemCode.taskType.typeName);
+                        $('#overTime').val(repository.overTime);
+                        $('#feedback').val("每" + repository.feedback + "天");
+                        $('#optTime').val(repository.itemCode.optTime);
+                        $('#nextFeedback').val(repository.nextFeedback);
+                    },
+                    'json'
+                );
+            }
+            
+            
+            function fileInfo() {
+                $.get(
+                    HOST_URL + 'supFileInfo/' + id,
+                    function (repository) {
+						$('#file_info input:eq(0)').val(repository.sourceId.sourceType);
+                        $('#file_info input:eq(1)').val(repository.sourceTime);
+                        $('#file_info input:eq(2)').val(repository.serialNum);
+                        $('#file_info input:eq(3)').val(repository.fileType.typeName);
+                        $('#file_info input:eq(4)').val(repository.drafter);
+                        $('#file_info input:eq(5)').val(repository.drafterPhone);
+                        $('#file_info input:eq(6)').val(repository.secrecyLevel.levelName);
+                        $('#file_info input:eq(7)').val(repository.orgId.orgName);
+                        $('#file_info textarea:eq(0)').val(repository.deptOpinion);
+                        $('#file_info textarea:eq(1)').val(repository.leadOpinion);
+                        $('#file_info textarea:eq(2)').val(repository.itemContent);
+                        $('#file_info textarea:eq(3)').val(repository.remark);
+                    },
+                    'json'
+                );
+            }
 		</script>
 
 

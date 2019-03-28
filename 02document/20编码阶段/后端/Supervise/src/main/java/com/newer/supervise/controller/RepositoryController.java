@@ -223,13 +223,15 @@ public class RepositoryController {
 	}
 
 	/**
-	 * 根据事项id将领导审批意见添加至数据库中
+	 * 根据事项id将领导通过审批意见添加至数据库中
 	 * 
 	 * @param opinion
 	 * @param id
 	 * @return
 	 */
-	public ResponseEntity<?> leadPass(@RequestParam("opinion") String opinion, @RequestParam("id") Integer id) {
+	@PutMapping("leadPassOpinion/{id}")
+	public ResponseEntity<?> leadPass(@RequestParam(value="opinion") String opinion, @PathVariable("id") Integer id) {
+		System.out.println(opinion);
 		Integer leadPass = repositoryService.leadPass(opinion, id);
 		return new ResponseEntity<Integer>(leadPass, HttpStatus.OK);
 	}
@@ -241,18 +243,20 @@ public class RepositoryController {
 	 * @param id
 	 * @return
 	 */
-	public ResponseEntity<?> leadRefuse(@RequestParam("opinion") String opinion, @RequestParam("id") Integer id) {
+	@PutMapping("leadRefuseOpinion/{id}")
+	public ResponseEntity<?> leadRefuse(@RequestParam("opinion") String opinion, @PathVariable("id") Integer id) {
 		Integer leadRefuse = repositoryService.leadRefuse(opinion, id);
 		return new ResponseEntity<Integer>(leadRefuse, HttpStatus.OK);
 	}
 
 	/**
-	 * 
+	 * 查询事项id所对应的事项中的领导意见
 	 * 
 	 * @param id
 	 * @return
 	 */
-	public ResponseEntity<?> sendLeadOpinionToPage(@RequestParam("id") Integer id) {
+	@GetMapping("getOpinion/{id}")
+	public ResponseEntity<?> sendLeadOpinionToPage(@PathVariable("id") Integer id) {
 		String opinion = repositoryService.queryOpinion(id);
 		return new ResponseEntity<String>(opinion, HttpStatus.OK);
 	}

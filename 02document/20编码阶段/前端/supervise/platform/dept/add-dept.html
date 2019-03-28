@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <!--[if lt IE 9]>
-<script type="text/javascript" src="lib/html5shiv.js"></script>
-<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="../../lib/html5shiv.js"></script>
+<script type="text/javascript" src="../../lib/respond.min.js"></script>
 <![endif]-->
 <link rel="stylesheet" type="text/css" href="../../static/h-ui/css/H-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/H-ui.admin.css" />
@@ -16,25 +16,25 @@
 <link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/style.css" />
 <!--[if IE 6]>
-<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script type="text/javascript" src="../../lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <title>添加部门</title>
-<link href="lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+<link href="../../lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div class="page-container">
-	<form class="form form-horizontal" id="form-article-add" action="">
+	<form class="form form-horizontal" id="form-article-add">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>机构编码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" onchange="add_path()" value="" placeholder="机构编码应为数字" id="orgId" name="orgId" required>
+				<input type="number" class="input-text" onchange="add_path()" value="" placeholder="机构编码应为数字" id="orgId" name="orgId" required>
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">机构名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" onchange="add_path()" value="" placeholder="机构名称" id="orgName" required name="orgName">
+				<input  type="text" class="input-text" onchange="add_path()" value="" placeholder="机构名称" id="orgName" required name="orgName">
 			</div>
 		</div>
 		<div class="row cl">
@@ -56,7 +56,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">机构ID路径：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="number" class="input-text" value="" placeholder="机构ID路径" id="idPath" name="idPath" readonly="readonly">
+				<input type="text" class="input-text" value="" placeholder="机构ID路径" id="idPath" name="idPath" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
@@ -80,7 +80,7 @@
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button id="save" class="btn btn-primary radius" onclick="verify()" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
+				<button id="save" class="btn btn-primary radius" type="button" onclick="save_dept()"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
 				<button id="cancel" onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
 		</div>
@@ -174,21 +174,6 @@
 		);
 	}
 
-	/**
-	 * 表单验证
-	 */
-	function verify() {
-	    if ($('#orgId').valueMissing){
-            return false;
-		}
-	    if ($('#orgName').valueMissing){
-	        return false;
-		}
-	    if ($('#parentOrgidPath').val() == -1){
-	        return false;
-		}
-		save_dept();
-    }
 
 	/*
 	*保存部门信息
